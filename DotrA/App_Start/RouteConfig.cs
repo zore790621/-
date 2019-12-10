@@ -13,18 +13,6 @@ namespace DotrA
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-
-            routes.MapRoute(
-                name: "minishop",
-                url: "minishop/{action}",
-                defaults: new { controller = "minishop", action = "index"}
-                );
-
-            routes.MapRoute(
-                name: "ElaAdmin",
-                url: "elaadmin/{action}",
-                defaults: new { controller = "ElaAdmin", action = "index"}
-                );
             routes.MapRoute(
                 name: "Error",
                 url: "Error",

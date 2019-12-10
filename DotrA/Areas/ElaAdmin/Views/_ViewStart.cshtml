@@ -1,0 +1,11 @@
+﻿@{
+    string ActionrName = Convert.ToString(HttpContext.Current.Request.RequestContext.RouteData.Values["Action"]);
+    if (ActionrName.Split('_')[0].Contains("page"))
+    {
+        Layout = "~/Areas/ElaAdmin/Views/Shared/_ElaAdminLogin.cshtml";
+    }
+    else
+    {
+        Layout = "~/Areas/ElaAdmin/Views/Shared/_ElaAdmin.cshtml";
+    }
+}
