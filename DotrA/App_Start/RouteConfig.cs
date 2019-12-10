@@ -1,0 +1,40 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using System.Web.Routing;
+
+namespace DotrA
+{
+    public class RouteConfig
+    {
+        public static void RegisterRoutes(RouteCollection routes)
+        {
+            routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+
+
+            routes.MapRoute(
+                name: "minishop",
+                url: "minishop/{action}",
+                defaults: new { controller = "minishop", action = "index"}
+                );
+
+            routes.MapRoute(
+                name: "ElaAdmin",
+                url: "elaadmin/{action}",
+                defaults: new { controller = "ElaAdmin", action = "index"}
+                );
+            routes.MapRoute(
+                name: "Error",
+                url: "Error",
+                defaults: new { controller = "Error", action = "Error" }
+                );
+            routes.MapRoute(
+                name: "Default",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                );
+        }
+    }
+}

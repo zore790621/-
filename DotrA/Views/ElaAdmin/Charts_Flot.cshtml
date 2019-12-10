@@ -1,0 +1,99 @@
+﻿
+@{
+    ViewBag.Title = "Charts_Flot";
+}
+
+@section topCss{
+    <link href="~/Assets/ElaAdmin/css/chartist.min.css" rel="stylesheet" />
+    <link href="~/Assets/ElaAdmin/css/jqvmap.min.css" rel="stylesheet" />
+}
+<div class="content">
+    <div class="animated fadeIn">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="mb-3">Real Chart</h4>
+                        <div class="flot-container">
+                            <div id="cpu-load" class="cpu-load"></div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- /# column -->
+
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="mb-3">Line Chart</h4>
+                        <div class="flot-container">
+                            <div id="flot-line" class="flot-line"></div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- /# column -->
+        </div><!-- /# row -->
+
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="mb-3">Pie Chart</h4>
+                        <div class="flot-container">
+                            <div id="flot-pie" class="flot-pie-container"></div>
+                        </div>
+                    </div>
+                </div><!-- /# card -->
+            </div><!-- /# column -->
+
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="mb-3">Line Chart</h4>
+                        <div class="flot-container">
+                            <div id="chart1" style="width:100%;height:275px;"></div>
+                        </div>
+                    </div>
+                </div><!-- /# card -->
+            </div><!-- /# column -->
+        </div><!-- /# row -->
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="mb-3">Bar Chart</h4>
+                        <div class="flot-container">
+                            <div id="flotBar" style="width:100%;height:275px;"></div>
+                        </div>
+                    </div>
+                </div><!-- /# card -->
+            </div><!-- /# column -->
+
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="mb-3">Bar Chart</h4>
+                        <div class="flot-container">
+                            <div id="flotCurve" style="width:100%;height:275px;"></div>
+                        </div>
+                    </div>
+                </div><!-- /# card -->
+            </div><!-- /# column -->
+        </div><!-- /# row -->
+
+
+
+    </div><!-- .animated -->
+</div>
+
+@section endScripts{
+    <script src="~/Assets/ElaAdmin/js/excanvas.min.js"></script>
+    <script src="~/Assets/ElaAdmin/js/jquery.flot.min.js"></script>
+    <script src="~/Assets/ElaAdmin/js/jquery.flot.pie.min.js"></script>
+    <script src="~/Assets/ElaAdmin/js/jquery.flot.time.min.js"></script>
+    <script src="~/Assets/ElaAdmin/js/jquery.flot.stack.js"></script>
+    <script src="~/Assets/ElaAdmin/js/jquery.flot.resize.js"></script>
+    <script src="~/Assets/ElaAdmin/js/jquery.flot.crosshair.js"></script>
+    <script src="~/Assets/ElaAdmin/js/curvedLines.min.js"></script>
+    <script src="~/Assets/ElaAdmin/js/jquery.flot.tooltip.min.js"></script>
+    <script src="~/Assets/ElaAdmin/js/init/flot-chart-init.js"></script>
+}

@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewBag.Title</title>
+
+    @Styles.Render("~/ElaAdmin/css")
+
+    @RenderSection("topCss", required: false)
+</head>
+<body class="bg-dark">
+    <div class="sufee-login d-flex align-content-center flex-wrap">
+        <div class="container">
+            <div class="login-content">
+                <div class="login-logo">
+                    <a href="index.html">
+                        <img class="align-content" src="/Assets/ElaAdmin/images/logo.png" alt="">
+                    </a>
+                </div>
+
+                @RenderBody()
+
+            </div>
+        </div>
+    </div>
+
+    @Scripts.Render("~/ElaAdmin/js")
+
+    @RenderSection("endScripts", required: false)
+</body>
+</html>
