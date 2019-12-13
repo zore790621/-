@@ -1,0 +1,11 @@
+﻿@{
+    string ControllerName = Convert.ToString(HttpContext.Current.Request.RequestContext.RouteData.Values["Controller"]);
+    if (ControllerName.ToLower() == "lander")
+    {
+        Layout = "~/Areas/BackEndSystem/Views/Shared/_LoginLayout.cshtml";
+    }
+    else
+    {
+        Layout = "~/Areas/BackEndSystem/Views/Shared/_Layout.cshtml";
+    }
+}

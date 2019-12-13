@@ -7,7 +7,7 @@ namespace DotrA
         internal static void Initial(BundleCollection bundles)
         {
             #region ElaAdnin JS & CSS
-            bundles.Add(new StyleBundle("~/ElaAdmin/css").Include(
+            bundles.Add(new StyleBundle("~/BackEndSystem/css").Include(
                 "~/Assets/ElaAdmin/css/normalize.min.css",
                 "~/Assets/ElaAdmin/css/bootstrap.min.css",
                 "~/Assets/ElaAdmin/css/font-awesome.min.css",
@@ -18,7 +18,7 @@ namespace DotrA
                 "~/Assets/ElaAdmin/css/style.css"
                 ));
 
-            bundles.Add(new ScriptBundle("~/ElaAdmin/js").Include(
+            bundles.Add(new ScriptBundle("~/BackEndSystem/js").Include(
                 "~/Assets/ElaAdmin/js/jquery.min.js",
                 "~/Assets/ElaAdmin/js/popper.min.js",
                 "~/Assets/ElaAdmin/js/bootstrap.min.js",

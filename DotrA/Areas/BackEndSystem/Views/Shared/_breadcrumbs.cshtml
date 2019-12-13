@@ -1,0 +1,29 @@
+﻿
+@{
+    string controllerName = HttpContext.Current.Request.RequestContext.RouteData.Values["Controller"].ToString();
+    string ActionrName = HttpContext.Current.Request.RequestContext.RouteData.Values["Action"].ToString();
+}
+<div class="breadcrumbs">
+    <div class="breadcrumbs-inner">
+        <div class="row m-0">
+            <div class="col-sm-4">
+                <div class="page-header float-left">
+                    <div class="page-title">
+                        <h1>Dashboard</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <div class="page-header float-right">
+                    <div class="page-title">
+                        <ol class="breadcrumb text-right">
+                            <li>@Html.ActionLink("後臺管理系統首頁", "Index", "Home")</li>
+                            <li>@Html.ActionLink(controllerName, "Index", controllerName)</li>
+                            <li class="active">@ActionrName</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

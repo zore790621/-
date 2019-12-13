@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html class="no-js" lang="">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>DotrA後台管理系統</title>
+    <meta name="description" content="DotrA後台管理系統">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="apple-touch-icon" href="@Url.Content("~/Assets/images/Logo/apple-touch-icon.png")">
+    <link rel="shortcut icon" href="@Url.Content("~/Assets/images/Logo/apple-touch-icon.ico")">
+
+    @Styles.Render("~/BackEndSystem/css")
+
+    @RenderSection("topCSS", required: false)
+</head>
+<body class="bg-light">
+    <div class="sufee-login d-flex align-content-center flex-wrap">
+        <div class="container">
+            <div class="login-content">
+                <div class="login-logo">
+                    <a href="../"><img class="align-content" src="@Url.Content("~/Assets/images/Logo/Logo.png")" alt=""></a>
+                </div>
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+
+    @Scripts.Render("~/BackEndSystem/js")
+
+    @RenderSection("endJS", required: false)
+</body>
+</html>

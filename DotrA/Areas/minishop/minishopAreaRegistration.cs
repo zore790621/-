@@ -17,7 +17,8 @@ namespace DotrA.Areas.minishop
             context.MapRoute(
                 name: "minishop_default",
                 url: "minishop/{action}",
-               defaults: new { controller = "minishop", action = "Index" }
+               defaults: new { controller = "minishop", action = "Index" },
+                new string[] { "DotrA.Areas.minishop.Controllers" }
             );
         }
     }

@@ -1,0 +1,52 @@
+﻿
+@{
+
+}
+<!DOCTYPE html>
+<html class="no-js" lang="zh-hant">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content="DotrA後台管理系統">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>DotrA後台管理系統 - @ViewBag.title</title>
+    <link rel="apple-touch-icon" href="~/assets/images/apple-touch-icon.png">
+    <link rel="shortcut icon" href="~/assets/images/apple-touch-icon.ico">
+
+    @Styles.Render("~/BackEndSystem/css")
+    @RenderSection("topCSS", required: false)
+</head>
+<body>
+
+    @Html.Partial("_navbar")
+
+    @Html.Partial("_breadcrumbs")
+
+    <div id="right-panel" class="right-panel">
+        @Html.Partial("_header")
+
+        @RenderBody()
+        <div class="clearfix"></div>
+
+        @Html.Partial("_footer")
+    </div>
+
+    @Scripts.Render("~/BackEndSystem/js")
+
+    @RenderSection("endJS", required: false)
+
+    <script type="text/javascript">
+        jQuery(function () {
+            var CN = "@HttpContext.Current.Request.RequestContext.RouteData.Values["Controller"].ToString()";
+            if (CN == "Admin"|| CN == "Members")
+                jQuery(".AccountGroup").addClass("active");
+            else if (CN == "Categories" || CN == "Suppliers" || CN == "Products")
+                jQuery(".ProductGroup").addClass("active");
+            else if (CN == "Order")
+                jQuery(".OrderGroup").addClass("active");
+            else
+                jQuery(".Homeli").addClass("active");
+        });
+    </script>
+</body>
+</html>

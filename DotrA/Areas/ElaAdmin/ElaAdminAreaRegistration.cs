@@ -17,7 +17,8 @@ namespace DotrA.Areas.ElaAdmin
             context.MapRoute(
                 "ElaAdmin_default",
                 "ElaAdmin/{action}",
-                new { controller = "ElaAdmin", action = "Index" }
+                new { controller = "ElaAdmin", action = "Index" },
+                new string[] { "DotrA.Areas.ElaAdmin.Controllers" }
             );
         }
     }

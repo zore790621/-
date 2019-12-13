@@ -1,0 +1,35 @@
+﻿<aside id="left-panel" class="left-panel">
+    <nav class="navbar navbar-expand-sm navbar-default">
+        <div id="main-menu" class="main-menu collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="Homeli"><a href="@Url.Action("Index", "BackHome")"><i class="menu-icon fa fa-laptop"></i>後臺管理系統 首頁</a></li>
+                <li class="menu-title">　帳　號　</li>
+                <li class="menu-item-has-children dropdown AccountGroup">
+                    <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-users"></i>網站帳號管理</a>
+                    <ul class="sub-menu children dropdown-menu">
+                        <li><i class="fa fa-user-md"></i>@Html.ActionLink("管理者帳號管理", "index", "Admin")</li>
+                        <li><i class="fa fa-user"></i>@Html.ActionLink("使用者帳號管理", "index", "Members")</li>
+                    </ul>
+                </li>
+                <li class="menu-title">　商　品　</li>
+                <li class="menu-item-has-children dropdown ProductGroup">
+                    <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-sitemap"></i>商品管理</a>
+                    <ul class="sub-menu children dropdown-menu">
+                        <li><i class="fa fa-tags"></i>@Html.ActionLink("類型管理", "index", "Categories")</li>
+                        <li><i class="fa fa-truck"></i>@Html.ActionLink("供應商管理", "index", "Suppliers")</li>
+                        <li><i class="fa fa-suitcase"></i>@Html.ActionLink("產品管理", "index", "Products")</li>
+                    </ul>
+                </li>
+                <li class="menu-title">　訂　單　</li>
+                <li class="menu-item-has-children dropdown OrderGroup">
+                    <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>訂單列表</a>
+                    <ul class="sub-menu children dropdown-menu">
+                        <li><i class="fa fa-table"></i>@Html.ActionLink("訂單管理", "index", "Order")</li>
+                    </ul>
+                </li>
+                <li class="menu-title">使　用　者</li>
+                <li><a href="@Url.Action("LoginOut", "BackLander")"><i class="menu-icon fa fa-sign-out"></i>登出</a></li>
+            </ul>
+        </div>
+    </nav>
+</aside>
