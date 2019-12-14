@@ -47,6 +47,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac, Version=4.9.4.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.9.4\lib\net45\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Integration.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.Mvc5.4.0.2\lib\net45\Autofac.Integration.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Integration.WebApi, Version=4.3.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.WebApi2.4.3.1\lib\net45\Autofac.Integration.WebApi.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -140,6 +149,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\AutofacConfig.cs" />
     <Compile Include="App_Start\BundleConfig\BackEndSystemCollection.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -152,7 +162,7 @@
     <Compile Include="Areas\BackEndSystem\Models\LogInRequest.cs" />
     <Compile Include="Areas\ElaAdmin\ElaAdminAreaRegistration.cs" />
     <Compile Include="Areas\minishop\minishopAreaRegistration.cs" />
-    <Compile Include="Controllers\ProductsController.cs" />
+    <Compile Include="Controllers\AdminsController.cs" />
     <Compile Include="Controllers\_BaseController\BaseApiController.cs" />
     <Compile Include="Controllers\_BaseController\BaseController.cs" />
     <Compile Include="Areas\ElaAdmin\Controllers\ElaAdminController.cs" />
@@ -1082,13 +1092,18 @@
     <Content Include="Areas\ElaAdmin\Views\web.config" />
     <Content Include="Areas\minishop\Views\_ViewStart.cshtml" />
     <None Include="packages.config" />
+    <Content Include="Views\Admins\Create.cshtml" />
+    <Content Include="Views\Admins\Delete.cshtml" />
+    <Content Include="Views\Admins\Details.cshtml" />
+    <Content Include="Views\Admins\Edit.cshtml" />
+    <Content Include="Views\Admins\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DotrA_Lab\DotrA_Lab.csproj">
-      <Project>{467ff63c-db35-4fe6-abde-db7f6d40765e}</Project>
+    <ProjectReference Include="..\Infrastructure\DotrA_Lab\DotrA_Lab.csproj">
+      <Project>{435b560d-a1bb-4d84-b489-7f7e505edb80}</Project>
       <Name>DotrA_Lab</Name>
     </ProjectReference>
   </ItemGroup>

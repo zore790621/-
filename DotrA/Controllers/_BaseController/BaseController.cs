@@ -1,4 +1,5 @@
-﻿using Microsoft.Web.Mvc;
+﻿using DotrA_Lab.InternalDataService.Implementation;
+using Microsoft.Web.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,12 @@ namespace DotrA.Controllers
 {
     public class BaseController : Controller
     {
+        private readonly IAdminRepository _adminrepo;
+
+        public BaseController(IAdminRepository adminrepo)
+        {
+            _adminrepo = adminrepo;
+        }
 
         protected ActionResult RedirectToAction<TController>(Expression<Action<TController>> action) where TController : Controller
         {

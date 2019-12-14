@@ -1,0 +1,30 @@
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+
+namespace DotrA_Lab.Business.DomainClasses
+{
+    public partial class Suppliers
+    {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Suppliers()
+        {
+            Products = new HashSet<Products>();
+        }
+
+        [Key]
+        public int SupplierID { get; set; }
+
+        [Required]
+        [StringLength(50)]
+        public string CompanyName { get; set; }
+
+        [StringLength(50)]
+        public string CampanyPhone { get; set; }
+
+        [StringLength(20)]
+        public string CompanyAddress { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Products> Products { get; set; }
+    }
+}
