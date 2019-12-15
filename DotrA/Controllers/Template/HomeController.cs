@@ -1,4 +1,5 @@
 ﻿using DotrA_Lab.InternalDataService.Implementation;
+using DotrA_Lab.ORM.UnitOfWorkPattern;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace DotrA.Controllers
 {
     public class HomeController : BaseController
     {
-        public HomeController(IAdminRepository adminrepo) : base(adminrepo)
+        public HomeController(IUnitOfWork uof) : base(uof)
         {
         }
 

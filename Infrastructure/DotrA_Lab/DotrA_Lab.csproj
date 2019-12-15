@@ -34,6 +34,9 @@
     <Reference Include="Autofac, Version=4.9.4.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Autofac.4.9.4\lib\net45\Autofac.dll</HintPath>
     </Reference>
+    <Reference Include="AutoMapper, Version=9.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\AutoMapper.9.0.0\lib\net461\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -53,27 +56,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Business\DomainClasses\Admin.cs" />
-    <Compile Include="Business\DomainClasses\Categories.cs" />
-    <Compile Include="InternalDataService\Implementation\AdminRepository.cs" />
-    <Compile Include="InternalDataService\Implementation\CategoriesRepository.cs" />
-    <Compile Include="InternalDataService\Implementation\MembersRepository.cs" />
-    <Compile Include="InternalDataService\Implementation\OrderDetailsRepository.cs" />
-    <Compile Include="InternalDataService\Implementation\OrdersRepository.cs" />
+    <Compile Include="Business\DomainClasses\Category.cs" />
+    <Compile Include="InternalDataService\DataModelToViewModel.cs" />
+    <Compile Include="InternalDataService\Implementation\CategoryRepository.cs" />
+    <Compile Include="InternalDataService\Implementation\GenericService.cs" />
+    <Compile Include="InternalDataService\Implementation\MemberRoloRepository.cs" />
+    <Compile Include="InternalDataService\Implementation\MemberRepository.cs" />
+    <Compile Include="InternalDataService\Implementation\OrderDetailRepository.cs" />
+    <Compile Include="InternalDataService\Implementation\OrderRepository.cs" />
     <Compile Include="InternalDataService\Implementation\PaymentRepository.cs" />
-    <Compile Include="InternalDataService\Implementation\ProductsRepository.cs" />
-    <Compile Include="InternalDataService\Implementation\ShippersRepository.cs" />
-    <Compile Include="InternalDataService\Implementation\SuppliersRepository.cs" />
+    <Compile Include="InternalDataService\Implementation\ProductRepository.cs" />
+    <Compile Include="InternalDataService\Implementation\ShipperRepository.cs" />
+    <Compile Include="InternalDataService\Implementation\SupplierRepository.cs" />
     <Compile Include="InternalDataService\Implementation\Service.cs" />
-    <Compile Include="InternalDataService\Interface\IAdminRepository.cs" />
-    <Compile Include="InternalDataService\Interface\ICategoriesRepository.cs" />
-    <Compile Include="InternalDataService\Interface\IMembersRepository.cs" />
-    <Compile Include="InternalDataService\Interface\IOrderDetailsRepository.cs" />
-    <Compile Include="InternalDataService\Interface\IOrdersRepository.cs" />
+    <Compile Include="InternalDataService\Interface\ICategoryRepository.cs" />
+    <Compile Include="InternalDataService\Interface\IMemberRoloRepository.cs" />
+    <Compile Include="InternalDataService\Interface\IMemberRepository.cs" />
+    <Compile Include="InternalDataService\Interface\IOrderDetailRepository.cs" />
+    <Compile Include="InternalDataService\Interface\IOrderRepository.cs" />
     <Compile Include="InternalDataService\Interface\IPaymentRepository.cs" />
-    <Compile Include="InternalDataService\Interface\IProductsRepository.cs" />
-    <Compile Include="InternalDataService\Interface\IShippersRepository.cs" />
-    <Compile Include="InternalDataService\Interface\ISuppliersRepository.cs" />
+    <Compile Include="InternalDataService\Interface\IProductRepository.cs" />
+    <Compile Include="InternalDataService\Interface\IService.cs" />
+    <Compile Include="InternalDataService\Interface\IShipperRepository.cs" />
+    <Compile Include="InternalDataService\Interface\ISupplierRepository.cs" />
     <Compile Include="IOC\AutofacModule\DataServiceModule.cs" />
     <Compile Include="IOC\AutofacModule\OrmModule.cs" />
     <Compile Include="Migrations\201912140812378_Initial.cs" />
@@ -82,19 +87,20 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ORM\Context\DotrADbContext.cs" />
-    <Compile Include="Business\DomainClasses\Members.cs" />
-    <Compile Include="Business\DomainClasses\OrderDetails.cs" />
-    <Compile Include="Business\DomainClasses\Orders.cs" />
+    <Compile Include="Business\DomainClasses\Member.cs" />
+    <Compile Include="Business\DomainClasses\OrderDetail.cs" />
+    <Compile Include="Business\DomainClasses\Order.cs" />
     <Compile Include="Business\DomainClasses\Payment.cs" />
-    <Compile Include="Business\DomainClasses\Products.cs" />
+    <Compile Include="Business\DomainClasses\Product.cs" />
+    <Compile Include="Business\DomainClasses\MemberRolo.cs" />
     <Compile Include="ORM\RepositoryPattern\GenericRepository.cs" />
     <Compile Include="ORM\RepositoryPattern\IGenericRepository.cs" />
     <Compile Include="ORM\UnitOfWorkPattern\IUnitOfWork.cs" />
     <Compile Include="ORM\UnitOfWorkPattern\UnitOfWork.cs" />
     <Compile Include="Parameters.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Business\DomainClasses\Shippers.cs" />
-    <Compile Include="Business\DomainClasses\Suppliers.cs" />
+    <Compile Include="Business\DomainClasses\Shipper.cs" />
+    <Compile Include="Business\DomainClasses\Supplier.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -105,5 +111,6 @@
       <DependentUpon>201912140812378_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

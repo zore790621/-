@@ -8,69 +8,62 @@ namespace DotrA_Lab.ORM.Context
         public DotrADbContext()
             : base("name=DotrADbContext")
         {
+
             Database.Connection.ConnectionString = Parameters.ConnectionString;
         }
 
-        public virtual DbSet<Admin> Admin { get; set; }
-        public virtual DbSet<Categories> Categories { get; set; }
-        public virtual DbSet<Members> Members { get; set; }
-        public virtual DbSet<OrderDetails> OrderDetails { get; set; }
-        public virtual DbSet<Orders> Orders { get; set; }
+        public virtual DbSet<Category> Category { get; set; }
+        public virtual DbSet<Member> Member { get; set; }
+        public virtual DbSet<OrderDetail> OrderDetail { get; set; }
+        public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<Payment> Payment { get; set; }
-        public virtual DbSet<Products> Products { get; set; }
-        public virtual DbSet<Shippers> Shippers { get; set; }
-        public virtual DbSet<Suppliers> Suppliers { get; set; }
+        public virtual DbSet<Product> Product { get; set; }
+        public virtual DbSet<Shipper> Shipper { get; set; }
+        public virtual DbSet<Supplier> Supplier { get; set; }
+        public virtual DbSet<MemberRolo> MemberRolo { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Admin>()
-                .Property(e => e.AdminAccount)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Admin>()
-                .Property(e => e.AdminPW)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Categories>()
-                .HasMany(e => e.Products)
-                .WithRequired(e => e.Categories)
+            modelBuilder.Entity<Category>()
+                .HasMany(e => e.Product)
+                .WithRequired(e => e.Category)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<Members>()
+            modelBuilder.Entity<Member>()
                 .Property(e => e.MemberAccount)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<Members>()
+            modelBuilder.Entity<Member>()
                 .Property(e => e.Password)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<Members>()
+            modelBuilder.Entity<Member>()
                 .Property(e => e.Email)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<Members>()
+            modelBuilder.Entity<Member>()
                 .Property(e => e.Phone)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<Members>()
+            modelBuilder.Entity<Member>()
                 .Property(e => e.HashCode)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<Members>()
+            modelBuilder.Entity<Member>()
                 .HasMany(e => e.Orders)
-                .WithRequired(e => e.Members)
+                .WithRequired(e => e.Member)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<OrderDetails>()
+            modelBuilder.Entity<OrderDetail>()
                 .Property(e => e.SubTotal)
                 .HasPrecision(19, 4);
 
-            modelBuilder.Entity<Orders>()
+            modelBuilder.Entity<Order>()
                 .Property(e => e.RecipientPhone)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<Orders>()
-                .HasMany(e => e.OrderDetails)
+            modelBuilder.Entity<Order>()
+                .HasMany(e => e.OrderDetail)
                 .WithRequired(e => e.Orders)
                 .WillCascadeOnDelete(false);
 
@@ -83,32 +76,36 @@ namespace DotrA_Lab.ORM.Context
                 .WithRequired(e => e.Payment)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<Products>()
+            modelBuilder.Entity<Product>()
                 .Property(e => e.UnitPrice)
                 .HasPrecision(19, 4);
 
-            modelBuilder.Entity<Products>()
-                .HasMany(e => e.OrderDetails)
-                .WithRequired(e => e.Products)
+            modelBuilder.Entity<Product>()
+                .HasMany(e => e.OrderDetail)
+                .WithRequired(e => e.Product)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<Shippers>()
+            modelBuilder.Entity<Shipper>()
                 .HasMany(e => e.Orders)
-                .WithRequired(e => e.Shippers)
+                .WithRequired(e => e.Shipper)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<Suppliers>()
+            modelBuilder.Entity<Supplier>()
                 .Property(e => e.CampanyPhone)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<Suppliers>()
+            modelBuilder.Entity<Supplier>()
                 .Property(e => e.CompanyAddress)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<Suppliers>()
-                .HasMany(e => e.Products)
-                .WithRequired(e => e.Suppliers)
+            modelBuilder.Entity<Supplier>()
+                .HasMany(e => e.Product)
+                .WithRequired(e => e.Supplier)
                 .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<MemberRolo>()
+                .Property(e => e.RoloName)
+                .IsFixedLength();
 
             base.OnModelCreating(modelBuilder);
         }

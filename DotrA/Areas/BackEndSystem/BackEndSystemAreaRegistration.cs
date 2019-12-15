@@ -15,7 +15,19 @@ namespace DotrA.Areas.BackEndSystem
         public override void RegisterArea(AreaRegistrationContext context)
         {
             context.MapRoute(
-                "BackEndSystem",
+                "BackEndSystem_Product",
+                "admin/Product/{action}",
+                new { controller = "Product", action = "Index" },
+                namespaces: new string[] { "DotrA.Areas.BackEndSystem.Controllers" }
+                );
+            context.MapRoute(
+                "BackEndSystem_Category",
+                "admin/Category/{action}",
+                new { controller = "Categories", action = "Index" },
+                namespaces: new string[] { "DotrA.Areas.BackEndSystem.Controllers" }
+                );
+            context.MapRoute(
+                "BackEndSystem_Home",
                 "admin/Home/{action}",
                 new { controller = "Home", action = "Index" },
                 namespaces: new string[] { "DotrA.Areas.BackEndSystem.Controllers" }

@@ -23,6 +23,9 @@ namespace DotrA
             //          "~/Content/bootstrap.css",
             //          "~/Content/site.css"));
 
+            bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
+                "~/Scripts/jquery.validate*"));
+
             //BackEndSystem JS & CSS設定檔
             BackEndSystemCollection.Initial(bundles);
 

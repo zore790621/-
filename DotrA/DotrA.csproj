@@ -56,6 +56,9 @@
     <Reference Include="Autofac.Integration.WebApi, Version=4.3.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>..\packages\Autofac.WebApi2.4.3.1\lib\net45\Autofac.Integration.WebApi.dll</HintPath>
     </Reference>
+    <Reference Include="AutoMapper, Version=9.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.9.0.0\lib\net461\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -157,16 +160,18 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\BackEndSystem\BackEndSystemAreaRegistration.cs" />
+    <Compile Include="Areas\BackEndSystem\Controllers\CategoriesApiController.cs" />
+    <Compile Include="Areas\BackEndSystem\Controllers\CategoryController.cs" />
     <Compile Include="Areas\BackEndSystem\Controllers\HomeController.cs" />
     <Compile Include="Areas\BackEndSystem\Controllers\LanderController.cs" />
-    <Compile Include="Areas\BackEndSystem\Models\LogInRequest.cs" />
+    <Compile Include="Areas\BackEndSystem\Controllers\ProductController.cs" />
+    <Compile Include="Areas\BackEndSystem\ViewModels\BESCategoryView.cs" />
+    <Compile Include="Areas\BackEndSystem\ViewModels\BESProductView.cs" />
     <Compile Include="Areas\ElaAdmin\ElaAdminAreaRegistration.cs" />
     <Compile Include="Areas\minishop\minishopAreaRegistration.cs" />
-    <Compile Include="Controllers\AdminsController.cs" />
     <Compile Include="Controllers\_BaseController\BaseApiController.cs" />
     <Compile Include="Controllers\_BaseController\BaseController.cs" />
     <Compile Include="Areas\ElaAdmin\Controllers\ElaAdminController.cs" />
-    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\Template\HomeController.cs" />
     <Compile Include="Areas\minishop\Controllers\minishopController.cs" />
     <Compile Include="Controllers\Template\ValuesController.cs" />
@@ -174,6 +179,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\UploadImage.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\ElaAdmin\css\bootstrap.min.css" />
@@ -784,6 +790,8 @@
     <Content Include="Assets\ElaAdmin\scss\style.css" />
     <Content Include="Assets\ElaAdmin\fonts\fontawesome\fontawesome-webfont.svg" />
     <Content Include="Assets\ElaAdmin\fonts\fontawesome\lg.svg" />
+    <Content Include="Assets\Images\Category\life.jpg" />
+    <Content Include="Assets\Images\Category\Family.jpg" />
     <Content Include="Assets\Images\Logo\apple-touch-icon.ico" />
     <Content Include="Assets\Images\Logo\apple-touch-icon.png" />
     <Content Include="Assets\Images\Logo\mlogo.png" />
@@ -874,6 +882,7 @@
     <Content Include="Assets\minishop\scss\bootstrap\bootstrap-reboot.css" />
     <Content Include="Assets\minishop\scss\bootstrap\bootstrap.css" />
     <Content Include="Assets\minishop\scss\style.css" />
+    <Content Include="Assets\Images\null.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Assets\ElaAdmin\css\style.css.map" />
@@ -1027,6 +1036,18 @@
     <Content Include="Areas\BackEndSystem\Views\Shared\_header.cshtml" />
     <Content Include="Areas\BackEndSystem\Views\Shared\_breadcrumbs.cshtml" />
     <Content Include="Areas\BackEndSystem\Views\Lander\Login.cshtml" />
+    <Content Include="Areas\BackEndSystem\Views\Category\Index.cshtml" />
+    <Content Include="Areas\BackEndSystem\Views\Product\Create.cshtml" />
+    <Content Include="Areas\BackEndSystem\Views\Product\Delete.cshtml" />
+    <Content Include="Areas\BackEndSystem\Views\Product\Details.cshtml" />
+    <Content Include="Areas\BackEndSystem\Views\Product\Edit.cshtml" />
+    <Content Include="Areas\BackEndSystem\Views\Product\Index.cshtml" />
+    <None Include="Scripts\jquery-1.4.4-vsdoc.js" />
+    <Content Include="Scripts\jquery-1.4.4.js" />
+    <Content Include="Scripts\jquery-1.4.4.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -1087,16 +1108,16 @@
     <Folder Include="Areas\ElaAdmin\Data\" />
     <Folder Include="Areas\minishop\Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Service\Mapper\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\ElaAdmin\Views\web.config" />
     <Content Include="Areas\minishop\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\BackEndSystem\Views\Category\Create.cshtml" />
+    <Content Include="Areas\BackEndSystem\Views\Category\Delete.cshtml" />
+    <Content Include="Areas\BackEndSystem\Views\Category\Details.cshtml" />
+    <Content Include="Areas\BackEndSystem\Views\Category\Edit.cshtml" />
     <None Include="packages.config" />
-    <Content Include="Views\Admins\Create.cshtml" />
-    <Content Include="Views\Admins\Delete.cshtml" />
-    <Content Include="Views\Admins\Details.cshtml" />
-    <Content Include="Views\Admins\Edit.cshtml" />
-    <Content Include="Views\Admins\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />

@@ -11,15 +11,17 @@ namespace DotrA_Lab.IOC.AutofacModule
 
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<AdminRepository>().As<IAdminRepository>();
-            builder.RegisterType<CategoriesRepository>().As<ICategoriesRepository>();
-            builder.RegisterType<MembersRepository>().As<IMembersRepository>();
-            builder.RegisterType<OrderDetailsRepository>().As<IOrderDetailsRepository>();
-            builder.RegisterType<OrdersRepository>().As<IOrdersRepository>();
-            builder.RegisterType<PaymentRepository>().As<IPaymentRepository>();
-            builder.RegisterType<ProductsRepository>().As<IProductsRepository>();
-            builder.RegisterType<ShippersRepository>().As<IShippersRepository>();
-            builder.RegisterType<SuppliersRepository>().As<ISuppliersRepository>();
+            //builder.RegisterType<CategoryRepository>().As<ICategoryRepository>();
+            //builder.RegisterType<MemberRoloRepository>().As<IMemberRoloRepository>();
+            //builder.RegisterType<MemberRepository>().As<IMemberRepository>();
+            //builder.RegisterType<OrderDetailRepository>().As<IOrderDetailRepository>();
+            //builder.RegisterType<OrderRepository>().As<IOrderRepository>();
+            //builder.RegisterType<PaymentRepository>().As<IPaymentRepository>();
+            //builder.RegisterType<ProductRepository>().As<IProductRepository>();
+            //builder.RegisterType<ShipperRepository>().As<IShipperRepository>();
+            //builder.RegisterType<SupplierRepository>().As<ISupplierRepository>();
+
+            builder.RegisterGeneric(typeof(GenericService<>)).As(typeof(IService<>));
 
             base.Load(builder);
         }

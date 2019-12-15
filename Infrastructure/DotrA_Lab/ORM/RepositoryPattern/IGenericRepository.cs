@@ -1,24 +1,50 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 
 namespace DotrA_Lab.ORM.RepositoryPattern
 {
-    public interface IGenericRepository<TEntity> : IDisposable where TEntity : class
+    /// <summary>
+    /// 代表一個Repository的interface。
+    /// </summary>
+    /// <typeparam name="T">任意model的class</typeparam>
+    public interface IGenericRepository<TEntity> where TEntity : class
     {
-        ///
-        TEntity Get<TDataType>(TDataType id) where TDataType : struct;
+        /// <summary>
+        /// 新增一筆資料。
+        /// </summary>
+        /// <param name="entity">要新增到的Entity</param>
+        void Create(TEntity entity);
 
-        TEntity Get<TDataType>(TDataType id
-            , Expression<Func<TEntity, object>> includes
-            , Expression<Func<TEntity, bool>> predicate) where TDataType : struct;
+        /// <summary>
+        /// 取得第一筆符合條件的內容。如果符合條件有多筆，也只取得第一筆。
+        /// </summary>
+        /// <param name="predicate">要取得的Where條件。</param>
+        /// <returns>取得第一筆符合條件的內容。</returns>
+        TEntity Read(Expression<Func<TEntity, bool>> predicate);
 
-        IEnumerable<TEntity> GetAll();
-        IEnumerable<TEntity> GetAll(Expression<Func<TEntity, object>> includes);
-        IEnumerable<TEntity> GetAll(Expression<Func<TEntity, object>> includes, Expression<Func<TEntity, bool>> predicate);
-        void Add(TEntity entity);
-        void AddRange(IEnumerable<TEntity> entities);
+        /// <summary>
+        /// 取得Entity全部筆數的IQueryable。
+        /// </summary>
+        /// <returns>Entity全部筆數的IQueryable。</returns>
+        IQueryable<TEntity> Reads();
+
+        /// <summary>
+        /// 更新一筆資料的內容。
+        /// </summary>
+        /// <param name="entity">要更新的內容</param>
         void Update(TEntity entity);
-        void Remove(TEntity entity);
+
+        /// <summary>
+        /// 刪除一筆資料內容。
+        /// </summary>
+        /// <param name="entity">要被刪除的Entity。</param>
+        void Delete(TEntity entity);
+
+        /// <summary>
+        /// 儲存異動。
+        /// </summary>
+        void SaveChanges();
     }
 }
