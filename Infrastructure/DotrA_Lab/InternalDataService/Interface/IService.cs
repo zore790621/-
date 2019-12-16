@@ -15,6 +15,22 @@ namespace DotrA_Lab.InternalDataService.Implementation
         where T : class
     {
 
+
+        /// <summary>
+        /// 取得Entity並且轉成對應的ViewModel
+        /// </summary>
+        /// <typeparam name="TViewModel">ViewModel的形態</typeparam>
+        /// <returns></returns>
+        List<TViewModel> GetListToViewModel<TViewModel>();
+
+        /// <summary>
+        /// 取得Entity並且轉成對應的ViewModel
+        /// </summary>
+        /// <typeparam name="TViewModel">ViewModel的形態</typeparam>
+        /// <param name="includes">需要Include的Entity</param>
+        /// <returns>取得轉換過的ViewModel List</returns>
+        List<TViewModel> GetListToViewModel<TViewModel>(params Expression<Func<T, object>>[] includes);
+
         /// <summary>
         /// 取得符合條件的Entity並且轉成對應的ViewModel
         /// </summary>

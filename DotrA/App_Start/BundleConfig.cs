@@ -26,6 +26,9 @@ namespace DotrA
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                 "~/Scripts/jquery.validate*"));
 
+            //首頁 JS & CSS
+            HomeCollection.Initial(bundles);
+
             //BackEndSystem JS & CSS設定檔
             BackEndSystemCollection.Initial(bundles);
 

@@ -18,7 +18,7 @@ namespace DotrA_Lab.Business.DomainClasses
         [Column(TypeName = "money")]
         public decimal SubTotal { get; set; }
 
-        public virtual Order Orders { get; set; }
+        public virtual Order Order { get; set; }
 
         public virtual Product Product { get; set; }
     }

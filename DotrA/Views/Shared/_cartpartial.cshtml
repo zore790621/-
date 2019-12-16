@@ -1,0 +1,27 @@
+﻿@{
+    //取得當前購物車所有內容
+    var currentCart = DotrA.Models.Cart.Operation.GetCurrentCart();
+}
+
+<a id="CartDropDown" class="dropdown-toggle nav-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    @String.Format("共{0}元 ({1})", currentCart.GetTotal, currentCart.Count)
+    <span class="icon-shopping_cart"></span>
+</a>
+<div class="dropdown-menu" role="menu" aria-labelledby="CartDropDown">
+    @if (currentCart.Count > 0)
+    {
+        foreach (var cartitem in currentCart)
+        {
+            //依序輸出 : <li><a>可愛橡皮擦 <span>50元 X 2</span></a></li>
+            <a style="color:lightskyblue; margin:40px">@cartitem.ProductName <span>@cartitem.Price 元 X @cartitem.Quantity </span>
+            <span class=" btn-danger"  onclick="RemoveFromCart('@cartitem.ProductId')">X</span>
+            </a>
+            
+        }
+        <a class="btn btn-danger text-center">結帳去</a>
+    }
+    else
+    {
+        <a class="btn btn-default text-center" href="#">購物車無任何商品</a>
+    }
+</div>

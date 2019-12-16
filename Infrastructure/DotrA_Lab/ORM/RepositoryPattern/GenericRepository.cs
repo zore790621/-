@@ -51,6 +51,16 @@ namespace DotrA_Lab.ORM.RepositoryPattern
             return Context.Set<TEntity>().AsQueryable();
         }
 
+        public IEnumerable<TEntity> ListReads()
+        {
+            return Context.Set<TEntity>();
+        }
+
+        public DbSet<TEntity> DbReads()
+        {
+            return Context.Set<TEntity>();
+        }
+
         /// <summary>
         /// 更新一筆Entity內容。
         /// </summary>

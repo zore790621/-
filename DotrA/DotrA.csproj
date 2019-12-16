@@ -83,6 +83,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
@@ -155,36 +156,63 @@
     <Compile Include="App_Start\AutofacConfig.cs" />
     <Compile Include="App_Start\BundleConfig\BackEndSystemCollection.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\BundleConfig\HomeCollection.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\BundleConfig\SampleCollection.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\BackEndSystem\BackEndSystemAreaRegistration.cs" />
-    <Compile Include="Areas\BackEndSystem\Controllers\CategoriesApiController.cs" />
     <Compile Include="Areas\BackEndSystem\Controllers\CategoryController.cs" />
     <Compile Include="Areas\BackEndSystem\Controllers\HomeController.cs" />
-    <Compile Include="Areas\BackEndSystem\Controllers\LanderController.cs" />
+    <Compile Include="Areas\BackEndSystem\Controllers\MemberController.cs" />
+    <Compile Include="Areas\BackEndSystem\Controllers\OrderDetailController.cs" />
+    <Compile Include="Areas\BackEndSystem\Controllers\OrderController.cs" />
+    <Compile Include="Areas\BackEndSystem\Controllers\PaymentController.cs" />
     <Compile Include="Areas\BackEndSystem\Controllers\ProductController.cs" />
+    <Compile Include="Areas\BackEndSystem\Controllers\ShipperController.cs" />
+    <Compile Include="Areas\BackEndSystem\Controllers\SupplierController.cs" />
     <Compile Include="Areas\BackEndSystem\ViewModels\BESCategoryView.cs" />
+    <Compile Include="Areas\BackEndSystem\ViewModels\BESMemberView.cs" />
     <Compile Include="Areas\BackEndSystem\ViewModels\BESProductView.cs" />
+    <Compile Include="Areas\BackEndSystem\ViewModels\BESOrderView.cs" />
+    <Compile Include="Areas\BackEndSystem\ViewModels\BESOrderDetailView.cs" />
+    <Compile Include="Areas\BackEndSystem\ViewModels\BESShipperView.cs" />
+    <Compile Include="Areas\BackEndSystem\ViewModels\BESSupplierView.cs" />
+    <Compile Include="Areas\BackEndSystem\ViewModels\BESPaymentView.cs" />
     <Compile Include="Areas\ElaAdmin\ElaAdminAreaRegistration.cs" />
     <Compile Include="Areas\minishop\minishopAreaRegistration.cs" />
+    <Compile Include="Controllers\MemberController.cs" />
     <Compile Include="Controllers\_BaseController\BaseApiController.cs" />
     <Compile Include="Controllers\_BaseController\BaseController.cs" />
     <Compile Include="Areas\ElaAdmin\Controllers\ElaAdminController.cs" />
-    <Compile Include="Controllers\Template\HomeController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Areas\minishop\Controllers\minishopController.cs" />
     <Compile Include="Controllers\Template\ValuesController.cs" />
+    <Compile Include="Filters\SecuredOperationFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Cart\CartItem.cs" />
+    <Compile Include="Models\Cart\CartMath.cs" />
+    <Compile Include="Models\Cart\Operation.cs" />
+    <Compile Include="Models\Member\LoginViewModel.cs" />
+    <Compile Include="Models\Member\MemberRegisterViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\hash.cs" />
+    <Compile Include="Service\Json\CoreJsonResult.cs" />
+    <Compile Include="Service\Security\Identity.cs" />
+    <Compile Include="Service\Security\Web\AuthenticationHelper.cs" />
+    <Compile Include="Service\Security\Web\SecurityUtilities.cs" />
     <Compile Include="Service\UploadImage.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\css\Glow.css" />
+    <Content Include="Assets\css\MemberStyle.css" />
+    <Content Include="Assets\css\style.css" />
     <Content Include="Assets\ElaAdmin\css\bootstrap.min.css" />
     <Content Include="Assets\ElaAdmin\css\chartist.min.css" />
     <Content Include="Assets\ElaAdmin\css\cs-skin-elastic.css" />
+    <Content Include="Assets\ElaAdmin\css\datatables.min.css" />
     <Content Include="Assets\ElaAdmin\css\flag-icon.min.css" />
     <Content Include="Assets\ElaAdmin\css\font-awesome.min.css" />
     <Content Include="Assets\ElaAdmin\css\fullcalendar.min.css" />
@@ -1031,23 +1059,21 @@
     <Content Include="Areas\BackEndSystem\Views\_ViewStart.cshtml" />
     <Content Include="Areas\BackEndSystem\Views\Shared\_LoginLayout.cshtml" />
     <Content Include="Areas\BackEndSystem\Views\Shared\_navbar.cshtml" />
-    <Content Include="Areas\BackEndSystem\Views\Home\Index.cshtml" />
     <Content Include="Areas\BackEndSystem\Views\Shared\_footer.cshtml" />
     <Content Include="Areas\BackEndSystem\Views\Shared\_header.cshtml" />
     <Content Include="Areas\BackEndSystem\Views\Shared\_breadcrumbs.cshtml" />
-    <Content Include="Areas\BackEndSystem\Views\Lander\Login.cshtml" />
-    <Content Include="Areas\BackEndSystem\Views\Category\Index.cshtml" />
-    <Content Include="Areas\BackEndSystem\Views\Product\Create.cshtml" />
-    <Content Include="Areas\BackEndSystem\Views\Product\Delete.cshtml" />
-    <Content Include="Areas\BackEndSystem\Views\Product\Details.cshtml" />
-    <Content Include="Areas\BackEndSystem\Views\Product\Edit.cshtml" />
-    <Content Include="Areas\BackEndSystem\Views\Product\Index.cshtml" />
+    <Content Include="Areas\BackEndSystem\Views\Member\Create.cshtml" />
+    <Content Include="Areas\BackEndSystem\Views\Member\Index.cshtml" />
+    <Content Include="Areas\BackEndSystem\Views\Member\Edit.cshtml" />
+    <Content Include="Areas\BackEndSystem\Views\Home\Index.cshtml" />
     <None Include="Scripts\jquery-1.4.4-vsdoc.js" />
     <Content Include="Scripts\jquery-1.4.4.js" />
     <Content Include="Scripts\jquery-1.4.4.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\vue.js" />
+    <Content Include="Scripts\vue.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -1101,22 +1127,21 @@
     <Content Include="Areas\ElaAdmin\Views\ElaAdmin\UI_Typgraphy.cshtml" />
     <Content Include="Areas\minishop\Views\minishop\_ViewStart.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\_navbar.cshtml" />
+    <Content Include="Views\Shared\_CartPartial.cshtml" />
+    <Content Include="Views\Shared\_LoginModal.cshtml" />
+    <Content Include="Views\Member\Register.cshtml" />
+    <Content Include="Views\Member\VerifyAccount.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\BackEndSystem\Data\" />
     <Folder Include="Areas\ElaAdmin\Data\" />
     <Folder Include="Areas\minishop\Data\" />
-    <Folder Include="Models\" />
-    <Folder Include="Service\Mapper\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\ElaAdmin\Views\web.config" />
     <Content Include="Areas\minishop\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\BackEndSystem\Views\Category\Create.cshtml" />
-    <Content Include="Areas\BackEndSystem\Views\Category\Delete.cshtml" />
-    <Content Include="Areas\BackEndSystem\Views\Category\Details.cshtml" />
-    <Content Include="Areas\BackEndSystem\Views\Category\Edit.cshtml" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

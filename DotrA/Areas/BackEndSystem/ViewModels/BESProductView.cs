@@ -1,8 +1,5 @@
 ﻿using DotrA_Lab.Business.DomainClasses;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Web;
 
 namespace DotrA.Areas.BackEndSystem.ViewModels
@@ -49,7 +46,8 @@ namespace DotrA.Areas.BackEndSystem.ViewModels
 
         public HttpPostedFileBase PictureLink { get; set; }
 
-        public virtual Supplier Suppliers { get; set; }
-        public virtual Category Categories { get; set; }
+        public virtual Category Category { get; set; }
+
+        public virtual Supplier Supplier { get; set; }
     }
 }

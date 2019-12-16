@@ -1,4 +1,5 @@
-﻿using DotrA_Lab.ORM.UnitOfWorkPattern;
+﻿using AutoMapper;
+using DotrA_Lab.ORM.UnitOfWorkPattern;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -17,6 +18,59 @@ namespace DotrA_Lab.InternalDataService.Implementation
         where T : class
     {
         protected IUnitOfWork db;
+
+        /// <summary>
+        /// 取得驗證資訊的字典
+        /// </summary>
+        /// <value>
+        /// 驗證資訊的字典
+        /// </value>
+        public IValidationDictionary ValidationDictionary { get; private set; }
+
+        /// <summary>
+        /// 初始化IValidationDictionary
+        /// </summary>
+        /// <param name="inValidationDictionary">要用來儲存錯誤訊息的object</param>
+        public void InitialiseIValidationDictionary
+            (IValidationDictionary inValidationDictionary)
+        {
+            ValidationDictionary = inValidationDictionary;
+        }
+
+        public GenericService(IUnitOfWork db)
+        {
+            this.db = db;
+        }
+
+        /// <summary>
+        /// 取得符合條件的Entity並且轉成對應的ViewModel
+        /// </summary>
+        /// <typeparam name="TViewModel">ViewModel的形態</typeparam>
+        /// <returns>取得轉換過的ViewModel List</returns>
+        public virtual List<TViewModel> GetListToViewModel<TViewModel>()
+        {
+            var data = db.Repository<T>().Reads();
+
+            return DataModelToViewModel.GenericListMapper<T, TViewModel>(data);
+        }
+
+        /// <summary>
+        /// 取得符合條件的Entity並且轉成對應的ViewModel
+        /// </summary>
+        /// <typeparam name="TViewModel">ViewModel的形態</typeparam>
+        /// <param name="includes">需要Include的Entity</param>
+        /// <returns>取得轉換過的ViewModel List</returns>
+        public virtual List<TViewModel> GetListToViewModel<TViewModel>(params Expression<Func<T, object>>[] includes)
+        {
+            var data = db.Repository<T>().Reads();
+
+            foreach (var item in includes)
+            {
+                data.Include(item);
+            }
+
+            return DataModelToViewModel.GenericListMapper<T, TViewModel>(data);
+        }
 
         /// <summary>
         /// 取得符合條件的Entity並且轉成對應的ViewModel
@@ -68,11 +122,9 @@ namespace DotrA_Lab.InternalDataService.Implementation
         {
             var entity = db.Repository<T>().Read(wherePredicate);
 
-            var modify = DataModelToViewModel.GenericMapper<TViewModel, T>(viewModel);
+            var result = DataModelToViewModel.GenericMapper<TViewModel, T>(viewModel, entity);
 
-            
-
-            db.Repository<T>().Update(modify);
+            db.Repository<T>().Update(result);
 
             db.SaveChanges();
         }

@@ -59,13 +59,13 @@ namespace DotrA_Lab.Migrations
                         SubTotal = c.Decimal(nullable: false, storeType: "money"),
                     })
                 .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.Orders", t => t.OrderID)
+                .ForeignKey("dbo.Order", t => t.OrderID)
                 .ForeignKey("dbo.Products", t => t.ProductID)
                 .Index(t => t.OrderID)
                 .Index(t => t.ProductID);
             
             CreateTable(
-                "dbo.Orders",
+                "dbo.Order",
                 c => new
                     {
                         OrderID = c.Int(nullable: false, identity: true),
@@ -139,13 +139,13 @@ namespace DotrA_Lab.Migrations
             DropForeignKey("dbo.Products", "CategoryID", "dbo.Categories");
             DropForeignKey("dbo.Products", "SupplierID", "dbo.Suppliers");
             DropForeignKey("dbo.OrderDetails", "ProductID", "dbo.Products");
-            DropForeignKey("dbo.Orders", "ShipperID", "dbo.Shippers");
-            DropForeignKey("dbo.Orders", "PaymentID", "dbo.Payment");
-            DropForeignKey("dbo.OrderDetails", "OrderID", "dbo.Orders");
-            DropForeignKey("dbo.Orders", "MemberID", "dbo.Members");
-            DropIndex("dbo.Orders", new[] { "PaymentID" });
-            DropIndex("dbo.Orders", new[] { "ShipperID" });
-            DropIndex("dbo.Orders", new[] { "MemberID" });
+            DropForeignKey("dbo.Order", "ShipperID", "dbo.Shippers");
+            DropForeignKey("dbo.Order", "PaymentID", "dbo.Payment");
+            DropForeignKey("dbo.OrderDetails", "OrderID", "dbo.Order");
+            DropForeignKey("dbo.Order", "MemberID", "dbo.Members");
+            DropIndex("dbo.Order", new[] { "PaymentID" });
+            DropIndex("dbo.Order", new[] { "ShipperID" });
+            DropIndex("dbo.Order", new[] { "MemberID" });
             DropIndex("dbo.OrderDetails", new[] { "ProductID" });
             DropIndex("dbo.OrderDetails", new[] { "OrderID" });
             DropIndex("dbo.Products", new[] { "CategoryID" });
@@ -154,7 +154,7 @@ namespace DotrA_Lab.Migrations
             DropTable("dbo.Shippers");
             DropTable("dbo.Payment");
             DropTable("dbo.Members");
-            DropTable("dbo.Orders");
+            DropTable("dbo.Order");
             DropTable("dbo.OrderDetails");
             DropTable("dbo.Products");
             DropTable("dbo.Categories");

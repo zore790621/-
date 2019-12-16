@@ -71,5 +71,20 @@ namespace DotrA_Lab.InternalDataService
 
             return result;
         }
+
+        public static Tout GenericMapper<Tin, Tout>(Tin soruce, Tout entity)
+        {
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.AllowNullCollections = true;
+                cfg.CreateMap<Tin, Tout>();
+            });
+
+            IMapper mapper = config.CreateMapper();
+
+            Tout result = mapper.Map(soruce, entity);
+
+            return result;
+        }
     }
 }

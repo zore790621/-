@@ -11,15 +11,15 @@ namespace DotrA_Lab.IOC.AutofacModule
 
         protected override void Load(ContainerBuilder builder)
         {
-            //builder.RegisterType<CategoryRepository>().As<ICategoryRepository>();
-            //builder.RegisterType<MemberRoloRepository>().As<IMemberRoloRepository>();
-            //builder.RegisterType<MemberRepository>().As<IMemberRepository>();
-            //builder.RegisterType<OrderDetailRepository>().As<IOrderDetailRepository>();
-            //builder.RegisterType<OrderRepository>().As<IOrderRepository>();
-            //builder.RegisterType<PaymentRepository>().As<IPaymentRepository>();
-            //builder.RegisterType<ProductRepository>().As<IProductRepository>();
-            //builder.RegisterType<ShipperRepository>().As<IShipperRepository>();
-            //builder.RegisterType<SupplierRepository>().As<ISupplierRepository>();
+            builder.RegisterType<CategoryService>().As<ICategoryService>();
+            builder.RegisterType<MemberRoloService>().As<IMemberRoloService>();
+            builder.RegisterType<MemberService>().As<IMemberService>();
+            builder.RegisterType<OrderDetailService>().As<IOrderDetailService>();
+            builder.RegisterType<OrderService>().As<IOrderService>();
+            builder.RegisterType<PaymentService>().As<IPaymentService>();
+            builder.RegisterType<ProductService>().As<IProductService>();
+            builder.RegisterType<ShipperService>().As<IShipperService>();
+            builder.RegisterType<SupplierService>().As<ISupplierService>();
 
             builder.RegisterGeneric(typeof(GenericService<>)).As(typeof(IService<>));
 

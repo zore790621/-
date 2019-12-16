@@ -11,7 +11,7 @@ namespace DotrA_Lab.Business.DomainClasses
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Member()
         {
-            Orders = new HashSet<Order>();
+            Order = new HashSet<Order>();
         }
 
         public int MemberID { get; set; }
@@ -39,7 +39,7 @@ namespace DotrA_Lab.Business.DomainClasses
         [StringLength(20)]
         public string Phone { get; set; }
 
-        public int Rolo { get; set; }
+        public int RoloID { get; set; }
 
         [Required]
         [StringLength(250)]
@@ -52,7 +52,9 @@ namespace DotrA_Lab.Business.DomainClasses
         [StringLength(100)]
         public string ResetPasswordCode { get; set; }
 
+        public virtual MemberRolo MemberRolo { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Order> Orders { get; set; }
+        public virtual ICollection<Order> Order { get; set; }
     }
 }

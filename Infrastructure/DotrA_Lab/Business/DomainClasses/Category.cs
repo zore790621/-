@@ -16,12 +16,11 @@ namespace DotrA_Lab.Business.DomainClasses
         public int CategoryID { get; set; }
 
         [Required]
-        [StringLength(10)]
+        [StringLength(50)]
         public string CategoryName { get; set; }
 
-        [StringLength(255)]
         public string Categorydescript { get; set; }
-        [StringLength(50)]
+
         public string Picture { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

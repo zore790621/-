@@ -1,43 +1,40 @@
 ﻿using DotrA.Areas.BackEndSystem.ViewModels;
 using DotrA.Controllers;
-using DotrA.Service.Mapper;
+using DotrA_Lab.InternalDataService.Implementation;
 using DotrA_Lab.Business.DomainClasses;
 using DotrA_Lab.ORM.UnitOfWorkPattern;
-using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+using DotrA.Filters;
 
 namespace DotrA.Areas.BackEndSystem.Controllers
 {
+
+    [SecuredOperationFilter(Roles = "admin")]
     public class ProductController : BaseController
     {
-        public ProductController(IUnitOfWork uof) : base(uof)
+        public ProductController(IUnitOfWork uof, ICategoryService cs, IMemberService ms, IMemberRoloService mrs, IOrderService os, IOrderDetailService ods, IPaymentService pay, IProductService ps, IShipperService ships, ISupplierService sups) : base(uof, cs, ms, mrs, os, ods, pay, ps, ships, sups)
         {
         }
 
-        // GET: BackEndSystem/Product
         public ActionResult Index()
         {
-            var source = UOF.Repository<Product>().GetAll();
-            IEnumerable<BESProductView> result = DataModelToViewModel.GenericListMapper<Product, BESProductView>(source);
-            
+            var result = PS.GetListToViewModel<BESProductView>(x => x.Category, x => x.Supplier);
+
             return View(result);
         }
 
-        // GET: BackEndSystem/Product/Details/5
         public ActionResult Details(int? id)
         {
+
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            bool find = int.TryParse(id.ToString(), out int findid);
-            Product category = UOF.Repository<Product>().Get(findid);
-            if (find == false || category == null)
+            var result = PS.GetSpecificDetailToViewModel<BESProductView>(x => x.ProductID == id, x => x.Category, x => x.Supplier); 
+            
+            if (result == null)
                 return HttpNotFound();
-
-            BESProductView result = DataModelToViewModel.GenericMapper<Product, BESProductView>(category);
 
             return View(result);
         }
@@ -45,96 +42,78 @@ namespace DotrA.Areas.BackEndSystem.Controllers
         // GET: BackEndSystem/Product/Create
         public ActionResult Create()
         {
-            ViewBag.CategoryID = new SelectList(UOF.Repository<Category>().GetAll(), "CategoryID", "CategoryName");
-            ViewBag.SupplierID = new SelectList(UOF.Repository<Supplier>().GetAll(), "SupplierID", "CompanyName");
+            ViewBag.CategoryID = new SelectList(UOF.Repository<Category>().Reads(), "CategoryID", "CategoryName");
+            ViewBag.SupplierID = new SelectList(UOF.Repository<Supplier>().Reads(), "SupplierID", "CompanyName");
             return View();
         }
 
-        // POST: BackEndSystem/Product/Create
-        // 若要免於過量張貼攻擊，請啟用想要繫結的特定屬性，如需
-        // 詳細資訊，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(BESProductView product)
+        public ActionResult Create(BESProductView source)
         {
             if (ModelState.IsValid)
             {
-                Product intput = DataModelToViewModel.GenericMapper<BESProductView, Product>(product);
-                UOF.Repository<Product>().Add(intput);
-                UOF.SaveChanges();
-                return RedirectToAction("Index");
+                PS.CreateViewModelToDatabase<BESProductView>(source);
+                return RedirectToAction<ProductController>(x => x.Index());
             }
 
-            ViewBag.CategoryID = new SelectList(UOF.Repository<Category>().GetAll(), "CategoryID", "CategoryName");
-            ViewBag.SupplierID = new SelectList(UOF.Repository<Supplier>().GetAll(), "SupplierID", "CompanyName");
-            return View(product);
+            ViewBag.CategoryID = new SelectList(UOF.Repository<Category>().Reads(), "CategoryID", "CategoryName", source.CategoryID);
+            ViewBag.SupplierID = new SelectList(UOF.Repository<Supplier>().Reads(), "SupplierID", "CompanyName",source.SupplierID);
+            return View(source);
         }
 
-        // GET: BackEndSystem/Product/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            bool find = int.TryParse(id.ToString(), out int findid);
-            Product category = UOF.Repository<Product>().Get(findid);
-            if (find == false || category == null)
+            var result = PS.GetSpecificDetailToViewModel<BESProductView>(x => x.ProductID == id, x => x.Category, x => x.Supplier);
+            
+            if (result == null)
                 return HttpNotFound();
 
-            BESProductView result = DataModelToViewModel.GenericMapper<Product, BESProductView>(category);
-
-            ViewBag.CategoryID = new SelectList(UOF.Repository<Category>().GetAll(), "CategoryID", "CategoryName");
-            ViewBag.SupplierID = new SelectList(UOF.Repository<Supplier>().GetAll(), "SupplierID", "CompanyName");
-
+            ViewBag.CategoryID = new SelectList(UOF.Repository<Category>().Reads(), "CategoryID", "CategoryName",result.CategoryID);
+            ViewBag.SupplierID = new SelectList(UOF.Repository<Supplier>().Reads(), "SupplierID", "CompanyName",result.SupplierID);
             return View(result);
         }
 
-        // POST: BackEndSystem/Product/Edit/5
-        // 若要免於過量張貼攻擊，請啟用想要繫結的特定屬性，如需
-        // 詳細資訊，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(BESProductView product)
+        public ActionResult Edit(BESProductView source)
         {
             if (ModelState.IsValid)
             {
-                Product intput = DataModelToViewModel.GenericMapper<BESProductView, Product>(product);
-
-                UOF.Repository<Product>().Update(intput);
-                UOF.SaveChanges();
-                return RedirectToAction("Index");
+                PS.UpdateViewModelToDatabase<BESProductView>(source, x => x.ProductID == source.ProductID);
+                return RedirectToAction<ProductController>(x => x.Index());
             }
-            return View(product);
+            ViewBag.CategoryID = new SelectList(UOF.Repository<Category>().Reads(), "CategoryID", "CategoryName", source.CategoryID);
+            ViewBag.SupplierID = new SelectList(UOF.Repository<Supplier>().Reads(), "SupplierID", "CompanyName", source.SupplierID);
+            return View(source);
         }
 
-        // GET: BackEndSystem/Product/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            bool find = int.TryParse(id.ToString(), out int findid);
-            Product category = UOF.Repository<Product>().Get(findid);
-            if (find == false || category == null)
-                return HttpNotFound();
+            var result = PS.GetSpecificDetailToViewModel<BESProductView>(x => x.ProductID == id, x => x.Category, x => x.Supplier);
 
-            BESProductView result = DataModelToViewModel.GenericMapper<Product, BESProductView>(category);
+            if (result == null)
+                return HttpNotFound();
 
             return View(result);
         }
 
-        // POST: BackEndSystem/Product/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int? id)
         {
-            bool find = int.TryParse(id.ToString(), out int findid);
-            if (find == true)
-            {
-                UOF.Repository<Product>().Remove(UOF.Repository<Product>().Get(findid));
-                UOF.SaveChanges();
-            }
-            return RedirectToAction("Index");
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            PS.Delete(x => x.ProductID == id);
+
+            return RedirectToAction<ProductController>(x => x.Index());
         }
     }
 }

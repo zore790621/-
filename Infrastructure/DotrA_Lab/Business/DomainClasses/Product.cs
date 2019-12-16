@@ -28,7 +28,6 @@ namespace DotrA_Lab.Business.DomainClasses
 
         public string Picture { get; set; }
 
-        [StringLength(200)]
         public string ProductDescription { get; set; }
 
         public int Quantity { get; set; }

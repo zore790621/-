@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DotrA_Lab.Business.DomainClasses
 {
+    [Table("Order")]
     public partial class Order
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -12,7 +14,6 @@ namespace DotrA_Lab.Business.DomainClasses
             OrderDetail = new HashSet<OrderDetail>();
         }
 
-        [Key]
         public int OrderID { get; set; }
 
         public int MemberID { get; set; }

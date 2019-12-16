@@ -20,10 +20,10 @@
 
     @Html.Partial("_navbar")
 
-    @Html.Partial("_breadcrumbs")
-
     <div id="right-panel" class="right-panel">
         @Html.Partial("_header")
+
+        @Html.Partial("_breadcrumbs")
 
         @RenderBody()
         <div class="clearfix"></div>
@@ -33,8 +33,6 @@
 
     @Scripts.Render("~/BackEndSystem/js")
 
-    @RenderSection("endJS", required: false)
-    @RenderSection("Scripts", required: false)
 
     <script type="text/javascript">
         jQuery(function () {
@@ -49,5 +47,6 @@
                 jQuery(".Homeli").addClass("active");
         });
     </script>
+    @RenderSection("endScripts", required: false)
 </body>
 </html>

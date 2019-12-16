@@ -1,0 +1,76 @@
+﻿@model IEnumerable<DotrA.Areas.BackEndSystem.ViewModels.BESMemberView>
+
+@{
+    ViewBag.Title = "View";
+}
+<div class="content">
+    <div class="animated fadeIn">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <strong class="card-title">會員管理</strong>
+                    </div>
+                    <div class="card-body">
+                        <table id="bootstrap-data-table" class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>@Html.DisplayNameFor(m => m.MemberID)</th>
+                                    <th>@Html.DisplayNameFor(m => m.MemberAccount)</th>
+                                    <th>@Html.DisplayNameFor(m => m.Name)</th>
+                                    <th>@Html.DisplayNameFor(m => m.Email)</th>
+                                    <th>@Html.DisplayNameFor(m => m.Address)</th>
+                                    <th>@Html.DisplayNameFor(m => m.Phone)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var m in Model)
+                                {
+                                    if (((DotrA.Service.Security.Identity)User.Identity).Role == "admin")
+                                    {
+                                        <tr onclick="location.href = '@Url.Action("Edit", "Member", new { id = m.MemberID })'">
+                                            <td>@Html.DisplayFor(x => m.MemberID)</td>
+                                            <td>@Html.DisplayFor(x => m.MemberAccount)</td>
+                                            <td>@Html.DisplayFor(x => m.Name)</td>
+                                            <td>@Html.DisplayFor(x => m.Email)</td>
+                                            <td>@Html.DisplayFor(x => m.Address)</td>
+                                            <td>@Html.DisplayFor(x => m.Phone)</td>
+                                        </tr>
+                                    }
+                                    else
+                                    {
+                                        <tr>
+                                            <td>@Html.DisplayFor(x => m.MemberID)</td>
+                                            <td>@Html.DisplayFor(x => m.MemberAccount)</td>
+                                            <td>@Html.DisplayFor(x => m.Name)</td>
+                                            <td>@Html.DisplayFor(x => m.Email)</td>
+                                            <td>@Html.DisplayFor(x => m.Address)</td>
+                                            <td>@Html.DisplayFor(x => m.Phone)</td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section topCSS{
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.css" />
+}
+
+@section endScripts{
+    <script src="~/Assets/ElaAdmin/js/lib/data-table/datatables.min.js"></script>
+    <script src="~/Assets/ElaAdmin/js/lib/data-table/dataTables.bootstrap.min.js"></script>
+    <script src="~/Assets/ElaAdmin/js/lib/data-table/dataTables.buttons.min.js"></script>
+    <script src="~/Assets/ElaAdmin/js/lib/data-table/buttons.bootstrap.min.js"></script>
+    <script src="~/Assets/ElaAdmin/js/lib/data-table/jszip.min.js"></script>
+    <script src="~/Assets/ElaAdmin/js/lib/data-table/vfs_fonts.js"></script>
+    <script src="~/Assets/ElaAdmin/js/lib/data-table/buttons.html5.min.js"></script>
+    <script src="~/Assets/ElaAdmin/js/lib/data-table/buttons.print.min.js"></script>
+    <script src="~/Assets/ElaAdmin/js/lib/data-table/buttons.colVis.min.js"></script>
+    <script src="~/Assets/ElaAdmin/js/init/datatables-init.js" charset="UTF-8"></script>
+
+}

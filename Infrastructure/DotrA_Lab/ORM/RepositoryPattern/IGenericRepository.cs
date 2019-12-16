@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -29,6 +30,17 @@ namespace DotrA_Lab.ORM.RepositoryPattern
         /// </summary>
         /// <returns>Entity全部筆數的IQueryable。</returns>
         IQueryable<TEntity> Reads();
+
+        /// <summary>
+        /// 取得Entity全部筆數的IEnumerable。
+        /// </summary>
+        /// <returns></returns>
+        IEnumerable<TEntity> ListReads();
+        /// <summary>
+        /// 取得Entity全部筆數的DbSet。
+        /// </summary>
+        /// <returns></returns>
+        DbSet<TEntity> DbReads();
 
         /// <summary>
         /// 更新一筆資料的內容。

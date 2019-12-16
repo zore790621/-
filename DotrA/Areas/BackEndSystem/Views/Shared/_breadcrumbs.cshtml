@@ -9,7 +9,7 @@
             <div class="col-sm-4">
                 <div class="page-header float-left">
                     <div class="page-title">
-                        <h1>Dashboard</h1>
+                        <h1>DotrA管理系統</h1>
                     </div>
                 </div>
             </div>
@@ -17,7 +17,7 @@
                 <div class="page-header float-right">
                     <div class="page-title">
                         <ol class="breadcrumb text-right">
-                            <li>@Html.ActionLink("後臺管理系統首頁", "Index", "Home")</li>
+                            <li>@Html.ActionLink("後臺管理系統首頁", "Index", "Home", new { area = "admin" },null)</li>
                             <li>@Html.ActionLink(controllerName, "Index", controllerName)</li>
                             <li class="active">@ActionrName</li>
                         </ol>

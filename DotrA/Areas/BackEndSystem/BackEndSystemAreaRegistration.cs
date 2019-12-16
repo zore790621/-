@@ -15,27 +15,57 @@ namespace DotrA.Areas.BackEndSystem
         public override void RegisterArea(AreaRegistrationContext context)
         {
             context.MapRoute(
-                "BackEndSystem_Product",
-                "admin/Product/{action}",
-                new { controller = "Product", action = "Index" },
-                namespaces: new string[] { "DotrA.Areas.BackEndSystem.Controllers" }
-                );
-            context.MapRoute(
                 "BackEndSystem_Category",
-                "admin/Category/{action}",
-                new { controller = "Categories", action = "Index" },
+                "admin/Category/{action}/{id}",
+                new { controller = "Category", action = "Index", id = UrlParameter.Optional },
                 namespaces: new string[] { "DotrA.Areas.BackEndSystem.Controllers" }
                 );
             context.MapRoute(
-                "BackEndSystem_Home",
-                "admin/Home/{action}",
-                new { controller = "Home", action = "Index" },
+                "BackEndSystem_Member",
+                "admin/Member/{action}/{id}",
+                new { controller = "Member", action = "Index", id = UrlParameter.Optional },
+                namespaces: new string[] { "DotrA.Areas.BackEndSystem.Controllers" }
+                );
+            context.MapRoute(
+                "BackEndSystem_Orders",
+                "admin/Orders/{action}/{id}",
+                new { controller = "Order", action = "Index", id = UrlParameter.Optional },
+                namespaces: new string[] { "DotrA.Areas.BackEndSystem.Controllers" }
+                );
+            context.MapRoute(
+                "BackEndSystem_OrdersDetail",
+                "admin/OrderDetail/{action}/{id}",
+                new { controller = "OrderDetail", action = "Index", id = UrlParameter.Optional },
+                namespaces: new string[] { "DotrA.Areas.BackEndSystem.Controllers" }
+                );
+            context.MapRoute(
+                "BackEndSystem_Payment",
+                "admin/Payment/{action}/{id}",
+                new { controller = "Payment", action = "Index", id = UrlParameter.Optional },
+                namespaces: new string[] { "DotrA.Areas.BackEndSystem.Controllers" }
+                );
+            context.MapRoute(
+                "BackEndSystem_Product",
+                "admin/Product/{action}/{id}",
+                new { controller = "Product", action = "Index", id = UrlParameter.Optional },
+                namespaces: new string[] { "DotrA.Areas.BackEndSystem.Controllers" }
+                );
+            context.MapRoute(
+                "BackEndSystem_Shipper",
+                "admin/Shipper/{action}/{id}",
+                new { controller = "Shipper", action = "Index", id = UrlParameter.Optional },
+                namespaces: new string[] { "DotrA.Areas.BackEndSystem.Controllers" }
+                );
+            context.MapRoute(
+                "BackEndSystem_Supplier",
+                "admin/Supplier/{action}/{id}",
+                new { controller = "Supplier", action = "Index", id = UrlParameter.Optional },
                 namespaces: new string[] { "DotrA.Areas.BackEndSystem.Controllers" }
             );
             context.MapRoute(
                 "BackEndSystem_default",
-                "admin/{controller}/{action}",
-                new { controller = "Lander", action = "Login" },
+                "admin/{controller}/{action}/{id}",
+                new { controller = "Home", action = "Index", id = UrlParameter.Optional },
                 namespaces: new string[] { "DotrA.Areas.BackEndSystem.Controllers" }
             );
         }

@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Data.Entity;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace DotrA_Lab.ORM.UnitOfWorkPattern
@@ -27,7 +28,15 @@ namespace DotrA_Lab.ORM.UnitOfWorkPattern
         /// </summary>
         public void SaveChanges()
         {
-            _context.SaveChanges();
+            var errors = _context.GetValidationErrors();
+            if (!errors.Any())
+            {
+                _context.SaveChanges();
+            }
+            else
+            {
+                throw new DatabaseValidationErrors(errors);
+            }
         }
 
         /// <summary>

@@ -1,132 +1,107 @@
 ﻿using DotrA.Areas.BackEndSystem.ViewModels;
 using DotrA.Controllers;
-using DotrA.Service.Mapper;
-using DotrA_Lab.Business.DomainClasses;
+using DotrA_Lab.InternalDataService.Implementation;
 using DotrA_Lab.ORM.UnitOfWorkPattern;
-using System.Collections.Generic;
-using System.Data.Entity;
 using System.Net;
+using System.Linq;
 using System.Web.Mvc;
+using DotrA.Filters;
 
 namespace DotrA.Areas.BackEndSystem.Controllers
 {
+
+    [SecuredOperationFilter(Roles = "admin")]
     public class CategoryController : BaseController
     {
-        public CategoryController(IUnitOfWork uof) : base(uof)
+        public CategoryController(IUnitOfWork uof, ICategoryService cs, IMemberService ms, IMemberRoloService mrs, IOrderService os, IOrderDetailService ods, IPaymentService pay, IProductService ps, IShipperService ships, ISupplierService sups) : base(uof, cs, ms, mrs, os, ods, pay, ps, ships, sups)
         {
         }
 
-        // GET: BackEndSystem/Categories
         public ActionResult Index()
         {
-            var source = UOF.Repository<Category>().GetAll();
-            IEnumerable<BESCategoryView> result = DataModelToViewModel.GenericListMapper<Category, BESCategoryView> (source);
+            var result = CS.GetListToViewModel<BESCategoryView>();
 
             return View(result);
         }
 
-        // GET: BackEndSystem/Categories/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            bool find = int.TryParse(id.ToString(), out int findid);
-            Category category = UOF.Repository<Category>().Get(findid);
-            if (find == false || category == null)
-                return HttpNotFound();
+            var result = CS.GetSpecificDetailToViewModel<BESCategoryView>(x => x.CategoryID == id);
 
-            BESCategoryView result = DataModelToViewModel.GenericMapper<Category, BESCategoryView> (category);
+            if (result == null)
+                return HttpNotFound();
 
             return View(result);
         }
 
-        // GET: BackEndSystem/Categories/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: BackEndSystem/Categories/Create
-        // 若要免於過量張貼攻擊，請啟用想要繫結的特定屬性，如需
-        // 詳細資訊，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(BESCategoryView category)
+        public ActionResult Create(BESCategoryView source)
         {
             if (ModelState.IsValid)
             {
-                Category intput = DataModelToViewModel.GenericMapper<BESCategoryView, Category>(category);
-                UOF.Repository<Category>().Add(intput);
-                UOF.SaveChanges();
-                return RedirectToAction("Index");
+                CS.CreateViewModelToDatabase<BESCategoryView>(source);
+                return RedirectToAction<CategoryController>(x=> x.Index());
             }
 
-            return View(category);
+            return View(source);
         }
 
-        // GET: BackEndSystem/Categories/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            bool find = int.TryParse(id.ToString(), out int findid);
-            Category category = UOF.Repository<Category>().Get(findid);
-            if (find == false || category == null)
-                return HttpNotFound();
+            var result = CS.GetSpecificDetailToViewModel<BESCategoryView>(x => x.CategoryID == id);
 
-            BESCategoryView result = DataModelToViewModel.GenericMapper<Category, BESCategoryView>(category);
+            if (result == null)
+                return HttpNotFound();
 
             return View(result);
         }
 
-        // POST: BackEndSystem/Categories/Edit/5
-        // 若要免於過量張貼攻擊，請啟用想要繫結的特定屬性，如需
-        // 詳細資訊，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(BESCategoryView category)
+        public ActionResult Edit(BESCategoryView source)
         {
             if (ModelState.IsValid)
             {
-                Category intput = DataModelToViewModel.GenericMapper<BESCategoryView, Category>(category);
-
-                UOF.Repository<Category>().Update(intput);
-                UOF.SaveChanges();
-                return RedirectToAction("Index");
+                CS.UpdateViewModelToDatabase<BESCategoryView>(source, x => x.CategoryID == source.CategoryID);
+                return RedirectToAction<CategoryController>(x => x.Index());
             }
-            return View(category);
+            return View(source);
         }
 
-        // GET: BackEndSystem/Categories/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            bool find = int.TryParse(id.ToString(), out int findid);
-            Category category = UOF.Repository<Category>().Get(findid);
-            if (find == false || category == null)
+            var result = CS.GetSpecificDetailToViewModel<BESCategoryView>(x => x.CategoryID == id);
+            if (result == null)
                 return HttpNotFound();
-
-            BESCategoryView result = DataModelToViewModel.GenericMapper<Category, BESCategoryView>(category);
 
             return View(result);
         }
 
-        // POST: BackEndSystem/Categories/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int? id)
         {
-            bool find = int.TryParse(id.ToString(), out int findid);
-            if (find == true)
-            {
-                UOF.Repository<Category>().Remove(UOF.Repository<Category>().Get(findid));
-                UOF.SaveChanges();
-            }
-            return RedirectToAction("Index");
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            CS.Delete(x => x.CategoryID == id);
+
+            return RedirectToAction<CategoryController>(x => x.Index());
         }
     }
 }
