@@ -35,11 +35,10 @@ namespace DotrA.Areas.BackEndSystem.ViewModels
 
         [Required(ErrorMessage = "必填欄位")]
         [Display(Name = "權限")]
-        public int RoloID { get; set; }
+        public int RoleID { get; set; }
 
 
-        public virtual MemberRolo MemberRolo { get; set; }
-        public Guid ActivationCode { get; internal set; }
+        public virtual MemberRole MemberRole { get; set; }
         public string HashCode { get; set; }
         [Display(Name="信箱驗證")]
         public bool EmailVerified { get; set; }

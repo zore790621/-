@@ -15,18 +15,17 @@ namespace DotrA.Areas.BackEndSystem.Controllers
     [SecuredOperationFilter(Roles = "admin")]
     public class HomeController : BaseController
     {
-        public HomeController(IUnitOfWork uof, ICategoryService cs, IMemberService ms, IMemberRoloService mrs, IOrderService os, IOrderDetailService ods, IPaymentService pay, IProductService ps, IShipperService ships, ISupplierService sups) : base(uof, cs, ms, mrs, os, ods, pay, ps, ships, sups)
+        public HomeController(IAllService all) : base(all)
         {
         }
-
         // GET: BackEndSystem/Home
         public ActionResult Index()
         {
-            ViewBag.ProCount = PS.GetListToViewModel<Product>().Count;
-            ViewBag.CatCount = CS.GetListToViewModel<Category>().Count;
-            ViewBag.OrdCount = UOF.Repository<Order>().Reads().Count();
-            ViewBag.Selltotal = UOF.Repository<Order>().Reads().Where(x => x.OrderDate.Month == DateTime.Now.Month).SingleOrDefault();
-            
+            ViewBag.ProCount = All.PS().GetListToViewModel<Product>().Count;
+            ViewBag.CatCount = All.CS().GetListToViewModel<Category>().Count;
+            ViewBag.OrdCount = All.UOF().Repository<Order>().Reads().Count();
+            ViewBag.Selltotal = All.UOF().Repository<Order>().Reads().Where(x => x.OrderDate.Month == DateTime.Now.Month).SingleOrDefault();
+
 
             return View();
         }

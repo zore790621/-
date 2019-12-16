@@ -13,7 +13,7 @@ namespace DotrA_Lab.ORM.Context
         }
         public virtual DbSet<Category> Category { get; set; }
         public virtual DbSet<Member> Member { get; set; }
-        public virtual DbSet<MemberRolo> MemberRolo { get; set; }
+        public virtual DbSet<MemberRole> MemberRole { get; set; }
         public virtual DbSet<Order> Order { get; set; }
         public virtual DbSet<OrderDetail> OrderDetail { get; set; }
         public virtual DbSet<Payment> Payment { get; set; }
@@ -53,13 +53,13 @@ namespace DotrA_Lab.ORM.Context
                 .WithRequired(e => e.Member)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<MemberRolo>()
-                .Property(e => e.RoloName)
+            modelBuilder.Entity<MemberRole>()
+                .Property(e => e.RoleName)
                 .IsFixedLength();
 
-            modelBuilder.Entity<MemberRolo>()
+            modelBuilder.Entity<MemberRole>()
                 .HasMany(e => e.Member)
-                .WithRequired(e => e.MemberRolo)
+                .WithRequired(e => e.MemberRole)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Order>()

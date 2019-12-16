@@ -3,32 +3,23 @@ namespace DotrA_Lab.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Initial : DbMigration
+    public partial class init : DbMigration
     {
         public override void Up()
         {
             CreateTable(
-                "dbo.Admin",
-                c => new
-                    {
-                        AdminID = c.Int(nullable: false, identity: true),
-                        AdminAccount = c.String(nullable: false, maxLength: 20, unicode: false),
-                        AdminPW = c.String(nullable: false, maxLength: 20, unicode: false),
-                    })
-                .PrimaryKey(t => t.AdminID);
-            
-            CreateTable(
-                "dbo.Categories",
+                "dbo.Category",
                 c => new
                     {
                         CategoryID = c.Int(nullable: false, identity: true),
-                        CategoryName = c.String(nullable: false, maxLength: 10),
-                        Picture = c.String(maxLength: 50),
+                        CategoryName = c.String(nullable: false, maxLength: 50),
+                        Categorydescript = c.String(),
+                        Picture = c.String(),
                     })
                 .PrimaryKey(t => t.CategoryID);
             
             CreateTable(
-                "dbo.Products",
+                "dbo.Product",
                 c => new
                     {
                         ProductID = c.Int(nullable: false, identity: true),
@@ -37,18 +28,18 @@ namespace DotrA_Lab.Migrations
                         CategoryID = c.Int(nullable: false),
                         UnitPrice = c.Decimal(nullable: false, storeType: "money"),
                         Picture = c.String(),
-                        Description = c.String(maxLength: 200),
+                        ProductDescription = c.String(),
                         Quantity = c.Int(nullable: false),
                         SalesPrice = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.ProductID)
-                .ForeignKey("dbo.Suppliers", t => t.SupplierID)
-                .ForeignKey("dbo.Categories", t => t.CategoryID)
+                .ForeignKey("dbo.Supplier", t => t.SupplierID)
+                .ForeignKey("dbo.Category", t => t.CategoryID)
                 .Index(t => t.SupplierID)
                 .Index(t => t.CategoryID);
             
             CreateTable(
-                "dbo.OrderDetails",
+                "dbo.OrderDetail",
                 c => new
                     {
                         ID = c.Int(nullable: false, identity: true),
@@ -60,7 +51,7 @@ namespace DotrA_Lab.Migrations
                     })
                 .PrimaryKey(t => t.ID)
                 .ForeignKey("dbo.Order", t => t.OrderID)
-                .ForeignKey("dbo.Products", t => t.ProductID)
+                .ForeignKey("dbo.Product", t => t.ProductID)
                 .Index(t => t.OrderID)
                 .Index(t => t.ProductID);
             
@@ -78,15 +69,15 @@ namespace DotrA_Lab.Migrations
                         OrderDate = c.DateTime(nullable: false),
                     })
                 .PrimaryKey(t => t.OrderID)
-                .ForeignKey("dbo.Members", t => t.MemberID)
+                .ForeignKey("dbo.Member", t => t.MemberID)
                 .ForeignKey("dbo.Payment", t => t.PaymentID)
-                .ForeignKey("dbo.Shippers", t => t.ShipperID)
+                .ForeignKey("dbo.Shipper", t => t.ShipperID)
                 .Index(t => t.MemberID)
                 .Index(t => t.ShipperID)
                 .Index(t => t.PaymentID);
             
             CreateTable(
-                "dbo.Members",
+                "dbo.Member",
                 c => new
                     {
                         MemberID = c.Int(nullable: false, identity: true),
@@ -96,12 +87,24 @@ namespace DotrA_Lab.Migrations
                         Email = c.String(nullable: false, maxLength: 50, unicode: false),
                         Address = c.String(nullable: false, maxLength: 50),
                         Phone = c.String(nullable: false, maxLength: 20, unicode: false),
+                        RoleID = c.Int(nullable: false),
                         HashCode = c.String(nullable: false, maxLength: 250, unicode: false),
                         EmailVerified = c.Boolean(nullable: false),
                         ActivationCode = c.Guid(nullable: false),
                         ResetPasswordCode = c.String(maxLength: 100),
                     })
-                .PrimaryKey(t => t.MemberID);
+                .PrimaryKey(t => t.MemberID)
+                .ForeignKey("dbo.MemberRole", t => t.RoleID)
+                .Index(t => t.RoleID);
+            
+            CreateTable(
+                "dbo.MemberRole",
+                c => new
+                    {
+                        RoleID = c.Int(nullable: false, identity: true),
+                        RoleName = c.String(nullable: false, maxLength: 10, fixedLength: true),
+                    })
+                .PrimaryKey(t => t.RoleID);
             
             CreateTable(
                 "dbo.Payment",
@@ -113,7 +116,7 @@ namespace DotrA_Lab.Migrations
                 .PrimaryKey(t => t.PaymentID);
             
             CreateTable(
-                "dbo.Shippers",
+                "dbo.Shipper",
                 c => new
                     {
                         ShipperID = c.Int(nullable: false, identity: true),
@@ -122,7 +125,7 @@ namespace DotrA_Lab.Migrations
                 .PrimaryKey(t => t.ShipperID);
             
             CreateTable(
-                "dbo.Suppliers",
+                "dbo.Supplier",
                 c => new
                     {
                         SupplierID = c.Int(nullable: false, identity: true),
@@ -136,29 +139,31 @@ namespace DotrA_Lab.Migrations
         
         public override void Down()
         {
-            DropForeignKey("dbo.Products", "CategoryID", "dbo.Categories");
-            DropForeignKey("dbo.Products", "SupplierID", "dbo.Suppliers");
-            DropForeignKey("dbo.OrderDetails", "ProductID", "dbo.Products");
-            DropForeignKey("dbo.Order", "ShipperID", "dbo.Shippers");
+            DropForeignKey("dbo.Product", "CategoryID", "dbo.Category");
+            DropForeignKey("dbo.Product", "SupplierID", "dbo.Supplier");
+            DropForeignKey("dbo.OrderDetail", "ProductID", "dbo.Product");
+            DropForeignKey("dbo.Order", "ShipperID", "dbo.Shipper");
             DropForeignKey("dbo.Order", "PaymentID", "dbo.Payment");
-            DropForeignKey("dbo.OrderDetails", "OrderID", "dbo.Order");
-            DropForeignKey("dbo.Order", "MemberID", "dbo.Members");
+            DropForeignKey("dbo.OrderDetail", "OrderID", "dbo.Order");
+            DropForeignKey("dbo.Order", "MemberID", "dbo.Member");
+            DropForeignKey("dbo.Member", "RoleID", "dbo.MemberRole");
+            DropIndex("dbo.Member", new[] { "RoleID" });
             DropIndex("dbo.Order", new[] { "PaymentID" });
             DropIndex("dbo.Order", new[] { "ShipperID" });
             DropIndex("dbo.Order", new[] { "MemberID" });
-            DropIndex("dbo.OrderDetails", new[] { "ProductID" });
-            DropIndex("dbo.OrderDetails", new[] { "OrderID" });
-            DropIndex("dbo.Products", new[] { "CategoryID" });
-            DropIndex("dbo.Products", new[] { "SupplierID" });
-            DropTable("dbo.Suppliers");
-            DropTable("dbo.Shippers");
+            DropIndex("dbo.OrderDetail", new[] { "ProductID" });
+            DropIndex("dbo.OrderDetail", new[] { "OrderID" });
+            DropIndex("dbo.Product", new[] { "CategoryID" });
+            DropIndex("dbo.Product", new[] { "SupplierID" });
+            DropTable("dbo.Supplier");
+            DropTable("dbo.Shipper");
             DropTable("dbo.Payment");
-            DropTable("dbo.Members");
+            DropTable("dbo.MemberRole");
+            DropTable("dbo.Member");
             DropTable("dbo.Order");
-            DropTable("dbo.OrderDetails");
-            DropTable("dbo.Products");
-            DropTable("dbo.Categories");
-            DropTable("dbo.Admin");
+            DropTable("dbo.OrderDetail");
+            DropTable("dbo.Product");
+            DropTable("dbo.Category");
         }
     }
 }

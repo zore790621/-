@@ -12,7 +12,7 @@ namespace DotrA_Lab.IOC.AutofacModule
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<CategoryService>().As<ICategoryService>();
-            builder.RegisterType<MemberRoloService>().As<IMemberRoloService>();
+            builder.RegisterType<MemberRoleService>().As<IMemberRoleService>();
             builder.RegisterType<MemberService>().As<IMemberService>();
             builder.RegisterType<OrderDetailService>().As<IOrderDetailService>();
             builder.RegisterType<OrderService>().As<IOrderService>();
@@ -20,6 +20,7 @@ namespace DotrA_Lab.IOC.AutofacModule
             builder.RegisterType<ProductService>().As<IProductService>();
             builder.RegisterType<ShipperService>().As<IShipperService>();
             builder.RegisterType<SupplierService>().As<ISupplierService>();
+            builder.RegisterType<AllService>().As<IAllService>();
 
             builder.RegisterGeneric(typeof(GenericService<>)).As(typeof(IService<>));
 

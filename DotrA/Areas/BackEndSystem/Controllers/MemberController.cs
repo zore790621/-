@@ -16,13 +16,13 @@ namespace DotrA.Areas.BackEndSystem.Controllers
     [SecuredOperationFilter(Roles = "admin")]
     public class MemberController : BaseController
     {
-        public MemberController(IUnitOfWork uof, ICategoryService cs, IMemberService ms, IMemberRoloService mrs, IOrderService os, IOrderDetailService ods, IPaymentService pay, IProductService ps, IShipperService ships, ISupplierService sups) : base(uof, cs, ms, mrs, os, ods, pay, ps, ships, sups)
+        public MemberController(IAllService all) : base(all)
         {
         }
 
         public ActionResult Index()
         {
-            var result = MS.GetListToViewModel<BESMemberView>(o => o.MemberRolo);
+            var result = All.MS().GetListToViewModel<BESMemberView>(o => o.MemberRole);
 
             return View(result);
         }
@@ -32,7 +32,7 @@ namespace DotrA.Areas.BackEndSystem.Controllers
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            var result = MS.GetSpecificDetailToViewModel<BESMemberView>(x => x.MemberID == id, o => o.MemberRolo);
+            var result = All.MS().GetSpecificDetailToViewModel<BESMemberView>(x => x.MemberID == id, o => o.MemberRole);
 
             if (result == null)
                 return HttpNotFound();
@@ -45,12 +45,12 @@ namespace DotrA.Areas.BackEndSystem.Controllers
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            var result = MS.GetSpecificDetailToViewModel<BESMemberView>(x => x.MemberID == id, o => o.MemberRolo);
+            var result = All.MS().GetSpecificDetailToViewModel<BESMemberView>(x => x.MemberID == id, o => o.MemberRole);
 
             if (result == null)
                 return HttpNotFound();
 
-            ViewBag.RoloNumber = new SelectList(UOF.Repository<MemberRolo>().Reads(), "RoloID", "RoloName", result.RoloID);
+            ViewBag.RoloNumber = new SelectList(All.UOF().Repository<MemberRole>().Reads(), "RoloID", "RoloName", result.RoleID);
 
             return View(result);
         }
@@ -61,10 +61,10 @@ namespace DotrA.Areas.BackEndSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                MS.UpdateViewModelToDatabase<BESMemberView>(source, x => x.MemberID == source.MemberID);
+                All.MS().UpdateViewModelToDatabase(source, x => x.MemberID == source.MemberID);
                 return RedirectToAction<MemberController>(x => x.Index());
             }
-            ViewBag.RoloNumber = new SelectList(UOF.Repository<MemberRolo>().Reads(), "RoloID", "RoloName", source.RoloID);
+            ViewBag.RoloNumber = new SelectList(All.UOF().Repository<MemberRole>().Reads(), "RoloID", "RoloName", source.RoleID);
             return View(source);
         }
 
@@ -73,7 +73,7 @@ namespace DotrA.Areas.BackEndSystem.Controllers
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            var result = MS.GetSpecificDetailToViewModel<BESMemberView>(x => x.MemberID == id);
+            var result = All.MS().GetSpecificDetailToViewModel<BESMemberView>(x => x.MemberID == id);
             if (result == null)
                 return HttpNotFound();
 
@@ -87,7 +87,7 @@ namespace DotrA.Areas.BackEndSystem.Controllers
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            MS.Delete(x => x.MemberID == id);
+            All.MS().Delete(x => x.MemberID == id);
 
             return RedirectToAction<MemberController>(x => x.Index());
         }
@@ -214,5 +214,6 @@ namespace DotrA.Areas.BackEndSystem.Controllers
         //}
         //#endregion
         #endregion
+
     }
 }

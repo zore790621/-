@@ -13,13 +13,13 @@ namespace DotrA.Areas.BackEndSystem.Controllers
     [SecuredOperationFilter(Roles = "admin")]
     public class CategoryController : BaseController
     {
-        public CategoryController(IUnitOfWork uof, ICategoryService cs, IMemberService ms, IMemberRoloService mrs, IOrderService os, IOrderDetailService ods, IPaymentService pay, IProductService ps, IShipperService ships, ISupplierService sups) : base(uof, cs, ms, mrs, os, ods, pay, ps, ships, sups)
+        public CategoryController(IAllService all) : base(all)
         {
         }
 
         public ActionResult Index()
         {
-            var result = CS.GetListToViewModel<BESCategoryView>();
+            var result = All.CS().GetListToViewModel<BESCategoryView>();
 
             return View(result);
         }
@@ -29,7 +29,7 @@ namespace DotrA.Areas.BackEndSystem.Controllers
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            var result = CS.GetSpecificDetailToViewModel<BESCategoryView>(x => x.CategoryID == id);
+            var result = All.CS().GetSpecificDetailToViewModel<BESCategoryView>(x => x.CategoryID == id);
 
             if (result == null)
                 return HttpNotFound();
@@ -48,8 +48,8 @@ namespace DotrA.Areas.BackEndSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                CS.CreateViewModelToDatabase<BESCategoryView>(source);
-                return RedirectToAction<CategoryController>(x=> x.Index());
+                All.CS().CreateViewModelToDatabase<BESCategoryView>(source);
+                return RedirectToAction<CategoryController>(x => x.Index());
             }
 
             return View(source);
@@ -60,7 +60,7 @@ namespace DotrA.Areas.BackEndSystem.Controllers
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            var result = CS.GetSpecificDetailToViewModel<BESCategoryView>(x => x.CategoryID == id);
+            var result = All.CS().GetSpecificDetailToViewModel<BESCategoryView>(x => x.CategoryID == id);
 
             if (result == null)
                 return HttpNotFound();
@@ -74,7 +74,7 @@ namespace DotrA.Areas.BackEndSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                CS.UpdateViewModelToDatabase<BESCategoryView>(source, x => x.CategoryID == source.CategoryID);
+                All.CS().UpdateViewModelToDatabase<BESCategoryView>(source, x => x.CategoryID == source.CategoryID);
                 return RedirectToAction<CategoryController>(x => x.Index());
             }
             return View(source);
@@ -85,7 +85,7 @@ namespace DotrA.Areas.BackEndSystem.Controllers
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            var result = CS.GetSpecificDetailToViewModel<BESCategoryView>(x => x.CategoryID == id);
+            var result = All.CS().GetSpecificDetailToViewModel<BESCategoryView>(x => x.CategoryID == id);
             if (result == null)
                 return HttpNotFound();
 
@@ -99,7 +99,7 @@ namespace DotrA.Areas.BackEndSystem.Controllers
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            CS.Delete(x => x.CategoryID == id);
+            All.CS().Delete(x => x.CategoryID == id);
 
             return RedirectToAction<CategoryController>(x => x.Index());
         }

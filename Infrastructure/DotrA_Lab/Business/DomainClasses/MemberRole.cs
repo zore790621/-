@@ -4,22 +4,22 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DotrA_Lab.Business.DomainClasses
 {
-    [Table("MemberRolo")]
-    public partial class MemberRolo
+    [Table("MemberRole")]
+    public partial class MemberRole
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public MemberRolo()
+        public MemberRole()
         {
             Member = new HashSet<Member>();
         }
 
         [Key]
-        public int RoloID { get; set; }
+        public int RoleID { get; set; }
 
         [Display(Name ="ลvญญ")]
         [Required]
         [StringLength(10)]
-        public string RoloName { get; set; }
+        public string RoleName { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Member> Member { get; set; }

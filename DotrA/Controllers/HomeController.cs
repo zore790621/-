@@ -10,7 +10,7 @@ namespace DotrA.Controllers
 {
     public class HomeController : BaseController
     {
-        public HomeController(IUnitOfWork uof, ICategoryService cs, IMemberService ms, IMemberRoloService mrs, IOrderService os, IOrderDetailService ods, IPaymentService pay, IProductService ps, IShipperService ships, ISupplierService sups) : base(uof, cs, ms, mrs, os, ods, pay, ps, ships, sups)
+        public HomeController(IAllService all) : base(all)
         {
         }
 

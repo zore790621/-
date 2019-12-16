@@ -39,7 +39,7 @@ namespace DotrA_Lab.Business.DomainClasses
         [StringLength(20)]
         public string Phone { get; set; }
 
-        public int RoloID { get; set; }
+        public int RoleID { get; set; }
 
         [Required]
         [StringLength(250)]
@@ -52,7 +52,7 @@ namespace DotrA_Lab.Business.DomainClasses
         [StringLength(100)]
         public string ResetPasswordCode { get; set; }
 
-        public virtual MemberRolo MemberRolo { get; set; }
+        public virtual MemberRole MemberRole { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Order { get; set; }

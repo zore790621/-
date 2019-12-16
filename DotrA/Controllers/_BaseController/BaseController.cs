@@ -11,39 +11,14 @@ namespace DotrA.Controllers
 {
     public class BaseController : Controller
     {
-        private readonly IUnitOfWork _uof;
-        private readonly ICategoryService _cs;
-        private readonly IMemberService _ms;
-        private readonly IMemberRoloService _mrs;
-        private readonly IOrderService _os;
-        private readonly IOrderDetailService _ods;
-        private readonly IPaymentService _pays;
-        private readonly IProductService _ps;
-        private readonly IShipperService _ships;
-        private readonly ISupplierService _sups;
-        protected IUnitOfWork UOF { get { return _uof; } }
-        protected ICategoryService CS { get { return _cs; } }
-        protected IMemberService MS { get { return _ms; } }
-        protected IMemberRoloService MRS { get { return _mrs; } }
-        protected IOrderService OS { get { return _os; } }
-        protected IOrderDetailService ODS { get { return _ods; } }
-        protected IPaymentService PAYS { get { return _pays; } }
-        protected IProductService PS { get { return _ps; } }
-        protected IShipperService SHIPS { get { return _ships; } }
-        protected ISupplierService SUPS { get { return _sups; } }
+        //private readonly IUnitOfWork _uof;
+        private readonly IAllService _all;
+        protected IAllService All { get { return _all; } }
         public BaseController(
-            IUnitOfWork uof, ICategoryService cs,
-            IMemberService ms, IMemberRoloService mrs,
-            IOrderService os, IOrderDetailService ods,
-            IPaymentService pay, IProductService ps,
-            IShipperService ships, ISupplierService sups
+            IAllService all
             )
         {
-            this._uof = uof; this._cs = cs;
-            this._ms = ms; this._mrs = mrs;
-            this._os = os; this._ods = ods;
-            this._pays = pay; this._ps = ps;
-            this._ships = ships; this._sups = sups;
+            this._all = all;
         }
         protected CoreJsonResult JsonValidationError()
         {

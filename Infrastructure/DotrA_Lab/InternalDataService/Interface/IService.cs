@@ -14,8 +14,6 @@ namespace DotrA_Lab.InternalDataService.Implementation
     public interface IService<T>
         where T : class
     {
-
-
         /// <summary>
         /// 取得Entity並且轉成對應的ViewModel
         /// </summary>

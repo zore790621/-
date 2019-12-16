@@ -19,14 +19,14 @@ namespace DotrA.Controllers
 {
     public class MemberController : BaseController
     {
-        public MemberController(IUnitOfWork uof, ICategoryService cs, IMemberService ms, IMemberRoloService mrs, IOrderService os, IOrderDetailService ods, IPaymentService pay, IProductService ps, IShipperService ships, ISupplierService sups) : base(uof, cs, ms, mrs, os, ods, pay, ps, ships, sups)
+        public MemberController(IAllService all) : base(all)
         {
         }
 
         [Authorize(Users = "admin")]//必須有授權/認證才能進入
         public ActionResult Index()
         {
-            return View(UOF.Repository<Member>().Reads());
+            return View(All.UOF().Repository<Member>().Reads());
         }
         #region ===註冊 Register===
         public ActionResult Register()
@@ -50,7 +50,7 @@ namespace DotrA.Controllers
                 #endregion
                 #region //檢查帳號是否已經存在
                 //var registerAccount = (from m in db.Members where m.MemberAccount.Equals(member.MemberAccount) select m).SingleOrDefault();
-                var registerAccount = MS.GetSpecificDetailToViewModel<MemberRegisterViewModel>(x => x.MemberAccount.Equals(source.MemberAccount), o => o.MemberRolo);
+                var registerAccount = All.MS().GetSpecificDetailToViewModel<MemberRegisterViewModel>(x => x.MemberAccount.Equals(source.MemberAccount), o => o.MemberRole);
                 if (registerAccount != null)
                 {
                     ModelState.AddModelError("AccountExist", "此帳號已經存在，請更換帳號!! This Account already registered.");
@@ -75,9 +75,9 @@ namespace DotrA.Controllers
 
                 DataModelToViewModel.GenericMapper(source, member);
 
-                member.RoloID = 4;
+                member.RoleID = 4;
 
-                MS.CreateViewModelToDatabase<Member>(member);
+                All.MS().CreateViewModelToDatabase<Member>(member);
                 #region //寄送帳號啟用信 Send Email to Account
                 SendVerifyOrResetEmail(member.Email, member.ActivationCode.ToString());
                 message = "註冊成功，驗證帳號連結已寄到您的信箱. Registration successfully done. Account activation link " +
@@ -94,7 +94,7 @@ namespace DotrA.Controllers
         [NonAction]
         public bool IsEmailExist(string email)
         {
-            var isExist = MS.GetSpecificDetailToViewModel<MemberRegisterViewModel>(x => x.Email == email, o => o.MemberRolo);
+            var isExist = All.MS().GetSpecificDetailToViewModel<MemberRegisterViewModel>(x => x.Email == email, o => o.MemberRole);
             return isExist != null;
         }
         #endregion
@@ -155,11 +155,11 @@ namespace DotrA.Controllers
         {
             bool Status = false;
 
-            var v = MS.GetSpecificDetailToViewModel<Member>(x => x.ActivationCode == new Guid(id));
+            var v = All.MS().GetSpecificDetailToViewModel<Member>(x => x.ActivationCode == new Guid(id));
             if (v != null)
             {
                 v.EmailVerified = true;
-                MS.UpdateViewModelToDatabase<Member>(v, x => x.EmailVerified);
+                All.MS().UpdateViewModelToDatabase<Member>(v, x => x.EmailVerified);
                 Status = true;
             }
             else
@@ -181,7 +181,7 @@ namespace DotrA.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginViewModel login)
         {
-            var user = MS.GetSpecificDetailToViewModel<Member>(x => x.MemberAccount == login.MemberAccount && x.Password != null);
+            var user = All.MS().GetSpecificDetailToViewModel<Member>(x => x.MemberAccount == login.MemberAccount && x.Password != null);
             if (user != null)
             {
                 if (!user.EmailVerified)
@@ -194,14 +194,14 @@ namespace DotrA.Controllers
                 var HCode = user.HashCode;
                 var encodingPasswordString = hash.EncodePassword(login.Password, HCode);
 
-                var Account = MS.GetSpecificDetailToViewModel<Member>(x => x.MemberAccount == login.MemberAccount && x.Password.Equals(encodingPasswordString));
+                var Account = All.MS().GetSpecificDetailToViewModel<Member>(x => x.MemberAccount == login.MemberAccount && x.Password.Equals(encodingPasswordString));
                 #endregion
                 if (Account != null)
                 {
                     #region ===驗證票證===
-                    var role = MRS.GetSpecificDetailToViewModel<MemberRolo>(x => x.RoloID == Account.RoloID);
+                    var role = All.MRS().GetSpecificDetailToViewModel<MemberRole>(x => x.RoleID == Account.RoleID);
 
-                    AuthenticationHelper.CreateAuthCookie(Account.MemberID, Account.Name, Account.Email, Account.Password, role.RoloName, login.RememberMe);
+                    AuthenticationHelper.CreateAuthCookie(Account.MemberID, Account.Name, Account.Email, Account.Password, role.RoleName, login.RememberMe);
                     #endregion
                     return RedirectToAction<HomeController>(x => x.Index());
                 }

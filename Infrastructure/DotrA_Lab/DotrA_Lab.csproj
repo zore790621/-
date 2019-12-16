@@ -57,11 +57,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Business\DomainClasses\Category.cs" />
+    <Compile Include="InternalDataService\All\AllService.cs" />
+    <Compile Include="InternalDataService\All\IAllService.cs" />
     <Compile Include="InternalDataService\DataModelToViewModel.cs" />
-    <Compile Include="InternalDataService\Implementation\GenericService.cs" />
+    <Compile Include="InternalDataService\Interface\GenericService.cs" />
     <Compile Include="InternalDataService\Implementation\CategoryService.cs" />
     <Compile Include="InternalDataService\Implementation\IValidationDictionary.cs" />
-    <Compile Include="InternalDataService\Implementation\MemberRoloService.cs" />
+    <Compile Include="InternalDataService\Implementation\MemberRoleService.cs" />
     <Compile Include="InternalDataService\Implementation\MemberService.cs" />
     <Compile Include="InternalDataService\Implementation\OrderDetailService.cs" />
     <Compile Include="InternalDataService\Implementation\PaymentService.cs" />
@@ -72,9 +74,9 @@
     <Compile Include="InternalDataService\Implementation\OrderService.cs" />
     <Compile Include="IOC\AutofacModule\DataServiceModule.cs" />
     <Compile Include="IOC\AutofacModule\OrmModule.cs" />
-    <Compile Include="Migrations\201912140812378_Initial.cs" />
-    <Compile Include="Migrations\201912140812378_Initial.Designer.cs">
-      <DependentUpon>201912140812378_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201912162030067_init.cs" />
+    <Compile Include="Migrations\201912162030067_init.Designer.cs">
+      <DependentUpon>201912162030067_init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ORM\Context\DotrADbContext.cs" />
@@ -83,7 +85,7 @@
     <Compile Include="Business\DomainClasses\Order.cs" />
     <Compile Include="Business\DomainClasses\Payment.cs" />
     <Compile Include="Business\DomainClasses\Product.cs" />
-    <Compile Include="Business\DomainClasses\MemberRolo.cs" />
+    <Compile Include="Business\DomainClasses\MemberRole.cs" />
     <Compile Include="ORM\RepositoryPattern\GenericRepository.cs" />
     <Compile Include="ORM\RepositoryPattern\IGenericRepository.cs" />
     <Compile Include="ORM\UnitOfWorkPattern\DatabaseValidationErrors.cs" />
@@ -99,10 +101,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201912140812378_Initial.resx">
-      <DependentUpon>201912140812378_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201912162030067_init.resx">
+      <DependentUpon>201912162030067_init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

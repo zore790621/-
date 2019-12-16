@@ -1066,6 +1066,7 @@
     <Content Include="Areas\BackEndSystem\Views\Member\Index.cshtml" />
     <Content Include="Areas\BackEndSystem\Views\Member\Edit.cshtml" />
     <Content Include="Areas\BackEndSystem\Views\Home\Index.cshtml" />
+    <Content Include="Areas\BackEndSystem\Views\Category\Index.cshtml" />
     <None Include="Scripts\jquery-1.4.4-vsdoc.js" />
     <Content Include="Scripts\jquery-1.4.4.js" />
     <Content Include="Scripts\jquery-1.4.4.min.js" />
