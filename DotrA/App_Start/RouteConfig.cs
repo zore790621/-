@@ -16,7 +16,8 @@ namespace DotrA
             routes.MapRoute(
                 name: "Error",
                 url: "Error/{action}",
-                defaults: new { controller = "Error", action = "Error" }
+                defaults: new { controller = "Error", action = "Error" },
+                namespaces: new string[] { "DotrA.Controllers" }
                 );
             routes.MapRoute(
                 name: "Default",

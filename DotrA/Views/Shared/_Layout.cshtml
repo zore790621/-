@@ -257,6 +257,7 @@
     <script src="@Url.Content("/Assets/minishop/js/main.js")"></script>
 
     @RenderSection("endScripts", required: false)
+    @RenderSection("Scripts", required: false)
     @if (TempData["Message"] != null)
     {
         <script type="text/javascript">

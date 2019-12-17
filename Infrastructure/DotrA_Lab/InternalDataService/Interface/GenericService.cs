@@ -92,6 +92,18 @@ namespace DotrA_Lab.InternalDataService.Implementation
         }
 
         /// <summary>
+        /// 取得是否存在
+        /// </summary>
+        /// <param name="wherePredicate">過濾邏輯</param>
+        /// <returns>取得是否存在</returns>
+        public virtual bool CheckNullable(Expression<Func<T, bool>> wherePredicate)
+        {
+            var data = db.Repository<T>().Read(wherePredicate);
+
+            return data != null;
+        }
+
+        /// <summary>
         /// 取得某一個條件下面的某一筆Entity並且轉成對應的ViewModel
         /// </summary>
         /// <typeparam name="TViewModel">ViewModel的形態</typeparam>
@@ -101,7 +113,6 @@ namespace DotrA_Lab.InternalDataService.Implementation
         public virtual TViewModel GetSpecificDetailToViewModel<TViewModel>(Expression<Func<T, bool>> wherePredicate, params Expression<Func<T, object>>[] includes)
         {
             var data = db.Repository<T>().Reads();
-
             foreach (var item in includes)
                 data.Include(item);
 
@@ -120,7 +131,7 @@ namespace DotrA_Lab.InternalDataService.Implementation
         {
             var entity = db.Repository<T>().Read(wherePredicate);
 
-            var result = DataModelToViewModel.GenericMapper<TViewModel, T>(viewModel, entity);
+            var result = DataModelToViewModel.GenericMapper(viewModel, entity);
 
             db.Repository<T>().Update(result);
 
@@ -151,10 +162,10 @@ namespace DotrA_Lab.InternalDataService.Implementation
         public void CreateViewModelToDatabase<TViewModel>(TViewModel viewModel)
         {
             var entity = DataModelToViewModel.GenericMapper<TViewModel, T>(viewModel);
-
             db.Repository<T>().Create(entity);
 
             db.SaveChanges();
         }
+        public T GetFirst(Expression<Func<T, bool>> wherePredicate) => db.Repository<T>().Read(wherePredicate);
     }
 }

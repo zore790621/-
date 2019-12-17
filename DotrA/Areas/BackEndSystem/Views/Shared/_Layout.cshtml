@@ -37,9 +37,9 @@
     <script type="text/javascript">
         jQuery(function () {
             var CN = "@HttpContext.Current.Request.RequestContext.RouteData.Values["Controller"].ToString()";
-            if (CN == "Admin"|| CN == "Members")
+            if (CN == "Admin"|| CN == "Member")
                 jQuery(".AccountGroup").addClass("active");
-            else if (CN == "Categories" || CN == "Suppliers" || CN == "Products")
+            else if (CN == "Category" || CN == "Supplier" || CN == "Product")
                 jQuery(".ProductGroup").addClass("active");
             else if (CN == "Order")
                 jQuery(".OrderGroup").addClass("active");

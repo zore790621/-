@@ -57,12 +57,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Business\DomainClasses\Category.cs" />
+    <Compile Include="InternalDataService\Hash.cs" />
     <Compile Include="InternalDataService\All\AllService.cs" />
     <Compile Include="InternalDataService\All\IAllService.cs" />
     <Compile Include="InternalDataService\DataModelToViewModel.cs" />
     <Compile Include="InternalDataService\Interface\GenericService.cs" />
     <Compile Include="InternalDataService\Implementation\CategoryService.cs" />
-    <Compile Include="InternalDataService\Implementation\IValidationDictionary.cs" />
+    <Compile Include="InternalDataService\Interface\IValidationDictionary.cs" />
     <Compile Include="InternalDataService\Implementation\MemberRoleService.cs" />
     <Compile Include="InternalDataService\Implementation\MemberService.cs" />
     <Compile Include="InternalDataService\Implementation\OrderDetailService.cs" />

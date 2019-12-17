@@ -1,8 +1,20 @@
 ﻿
 @{
     ViewBag.Title = "VerifyAccount";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+<div class="hero-wrap hero-bread" style="background-image:url(@Url.Content("~/Assets/Images/Logo/logo.png"))">
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center">
+            <div class="col-md-9 ftco-animate text-center">
+                <p class="breadcrumbs">
+                    <span class="mr-2"><a href="@Url.Action("Index","Home")">DotrA</a></span>
+                    <h1 class="mb-0 bread">Registration</h1>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
 <section class="ftco-section bg-light">
     <h2 class="text-center">VerifyAccount</h2>
 
@@ -14,10 +26,9 @@
                 <br />
                 <strong>Success!</strong> Your account has been activated successfully.
                 <br />
-                <a class="btn " href="@Url.Action("Login","Members")"
-                   role="button">Back To Home</a>
+                <a class="btn " href="@Url.Action("Login","Member")" role="button">Back To Home</a>
                 @*<a class="btn " href="@Url.Action("SendVerifyOrResetEmail","Members")"
-        role="button">Click To Login</a>*@
+                    role="button">Click To Login</a>*@
             </div>
         </div>
     }
@@ -30,6 +41,8 @@
         </div>
     }
 </section>
-@section topCss{
-    <link href="~/Assets/css/VerifyAccount.css" rel="stylesheet" />
+@section endScripts{
+    <script language="javascript">
+        setTimeout("location.href='/';", 1000);
+    </script>
 }

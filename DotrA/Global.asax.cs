@@ -31,6 +31,7 @@ namespace DotrA
             PostAuthenticateRequest += MvcApplication_PostAuthenticateRequest;
             base.Init();
         }
+        #region ½Æ¼gFormsAuthentication
         private void MvcApplication_PostAuthenticateRequest(object sender, EventArgs e)
         {
             try
@@ -59,5 +60,6 @@ namespace DotrA
             {
             }
         }
+        #endregion
     }
 }

@@ -1,11 +1,9 @@
 ﻿using DotrA.Filters;
 using DotrA.Models.Member;
-using DotrA.Service;
 using DotrA.Service.Security.Web;
 using DotrA_Lab.Business.DomainClasses;
 using DotrA_Lab.InternalDataService;
 using DotrA_Lab.InternalDataService.Implementation;
-using DotrA_Lab.ORM.UnitOfWorkPattern;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,48 +39,27 @@ namespace DotrA.Controllers
             if (ModelState.IsValid)
             {
                 #region //檢查信箱是否已經存在
-                var isExist = IsEmailExist(source.Email);
-                if (isExist)
+                if (All.MS().CheckNullable(x => x.Email == source.Email))
                 {
                     ModelState.AddModelError("EmailExist", "Email已經存在請更換!! This Email already exist");
                     return View();
                 }
                 #endregion
                 #region //檢查帳號是否已經存在
-                //var registerAccount = (from m in db.Members where m.MemberAccount.Equals(member.MemberAccount) select m).SingleOrDefault();
-                var registerAccount = All.MS().GetSpecificDetailToViewModel<MemberRegisterViewModel>(x => x.MemberAccount.Equals(source.MemberAccount), o => o.MemberRole);
-                if (registerAccount != null)
+                if (All.MS().CheckNullable(x => x.MemberAccount.Equals(source.MemberAccount)))
                 {
                     ModelState.AddModelError("AccountExist", "此帳號已經存在，請更換帳號!! This Account already registered.");
                     //ViewBag.Message = "此帳號已經存在，請更換帳號!!";
                     return View();
                 }
-
                 #endregion
-                var member = new Member();
 
-                #region //產生 Activation Code 
-                member.ActivationCode = Guid.NewGuid();
-                //var keyNew = hash.GeneratePassword(10);
-                #endregion
-                #region //hash 加密
-                var keyNew = hash.GeneratePassword(10);
-                member.HashCode = keyNew;
-                var password = hash.EncodePassword(member.Password, keyNew);
-                member.Password = password;
-                #endregion
-                member.EmailVerified = false;//註冊時將Email認證設為false
+                string ActivationCode = All.MS().AddMember(source, source.Password);
 
-                DataModelToViewModel.GenericMapper(source, member);
-
-                //初始權限為Guest
-                member.RoleID = 4;
-
-                All.MS().CreateViewModelToDatabase<Member>(member);
                 #region //寄送帳號啟用信 Send Email to Account
-                SendVerifyOrResetEmail(member.Email, member.ActivationCode.ToString());
+                SendVerifyOrResetEmail(source.Email, ActivationCode);
                 message = "註冊成功，驗證帳號連結已寄到您的信箱. Registration successfully done. Account activation link " +
-                    " has been sent to your Email : " + member.Email; /*"恭喜!!  " + member.MemberAccount + "  已成功註冊"*/
+                    " has been sent to your Email : " + source.Email; /*"恭喜!!  " + member.MemberAccount + "  已成功註冊"*/
                 #endregion
 
                 ModelState.Clear();//清除 (包含錯誤訊息與模型繫結的資料都會被清空)
@@ -91,14 +68,6 @@ namespace DotrA.Controllers
             }
             return View();
         }
-        #region ===判斷Email存在 IsEmailExist===
-        [NonAction]
-        public bool IsEmailExist(string email)
-        {
-            var isExist = All.MS().GetSpecificDetailToViewModel<MemberRegisterViewModel>(x => x.Email == email, o => o.MemberRole);
-            return isExist != null;
-        }
-        #endregion
         #region ===寄送驗證Email/重設密碼Email SendVerificationLinkEmailorSendResetPasswordLinkEmail===
         [NonAction]
         public void SendVerifyOrResetEmail(string Email, string activationCode, string emailFor = "VerifyAccount")
@@ -157,13 +126,13 @@ namespace DotrA.Controllers
             bool Status = false;
             if (Guid.TryParse(id, out Guid go))
             {
-                var Account = All.MS().GetSpecificDetailToViewModel<Member>(x => x.ActivationCode == go);
-                if (Account != null)
+                if (All.MS().CheckNullable(x => x.ActivationCode == go))
                 {
-                    Account.EmailVerified = true;
-                    All.MS().UpdateViewModelToDatabase(Account, x => x.MemberID == Account.MemberID);
+                    var Account = All.MS().GetFirst(x => x.ActivationCode == go);
+                    All.MS().VerifyAccount(Account);
+                    var role = All.MRS().GetUserRole(Account.RoleID);
 
-                    AuthenticationHelper.CreateAuthCookie(Account.MemberID, Account.Name, Account.Email, Account.Password, role.RoleName, login.RememberMe);
+                    AuthenticationHelper.CreateAuthCookie(Account.MemberID, Account.Name, Account.Email, Account.Password, role.RoleName);
                     Status = true;
                 }
                 else
@@ -184,29 +153,24 @@ namespace DotrA.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Login(LoginViewModel login)
+        public ActionResult Login(LoginViewModel source)
         {
-            var user = All.MS().GetSpecificDetailToViewModel<Member>(x => x.MemberAccount == login.MemberAccount && x.Password != null);
-            if (user != null)
+            if (All.MS().CheckNullable(x => x.MemberAccount == source.MemberAccount && x.Password != null))
             {
-                if (!user.EmailVerified)
+                if (!All.MS().CheckEmailVerify(source.MemberAccount))
                 {
                     TempData["Message"] = "請先到信箱啟動驗證. Please verify your email first.";
                     return Redirect(Request.UrlReferrer.ToString());
                 }
 
-                #region 加密比較
-                var HCode = user.HashCode;
-                var encodingPasswordString = hash.EncodePassword(login.Password, HCode);
+                var Account = All.MS().UserLogin(source.MemberAccount, source.Password);
 
-                var Account = All.MS().GetSpecificDetailToViewModel<Member>(x => x.MemberAccount == login.MemberAccount && x.Password.Equals(encodingPasswordString));
-                #endregion
                 if (Account != null)
                 {
                     #region ===驗證票證===
-                    var role = All.MRS().GetSpecificDetailToViewModel<MemberRole>(x => x.RoleID == Account.RoleID);
+                    var role = All.MRS().GetUserRole(Account.RoleID);
 
-                    AuthenticationHelper.CreateAuthCookie(Account.MemberID, Account.Name, Account.Email, Account.Password, role.RoleName, login.RememberMe);
+                    AuthenticationHelper.CreateAuthCookie(Account.MemberID, Account.Name, Account.Email, Account.Password, role.RoleName, source.RememberMe);
                     #endregion
                     return RedirectToAction<HomeController>(x => x.Index());
                 }
@@ -218,7 +182,7 @@ namespace DotrA.Controllers
         }
 
 
-
+        [SecuredOperationFilter(Roles = "admin")]
         public ActionResult LoggedIn()
         {
             if (User.Identity.IsAuthenticated)
@@ -233,6 +197,43 @@ namespace DotrA.Controllers
             return RedirectToAction("Index", "Home");
         }
         #endregion
+        [Authorize]
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
+            var member = All.MS().GetSpecificDetailToViewModel<MemberModifyViewModel>(x => x.MemberID == id, x => x.MemberRole);
+
+            if (member == null)
+                return HttpNotFound();
+
+            return View(member);
+        }
+
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(MemberModifyViewModel source)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = All.MS().GetFirst(x => x.MemberID == ((DotrA.Service.Security.Identity)User.Identity).Id);
+                var hashpassword = Hash.EncodePassword(source.Password, user.HashCode);
+                if (All.MS().CheckNullable(x => x.MemberAccount == source.MemberAccount && x.Password == hashpassword))
+                {
+                    if (source.RePassword == null)
+                    {
+                        source.Password = hashpassword;
+                        All.MS().UpdateViewModelToDatabase(source, x => x.MemberID == ((DotrA.Service.Security.Identity)User.Identity).Id);
+                    }
+                    else
+                        All.MS().MemberMoidfyPassword(source, ((DotrA.Service.Security.Identity)User.Identity).Id, source.RePassword);
+                    return RedirectToAction<HomeController>(x => x.Index());
+                }
+                ModelState.AddModelError("Password", "原始密碼錯誤");
+            }
+            return View(source);
+        }
     }
 }

@@ -9,10 +9,10 @@ namespace DotrA.Service.Security.Web
 {
     public class AuthenticationHelper
     {
-        public static void CreateAuthCookie(int id, string name, string email, string password, string role, bool status)
+        public static void CreateAuthCookie(int id, string name, string email, string password, string role, bool status =false)
         {
             int timeout = status ? 525600 : 20;
-            var authTicket = new FormsAuthenticationTicket(1, name, DateTime.Now, DateTime.Now.AddDays(1), false, CreateAuthTags(id, name, email, password, role, status, timeout));
+            var authTicket = new FormsAuthenticationTicket(1, name, DateTime.Now, DateTime.Now.AddDays(1),false, CreateAuthTags(id, name, email, password, role, status, timeout));
             string encTicket = FormsAuthentication.Encrypt(authTicket);
             HttpContext.Current.Response.Cookies.Add(new HttpCookie(FormsAuthentication.FormsCookieName, encTicket)
             {

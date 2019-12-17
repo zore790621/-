@@ -71,5 +71,14 @@ namespace DotrA_Lab.InternalDataService.Implementation
         /// <param name="wherePredicate">過濾出要被刪除的Entity條件</param>
         /// <returns>是否刪除成功</returns>
         void Delete(Expression<Func<T, bool>> wherePredicate);
+
+        /// <summary>
+        /// 查閱是否存在
+        /// </summary>
+        /// <param name="includes"></param>
+        /// <returns></returns>
+        bool CheckNullable(Expression<Func<T, bool>> includes);
+
+        T GetFirst(Expression<Func<T, bool>> wherePredicate);
     }
 }

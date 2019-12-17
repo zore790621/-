@@ -12,6 +12,7 @@ namespace DotrA.Service.Security.Web
         {
             var identity = new Identity
             {
+                Name = SetName(ticket),
                 Id = SetId(ticket),
                 MemberName = SetName(ticket),
                 Email = SetEmail(ticket),

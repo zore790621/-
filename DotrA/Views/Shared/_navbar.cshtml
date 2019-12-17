@@ -13,22 +13,29 @@
                 <li class="nav-item home-tag">@Html.ActionLink("Shop", "Index", "Shop", new { id = Session["MemberID"] }, new { @class = "nav-link" })</li>
                 <li class="nav-item home-tag">@Html.ActionLink("About", "About", "Home", null, new { @class = "nav-link" })</li>
                 @if (User.Identity.IsAuthenticated)
-                //是否通過驗證 //User.Identity.IsAuthenticated、Request.IsAuthenticated
-                {                                                        //User.Identity.Name 可擷取目前登入的使用者帳戶資訊
-                    <li class="nav-item">@Html.ActionLink("HiHi!! " + ((DotrA.Service.Security.Identity)User.Identity).MemberName, "Index", "Home", null, htmlAttributes: new { @class = "nav-link" })</li>
-                    <li id="Cart" class="nav-item cta cta-colored dropdown">@Html.Partial("_CartPartial")</li>
-                    <li class="nav-item">@Html.ActionLink("Logout", "Logout", "Member", null, new { @class = "nav-link" })</li>
+                {
+                    <li class="nav-item dropdown ">
+                        <a class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="icon-user-md">
+                                @(((DotrA.Service.Security.Identity)User.Identity).MemberName)
+                            </span>
+                        </a>
+                        <div class="dropdown-menu " aria-labelledby="dropdown01">
+                            <a class="dropdown-item " href="@Url.Action("Edit","Member",new { id = ((DotrA.Service.Security.Identity)User.Identity).Id},"https")">修改個人資料</a>
+                            <a class="dropdown-item " href="@Url.Action("Logout","Member")">登出</a>
+                        </div>
+                    </li>
+                    <li id="Cart" class="nav-item cta-colored dropdown">@Html.Partial("_CartPartial")</li>
                 }
                 else
                 {
-                    <li class="nav-item dropdown ">
+                    <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-users"></i>Register/Login
+                            <i class="fas fa-users"></i>註冊/登入
                         </a>
-                        <div class="dropdown-menu " aria-labelledby="dropdown04">
-                            <a class="dropdown-item " href="@Url.Action("Register","Member")">Register</a>
-                            @*<a class="dropdown-item " href="@Url.Action("Login","Members")">Login</a>*@
-                            <a class="dropdown-item " data-toggle="modal" data-target="#LoginModal">Login</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdown04">
+                            <a class="dropdown-item" href="@Url.Action("Register","Member")">註冊</a>
+                            <a class="dropdown-item" data-toggle="modal" data-target="#LoginModal">登入</a>
                         </div>
                     </li>
                 }

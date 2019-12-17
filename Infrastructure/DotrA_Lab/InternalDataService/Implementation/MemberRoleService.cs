@@ -8,12 +8,20 @@ namespace DotrA_Lab.InternalDataService.Implementation
 {
     public interface IMemberRoleService : IService<MemberRole>
     {
+        MemberRole GetUserRole(int memberRoleID);
     }
     public class MemberRoleService
         : GenericService<MemberRole>, IMemberRoleService
     {
         public MemberRoleService(IUnitOfWork db)
             : base(db) { }
+
+        public MemberRole GetUserRole(int memberRoleID)
+        {
+            var data = db.Repository<MemberRole>().Read(x=>x.RoleID == memberRoleID);
+
+            return data;
+        }
 
         public override void Delete(Expression<Func<MemberRole, bool>> wherePredicate)
         {
