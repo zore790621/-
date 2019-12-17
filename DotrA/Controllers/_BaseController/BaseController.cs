@@ -11,7 +11,6 @@ namespace DotrA.Controllers
 {
     public class BaseController : Controller
     {
-        //private readonly IUnitOfWork _uof;
         private readonly IAllService _all;
         protected IAllService All { get { return _all; } }
         public BaseController(

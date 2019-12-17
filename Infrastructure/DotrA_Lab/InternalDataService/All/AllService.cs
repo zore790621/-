@@ -38,7 +38,8 @@ namespace DotrA_Lab.InternalDataService.Implementation
 
         public AllService(
             IUnitOfWork uof, ICategoryService cs, IMemberRoleService mrs, IMemberService ms, IOrderService os,
-            IOrderDetailService ods, IPaymentService pay, IProductService ps, IShipperService ships, ISupplierService sups
+            IOrderDetailService ods, IPaymentService pay, IProductService ps, IShipperService ships, ISupplierService sups,
+            DbContext context
             )
         {
             this._uof = uof ?? throw new ArgumentNullException();
@@ -51,6 +52,7 @@ namespace DotrA_Lab.InternalDataService.Implementation
             this._ps = ps ?? throw new ArgumentNullException();
             this._ships = ships ?? throw new ArgumentNullException();
             this._sups = sups ?? throw new ArgumentNullException();
+            this._context = context ?? throw new ArgumentException();
         }
 
         IUnitOfWork IAllService.UOF() => this._uof;

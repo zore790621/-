@@ -20,7 +20,7 @@ namespace DotrA.Controllers
 
             return View();
         }
-        public ActionResult Index2()
+        public ActionResult About()
         {
             return View();
         }

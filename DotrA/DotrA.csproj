@@ -182,6 +182,8 @@
     <Compile Include="Areas\ElaAdmin\ElaAdminAreaRegistration.cs" />
     <Compile Include="Areas\minishop\minishopAreaRegistration.cs" />
     <Compile Include="Controllers\MemberController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\ShopController.cs" />
     <Compile Include="Controllers\_BaseController\BaseApiController.cs" />
     <Compile Include="Controllers\_BaseController\BaseController.cs" />
     <Compile Include="Areas\ElaAdmin\Controllers\ElaAdminController.cs" />
@@ -1133,12 +1135,15 @@
     <Content Include="Views\Shared\_LoginModal.cshtml" />
     <Content Include="Views\Member\Register.cshtml" />
     <Content Include="Views\Member\VerifyAccount.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\BackEndSystem\Data\" />
     <Folder Include="Areas\ElaAdmin\Data\" />
     <Folder Include="Areas\minishop\Data\" />
+    <Folder Include="Views\Product\" />
+    <Folder Include="Views\Shop\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\ElaAdmin\Views\web.config" />

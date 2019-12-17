@@ -103,9 +103,7 @@ namespace DotrA_Lab.InternalDataService.Implementation
             var data = db.Repository<T>().Reads();
 
             foreach (var item in includes)
-            {
                 data.Include(item);
-            }
 
             return DataModelToViewModel.GenericMapper<T, TViewModel>(data.Where(wherePredicate).FirstOrDefault());
         }

@@ -23,7 +23,7 @@ namespace DotrA.Controllers
         {
         }
 
-        [Authorize(Users = "admin")]//必須有授權/認證才能進入
+        [SecuredOperationFilter(Roles = "admin")]
         public ActionResult Index()
         {
             return View(All.UOF().Repository<Member>().Reads());
@@ -75,6 +75,7 @@ namespace DotrA.Controllers
 
                 DataModelToViewModel.GenericMapper(source, member);
 
+                //初始權限為Guest
                 member.RoleID = 4;
 
                 All.MS().CreateViewModelToDatabase<Member>(member);
@@ -102,7 +103,7 @@ namespace DotrA.Controllers
         [NonAction]
         public void SendVerifyOrResetEmail(string Email, string activationCode, string emailFor = "VerifyAccount")
         {
-            var verifyUrl = "/Members/" + emailFor + "/" + activationCode;
+            var verifyUrl = "/Member/" + emailFor + "/" + activationCode;
             var link = Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, verifyUrl);
 
             var fromEmail = new MailAddress("minishopbs@gmail.com", "MiniShop");
@@ -154,18 +155,22 @@ namespace DotrA.Controllers
         public ActionResult VerifyAccount(string id)
         {
             bool Status = false;
-
-            var v = All.MS().GetSpecificDetailToViewModel<Member>(x => x.ActivationCode == new Guid(id));
-            if (v != null)
+            if (Guid.TryParse(id, out Guid go))
             {
-                v.EmailVerified = true;
-                All.MS().UpdateViewModelToDatabase<Member>(v, x => x.EmailVerified);
-                Status = true;
+                var Account = All.MS().GetSpecificDetailToViewModel<Member>(x => x.ActivationCode == go);
+                if (Account != null)
+                {
+                    Account.EmailVerified = true;
+                    All.MS().UpdateViewModelToDatabase(Account, x => x.MemberID == Account.MemberID);
+
+                    AuthenticationHelper.CreateAuthCookie(Account.MemberID, Account.Name, Account.Email, Account.Password, role.RoleName, login.RememberMe);
+                    Status = true;
+                }
+                else
+                    ViewBag.Message = "無效的操作。Invalid Request.";
             }
             else
-            {
                 ViewBag.Message = "無效的操作。Invalid Request.";
-            }
 
             ViewBag.Status = Status;
             return View();
