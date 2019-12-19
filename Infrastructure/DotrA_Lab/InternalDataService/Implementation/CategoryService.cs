@@ -18,9 +18,15 @@ namespace DotrA_Lab.InternalDataService.Implementation
         public override void Delete(Expression<Func<Category, bool>> wherePredicate)
         {
             var data = db.Repository<Category>().Read(wherePredicate);
+            var imagebase1 = db.Repository<ImageBase>().Reads().Where(x => x.CatgoryID == data.CategoryID);
+            foreach (var dimage in imagebase1) 
+                db.Repository<ImageBase>().Delete(dimage);
             var target1 = db.Repository<Product>().Reads().Where(x => x.CategoryID == data.CategoryID);
             foreach (var a in target1)
             {
+                var imagebase2 = db.Repository<ImageBase>().Reads().Where(x => x.ProductID == a.ProductID);
+                foreach (var dimage in imagebase2)
+                    db.Repository<ImageBase>().Delete(dimage);
                 var target2 = db.Repository<OrderDetail>().Reads().Where(x => x.ProductID == a.ProductID);
                 foreach (var b in target2)
                     db.Repository<OrderDetail>().Delete(b);

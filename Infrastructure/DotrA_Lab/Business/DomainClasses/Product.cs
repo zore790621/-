@@ -10,6 +10,7 @@ namespace DotrA_Lab.Business.DomainClasses
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Product()
         {
+            ImageBase = new HashSet<ImageBase>();
             OrderDetail = new HashSet<OrderDetail>();
         }
 
@@ -26,8 +27,6 @@ namespace DotrA_Lab.Business.DomainClasses
         [Column(TypeName = "money")]
         public decimal UnitPrice { get; set; }
 
-        public string Picture { get; set; }
-
         public string ProductDescription { get; set; }
 
         public int Quantity { get; set; }
@@ -35,6 +34,9 @@ namespace DotrA_Lab.Business.DomainClasses
         public int SalesPrice { get; set; }
 
         public virtual Category Category { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ImageBase> ImageBase { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderDetail> OrderDetail { get; set; }

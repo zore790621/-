@@ -11,7 +11,9 @@ namespace DotrA_Lab.ORM.Context
 
             Database.Connection.ConnectionString = Parameters.ConnectionString;
         }
+
         public virtual DbSet<Category> Category { get; set; }
+        public virtual DbSet<ImageBase> ImageBase { get; set; }
         public virtual DbSet<Member> Member { get; set; }
         public virtual DbSet<MemberRole> MemberRole { get; set; }
         public virtual DbSet<Order> Order { get; set; }
@@ -23,6 +25,11 @@ namespace DotrA_Lab.ORM.Context
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Category>()
+                .HasMany(e => e.ImageBase)
+                .WithOptional(e => e.Category)
+                .HasForeignKey(e => e.CatgoryID);
+
             modelBuilder.Entity<Category>()
                 .HasMany(e => e.Product)
                 .WithRequired(e => e.Category)

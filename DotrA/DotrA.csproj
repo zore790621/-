@@ -199,7 +199,7 @@
     <Compile Include="Models\Cart\CartMath.cs" />
     <Compile Include="Models\Cart\Operation.cs" />
     <Compile Include="Models\Member\LoginViewModel.cs" />
-    <Compile Include="Models\Member\MemberDetialViewModel.cs" />
+    <Compile Include="Models\Member\MemberRegisterViewModel.cs" />
     <Compile Include="Models\Member\MemberModifyViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service\Json\CoreJsonResult.cs" />
@@ -212,6 +212,10 @@
     <Content Include="Assets\css\Glow.css" />
     <Content Include="Assets\css\MemberStyle.css" />
     <Content Include="Assets\css\style.css" />
+    <Content Include="Assets\css\zoomify.css" />
+    <Content Include="Assets\js\zoomify.js" />
+    <Content Include="Assets\css\zoomify.min.css" />
+    <Content Include="Assets\js\zoomify.min.js" />
     <Content Include="Assets\ElaAdmin\css\bootstrap.min.css" />
     <Content Include="Assets\ElaAdmin\css\chartist.min.css" />
     <Content Include="Assets\ElaAdmin\css\cs-skin-elastic.css" />
@@ -1066,11 +1070,13 @@
     <Content Include="Areas\BackEndSystem\Views\Shared\_footer.cshtml" />
     <Content Include="Areas\BackEndSystem\Views\Shared\_header.cshtml" />
     <Content Include="Areas\BackEndSystem\Views\Shared\_breadcrumbs.cshtml" />
-    <Content Include="Areas\BackEndSystem\Views\Member\Create.cshtml" />
     <Content Include="Areas\BackEndSystem\Views\Member\Index.cshtml" />
     <Content Include="Areas\BackEndSystem\Views\Member\Edit.cshtml" />
     <Content Include="Areas\BackEndSystem\Views\Home\Index.cshtml" />
     <Content Include="Areas\BackEndSystem\Views\Category\Index.cshtml" />
+    <Content Include="Areas\BackEndSystem\Views\Member\Delete.cshtml" />
+    <Content Include="App_Code\Helper.cshtml" />
+    <Content Include="Areas\BackEndSystem\Views\Category\_Create.cshtml" />
     <None Include="Scripts\jquery-1.4.4-vsdoc.js" />
     <Content Include="Scripts\jquery-1.4.4.js" />
     <Content Include="Scripts\jquery-1.4.4.min.js" />

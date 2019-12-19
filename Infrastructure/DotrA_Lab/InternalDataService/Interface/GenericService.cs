@@ -148,7 +148,6 @@ namespace DotrA_Lab.InternalDataService.Implementation
         {
             var data = db.Repository<T>().Read(wherePredicate);
             db.Repository<T>().Delete(data);
-
             db.SaveChanges();
         }
 

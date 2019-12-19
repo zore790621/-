@@ -1,0 +1,44 @@
+﻿@using DotrA_Lab.Business.DomainClasses;
+@using DotrA.Service.Security;
+@using System.Web.Mvc.Html
+@using System.Web.Mvc
+
+
+@*會員區塊*@
+@helper  GetIdentity(WebViewPage page)
+{
+    if (User.Identity.IsAuthenticated)
+    {
+        <li class="nav-item dropdown ">
+            <a class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="icon-user-md">@(((DotrA.Service.Security.Identity)User.Identity).MemberName)</span>
+            </a>
+            <div class="dropdown-menu " aria-labelledby="dropdown01">
+                <a class="dropdown-item " href="@page.Url.Action("Edit","Member",new { id = ((DotrA.Service.Security.Identity)User.Identity).Id })">修改個人資料</a>
+                @if (((DotrA.Service.Security.Identity)User.Identity).Role == "admin" || ((DotrA.Service.Security.Identity)User.Identity).Role == "custmer")
+                {
+                    <a class="dropdown-item " href="@page.Url.Action("index","Home", new { area = "BackEndSystem" })">後臺管理系統</a>
+                }
+                <a class="dropdown-item " href="@page.Url.Action("Logout","Member")">登出</a>
+            </div>
+        </li>
+        <li id="Cart" class="nav-item cta-colored dropdown">@page.Html.Partial("_CartPartial")</li>
+    }
+    else
+    {
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-users"></i>註冊/登入
+            </a>
+            <div class="dropdown-menu" aria-labelledby="dropdown04">
+                <a class="dropdown-item" href="@page.Url.Action("Register","Member")">註冊</a>
+                <a class="dropdown-item" data-toggle="modal" data-target="#LoginModal">登入</a>
+            </div>
+        </li>
+    }
+}
+@*圖片顯示*@
+@helper Image(ImageBase image)
+{
+    <img class="zoomify" src="@image.ImageUrl" alt="Alternate Text" width="50" height="50" />
+}

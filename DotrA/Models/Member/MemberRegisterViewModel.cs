@@ -12,7 +12,7 @@ namespace DotrA.Models.Member
         [Required(ErrorMessage = "必填欄位")]
         [StringLength(20)]
         public string MemberAccount { get; set; }
-        [Display(Name = "原始密碼密碼")]
+        [Display(Name = "密碼")]
         [DataType(DataType.Password)]
         [Required(ErrorMessage = "必填欄位")]
         public string Password { get; set; }

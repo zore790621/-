@@ -57,10 +57,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Business\DomainClasses\Category.cs" />
+    <Compile Include="Business\DomainClasses\ImageBase.cs" />
     <Compile Include="InternalDataService\Hash.cs" />
     <Compile Include="InternalDataService\All\AllService.cs" />
     <Compile Include="InternalDataService\All\IAllService.cs" />
     <Compile Include="InternalDataService\DataModelToViewModel.cs" />
+    <Compile Include="InternalDataService\Implementation\ImageBaseService.cs" />
     <Compile Include="InternalDataService\Interface\GenericService.cs" />
     <Compile Include="InternalDataService\Implementation\CategoryService.cs" />
     <Compile Include="InternalDataService\Interface\IValidationDictionary.cs" />

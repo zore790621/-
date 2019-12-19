@@ -16,7 +16,6 @@ namespace DotrA_Lab.Business.DomainClasses
         [Key]
         public int RoleID { get; set; }
 
-        [Display(Name ="ลvญญ")]
         [Required]
         [StringLength(10)]
         public string RoleName { get; set; }

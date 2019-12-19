@@ -12,7 +12,7 @@ using System.Web.Mvc;
 
 namespace DotrA.Areas.BackEndSystem.Controllers
 {
-    [SecuredOperationFilter(Roles = "admin")]
+    [SecuredOperationFilter(Roles = "admin,custmer")]
     public class HomeController : BaseController
     {
         public HomeController(IAllService all) : base(all)

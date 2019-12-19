@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<DotrA.Areas.BackEndSystem.ViewModels.BESMemberView>
 
 @{
-    ViewBag.Title = "View";
+    ViewBag.Title = "會員管理";
 }
 <div class="content">
     <div class="animated fadeIn">
@@ -21,6 +21,7 @@
                                     <th>@Html.DisplayNameFor(m => m.Email)</th>
                                     <th>@Html.DisplayNameFor(m => m.Address)</th>
                                     <th>@Html.DisplayNameFor(m => m.Phone)</th>
+                                    <th>@Html.DisplayNameFor(m => m.RoleID)</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -35,6 +36,7 @@
                                             <td>@Html.DisplayFor(x => m.Email)</td>
                                             <td>@Html.DisplayFor(x => m.Address)</td>
                                             <td>@Html.DisplayFor(x => m.Phone)</td>
+                                            <td>@Html.DisplayFor(x => m.MemberRole.RoleName)</td>
                                         </tr>
                                     }
                                     else
@@ -46,6 +48,7 @@
                                             <td>@Html.DisplayFor(x => m.Email)</td>
                                             <td>@Html.DisplayFor(x => m.Address)</td>
                                             <td>@Html.DisplayFor(x => m.Phone)</td>
+                                            <td>@Html.DisplayFor(x => m.MemberRole.RoleName)</td>
                                         </tr>
                                     }
                                 }
@@ -72,5 +75,4 @@
     <script src="~/Assets/ElaAdmin/js/lib/data-table/buttons.print.min.js"></script>
     <script src="~/Assets/ElaAdmin/js/lib/data-table/buttons.colVis.min.js"></script>
     <script src="~/Assets/ElaAdmin/js/init/datatables-init.js" charset="UTF-8"></script>
-
 }

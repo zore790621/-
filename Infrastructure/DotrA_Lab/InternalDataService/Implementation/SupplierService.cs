@@ -20,6 +20,9 @@ namespace DotrA_Lab.InternalDataService.Implementation
             var target1 = db.Repository<Product>().Reads().Where(x => x.SupplierID == data.SupplierID);
             foreach (var a in target1)
             {
+                var imagebase = db.Repository<ImageBase>().Reads().Where(x => x.ProductID == a.ProductID);
+                foreach (var dimage in imagebase)
+                    db.Repository<ImageBase>().Delete(dimage);
                 var target2 = db.Repository<OrderDetail>().Reads().Where(x => x.ProductID == a.ProductID);
                 foreach (var b in target2)
                     db.Repository<OrderDetail>().Delete(b);

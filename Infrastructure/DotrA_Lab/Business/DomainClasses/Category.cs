@@ -10,6 +10,7 @@ namespace DotrA_Lab.Business.DomainClasses
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Category()
         {
+            ImageBase = new HashSet<ImageBase>();
             Product = new HashSet<Product>();
         }
 
@@ -21,7 +22,8 @@ namespace DotrA_Lab.Business.DomainClasses
 
         public string Categorydescript { get; set; }
 
-        public string Picture { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ImageBase> ImageBase { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Product> Product { get; set; }

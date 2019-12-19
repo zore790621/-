@@ -13,13 +13,11 @@ namespace DotrA.Areas.BackEndSystem.Controllers
     [SecuredOperationFilter(Roles = "admin")]
     public class CategoryController : BaseController
     {
-        public CategoryController(IAllService all) : base(all)
-        {
-        }
+        public CategoryController(IAllService all) : base(all) { }
 
         public ActionResult Index()
         {
-            var result = All.CS().GetListToViewModel<BESCategoryView>();
+            var result = All.CS().GetListToViewModel<BESCategoryView>(x => x.ImageBase);
 
             return View(result);
         }
@@ -37,11 +35,14 @@ namespace DotrA.Areas.BackEndSystem.Controllers
             return View(result);
         }
 
+        #region 新增類型
+        #region 移至 Modaldial
+        [NonAction]
         public ActionResult Create()
         {
             return View();
         }
-
+        #endregion
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(BESCategoryView source)
@@ -54,6 +55,7 @@ namespace DotrA.Areas.BackEndSystem.Controllers
 
             return View(source);
         }
+        #endregion
 
         public ActionResult Edit(int? id)
         {

@@ -31,6 +31,7 @@ namespace DotrA
             PostAuthenticateRequest += MvcApplication_PostAuthenticateRequest;
             base.Init();
         }
+
         #region ½Æ¼gFormsAuthentication
         private void MvcApplication_PostAuthenticateRequest(object sender, EventArgs e)
         {
@@ -38,15 +39,11 @@ namespace DotrA
             {
                 var authCookie = HttpContext.Current.Request.Cookies[FormsAuthentication.FormsCookieName];
                 if (authCookie == null)
-                {
                     return;
-                }
 
                 var encTicket = authCookie.Value;
                 if (String.IsNullOrEmpty(encTicket))
-                {
                     return;
-                }
 
                 var ticket = FormsAuthentication.Decrypt(encTicket);
                 var securityUtilities = new SecurityUtilities();
@@ -56,9 +53,7 @@ namespace DotrA
                 HttpContext.Current.User = principal;
                 Thread.CurrentPrincipal = principal;
             }
-            catch (Exception)
-            {
-            }
+            catch (Exception) { }
         }
         #endregion
     }
