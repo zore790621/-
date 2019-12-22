@@ -22,7 +22,10 @@ namespace DotrA_Lab.ORM.UnitOfWorkPattern
         {
             _context = context;
         }
-
+        public DbContextTransaction Transaction()
+        {
+            return _context.Database.BeginTransaction();
+        }
         /// <summary>
         /// 儲存所有異動。
         /// </summary>

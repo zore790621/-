@@ -13,12 +13,7 @@ namespace DotrA.Controllers
     {
         private readonly IAllService _all;
         protected IAllService All { get { return _all; } }
-        public BaseController(
-            IAllService all
-            )
-        {
-            this._all = all;
-        }
+        public BaseController(IAllService all) { this._all = all; }
         protected CoreJsonResult JsonValidationError()
         {
             var result = new CoreJsonResult();

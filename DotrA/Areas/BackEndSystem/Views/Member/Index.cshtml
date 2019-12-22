@@ -61,18 +61,11 @@
     </div>
 </div>
 @section topCSS{
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.css" />
+    <link href="~/Assets/BackEndSystem/js/datatable/datatables.min.css" rel="stylesheet" />
 }
 
 @section endScripts{
-    <script src="~/Assets/ElaAdmin/js/lib/data-table/datatables.min.js"></script>
-    <script src="~/Assets/ElaAdmin/js/lib/data-table/dataTables.bootstrap.min.js"></script>
-    <script src="~/Assets/ElaAdmin/js/lib/data-table/dataTables.buttons.min.js"></script>
-    <script src="~/Assets/ElaAdmin/js/lib/data-table/buttons.bootstrap.min.js"></script>
-    <script src="~/Assets/ElaAdmin/js/lib/data-table/jszip.min.js"></script>
-    <script src="~/Assets/ElaAdmin/js/lib/data-table/vfs_fonts.js"></script>
-    <script src="~/Assets/ElaAdmin/js/lib/data-table/buttons.html5.min.js"></script>
-    <script src="~/Assets/ElaAdmin/js/lib/data-table/buttons.print.min.js"></script>
-    <script src="~/Assets/ElaAdmin/js/lib/data-table/buttons.colVis.min.js"></script>
-    <script src="~/Assets/ElaAdmin/js/init/datatables-init.js" charset="UTF-8"></script>
+    @Scripts.Render("~/BackEndSystem/datatable")
+    <script src="~/Assets/BackEndSystem/js/init/datatable.js" charset="UTF-8"></script>
+    <script src="~/Assets/BackEndSystem/js/zoomify.min.js"></script>
 }

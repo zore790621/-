@@ -25,14 +25,14 @@
                             <tbody>
                                 @foreach (var item in Model)
                                 {
-                                    <tr>
+                                    <tr itemid="@item.CategoryID" itemscope>
                                         <td>@Html.DisplayFor(modelItem => item.CategoryName)</td>
                                         <td>@Html.DisplayFor(modelItem => item.Categorydescript)</td>
                                         <td>
                                             <div class="container-fluid text-center">
                                                 @foreach (var i in item.ImageBase)
                                                 {
-                                                    @Helper.Image(i)
+                                                    @Helper.Image(i, this)
                                                 }
                                             </div>
                                         </td>
@@ -49,24 +49,16 @@
 
 @Html.Partial("_Create", new DotrA.Areas.BackEndSystem.ViewModels.BESCategoryView())
 @section topCSS{
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.css" />
-    <link href="~/Assets/css/zoomify.min.css" rel="stylesheet" />
+    <link href="~/Assets/BackEndSystem/js/datatable/datatables.min.css" rel="stylesheet" />
 }
 
 @section endScripts{
-    <script src="~/Assets/ElaAdmin/js/lib/data-table/datatables.min.js"></script>
-    <script src="~/Assets/ElaAdmin/js/lib/data-table/dataTables.bootstrap.min.js"></script>
-    <script src="~/Assets/ElaAdmin/js/lib/data-table/dataTables.buttons.min.js"></script>
-    <script src="~/Assets/ElaAdmin/js/lib/data-table/buttons.bootstrap.min.js"></script>
-    <script src="~/Assets/ElaAdmin/js/lib/data-table/jszip.min.js"></script>
-    <script src="~/Assets/ElaAdmin/js/lib/data-table/vfs_fonts.js"></script>
-    <script src="~/Assets/ElaAdmin/js/lib/data-table/buttons.html5.min.js"></script>
-    <script src="~/Assets/ElaAdmin/js/lib/data-table/buttons.print.min.js"></script>
-    <script src="~/Assets/ElaAdmin/js/lib/data-table/buttons.colVis.min.js"></script>
-    <script src="~/Assets/ElaAdmin/js/init/datatables-init.js" charset="UTF-8"></script>
-    <script src="~/Assets/js/zoomify.min.js"></script>
+    @Scripts.Render("~/BackEndSystem/datatable")
+    <script src="~/Assets/BackEndSystem/js/init/datatable.js" charset="UTF-8"></script>
+    <script src="~/Assets/BackEndSystem/js/zoomify.min.js"></script>
     <script>
         $(function () {
+            $('#myTable').DataTable();
             $('.zoomify').zoomify();
             $("#zoom").on("click", function () {
                 $(".zoomify").zoomify("zoom")
@@ -77,13 +69,14 @@
             $("#zoomout").on("click", function () {
                 $(".zoomify").zoomify("zoomOut")
             })
-        });
-        $(function () {
-            $('button').on('click', function () {
-                $('.multiUpload').append("<input type='file' id='PictureLink' name='PictureLink'/>");
+            $('#addimagebutton').on('click', function () {
+                $('.multiUpload').append("<div class=\"col-8 offset-2 mb-0\"><input type=\"file\" class=\"custom-file-input\" id=\"PictureLink\" name=\"PictureLink\"><label class=\"custom-file-label\">請選擇檔案</label></div>");
                 event.preventDefault();
             });
-        })
+            $('tr').click(function (e) {
+                let id = e.currentTarget.attributes[0].value;
+            });
+        });
     </script>
     @Scripts.Render("~/bundles/jqueryval")
 }

@@ -6,6 +6,7 @@ using System.Net;
 using System.Linq;
 using System.Web.Mvc;
 using DotrA.Filters;
+using DotrA.Service;
 
 namespace DotrA.Areas.BackEndSystem.Controllers
 {
@@ -17,22 +18,7 @@ namespace DotrA.Areas.BackEndSystem.Controllers
 
         public ActionResult Index()
         {
-            var result = All.CS().GetListToViewModel<BESCategoryView>(x => x.ImageBase);
-
-            return View(result);
-        }
-
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-
-            var result = All.CS().GetSpecificDetailToViewModel<BESCategoryView>(x => x.CategoryID == id);
-
-            if (result == null)
-                return HttpNotFound();
-
-            return View(result);
+            return View(All.CS().GetListToViewModel<BESCategoryView>(x => x.ImageBase));
         }
 
         #region 新增類型
@@ -49,7 +35,20 @@ namespace DotrA.Areas.BackEndSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                All.CS().CreateViewModelToDatabase<BESCategoryView>(source);
+                using (var transaction = All.UOF().Transaction())
+                {
+                    Upload inputimg = new Upload(All.IMGS());
+                    try
+                    {
+                        inputimg.UploadImage("~/Assets/Images/Category", All.CS().CreateCategoryForImages<BESCategoryView>(source), source.PictureLink);
+                        transaction.Commit();
+                    }
+                    catch (System.Exception)
+                    {
+                        transaction.Rollback();
+                    }
+                }
+
                 return RedirectToAction<CategoryController>(x => x.Index());
             }
 

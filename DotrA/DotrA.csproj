@@ -172,6 +172,7 @@
     <Compile Include="Areas\BackEndSystem\Controllers\ShipperController.cs" />
     <Compile Include="Areas\BackEndSystem\Controllers\SupplierController.cs" />
     <Compile Include="Areas\BackEndSystem\ViewModels\BESCategoryView.cs" />
+    <Compile Include="Areas\BackEndSystem\ViewModels\BESImageViewModel.cs" />
     <Compile Include="Areas\BackEndSystem\ViewModels\BESMemberView.cs" />
     <Compile Include="Areas\BackEndSystem\ViewModels\BESProductView.cs" />
     <Compile Include="Areas\BackEndSystem\ViewModels\BESOrderView.cs" />
@@ -209,13 +210,29 @@
     <Compile Include="Service\UploadImage.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\BackEndSystem\js\bootstrap.min.js" />
+    <Content Include="Assets\BackEndSystem\js\datatable\buttons.bootstrap4.min.js" />
+    <Content Include="Assets\BackEndSystem\js\datatable\buttons.colVis.min.js" />
+    <Content Include="Assets\BackEndSystem\js\datatable\buttons.html5.min.js" />
+    <Content Include="Assets\BackEndSystem\js\datatable\buttons.print.min.js" />
+    <Content Include="Assets\BackEndSystem\js\datatable\dataTables.bootstrap4.min.js" />
+    <Content Include="Assets\BackEndSystem\js\datatable\dataTables.buttons.min.js" />
+    <Content Include="Assets\BackEndSystem\js\datatable\datatables.min.css" />
+    <Content Include="Assets\BackEndSystem\js\datatable\jquery.dataTables.min.js" />
+    <Content Include="Assets\BackEndSystem\js\datatable\jszip.min.js" />
+    <Content Include="Assets\BackEndSystem\js\datatable\pdfmake.min.js" />
+    <Content Include="Assets\BackEndSystem\js\datatable\vfs_fonts.js" />
+    <Content Include="Assets\BackEndSystem\js\jquery.matchHeight-min.js" />
+    <Content Include="Assets\BackEndSystem\js\jquery.min.js" />
+    <Content Include="Assets\BackEndSystem\js\main.js" />
+    <Content Include="Assets\BackEndSystem\js\popper.min.js" />
     <Content Include="Assets\css\Glow.css" />
     <Content Include="Assets\css\MemberStyle.css" />
     <Content Include="Assets\css\style.css" />
     <Content Include="Assets\css\zoomify.css" />
-    <Content Include="Assets\js\zoomify.js" />
+    <Content Include="Assets\BackEndSystem\js\init\datatable.js" />
     <Content Include="Assets\css\zoomify.min.css" />
-    <Content Include="Assets\js\zoomify.min.js" />
+    <Content Include="Assets\BackEndSystem\js\zoomify.min.js" />
     <Content Include="Assets\ElaAdmin\css\bootstrap.min.css" />
     <Content Include="Assets\ElaAdmin\css\chartist.min.css" />
     <Content Include="Assets\ElaAdmin\css\cs-skin-elastic.css" />
@@ -1154,6 +1171,7 @@
     <Folder Include="Areas\BackEndSystem\Data\" />
     <Folder Include="Areas\ElaAdmin\Data\" />
     <Folder Include="Areas\minishop\Data\" />
+    <Folder Include="Assets\js\" />
     <Folder Include="Views\Product\" />
     <Folder Include="Views\Shop\" />
   </ItemGroup>

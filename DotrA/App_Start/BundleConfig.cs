@@ -36,7 +36,7 @@ namespace DotrA
             SampleCollection.Initial(bundles);
 
             //壓縮
-            BundleTable.EnableOptimizations = true;
+            //BundleTable.EnableOptimizations = true;
         }
     }
 }

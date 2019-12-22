@@ -12,6 +12,7 @@ namespace DotrA_Lab.InternalDataService.Implementation
     {
         IUnitOfWork UOF();
         ICategoryService CS();
+        IImageBaseService IMGS();
         IMemberRoleService MRS();
         IMemberService MS();
         IOrderService OS();

@@ -19,11 +19,24 @@ namespace DotrA.App_Start
                 ));
 
             bundles.Add(new ScriptBundle("~/BackEndSystem/js").Include(
-                "~/Assets/ElaAdmin/js/jquery.min.js",
-                "~/Assets/ElaAdmin/js/popper.min.js",
-                "~/Assets/ElaAdmin/js/bootstrap.min.js",
-                "~/Assets/ElaAdmin/js/jquery.matchHeight.min.js",
-                "~/Assets/ElaAdmin/js/main.js"
+                "~/Assets/BackEndSystem/js/jquery.min.js",
+                "~/Assets/BackEndSystem/js/popper.min.js",
+                "~/Assets/BackEndSystem/js/bootstrap.min.js",
+                "~/Assets/BackEndSystem/js/jquery.matchHeight-min.js",
+                "~/Assets/BackEndSystem/js/main.js"
+                ));
+
+            bundles.Add(new ScriptBundle("~/BackEndSystem/datatable").Include(
+                "~/Assets/BackEndSystem/js/datatable/jszip.min.js",
+                "~/Assets/BackEndSystem/js/datatable/pdfmake.min.js",
+                "~/Assets/BackEndSystem/js/datatable/vfs_fonts.js",
+                "~/Assets/BackEndSystem/js/datatable/jquery.dataTables.min.js",
+                "~/Assets/BackEndSystem/js/datatable/dataTables.bootstrap4.min.js",
+                "~/Assets/BackEndSystem/js/datatable/dataTables.buttons.min.js",
+                "~/Assets/BackEndSystem/js/datatable/buttons.bootstrap4.min.js",
+                "~/Assets/BackEndSystem/js/datatable/buttons.colVis.min.js",
+                "~/Assets/BackEndSystem/js/datatable/buttons.html5.min.js",
+                "~/Assets/BackEndSystem/js/datatable/buttons.print.min.js"
                 ));
             #endregion
         }

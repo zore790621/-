@@ -13,6 +13,7 @@ namespace DotrA_Lab.IOC.AutofacModule
         {
             builder.RegisterType<CategoryService>().As<ICategoryService>();
             builder.RegisterType<MemberRoleService>().As<IMemberRoleService>();
+            builder.RegisterType<ImageBaseService>().As<IImageBaseService>();
             builder.RegisterType<MemberService>().As<IMemberService>();
             builder.RegisterType<OrderDetailService>().As<IOrderDetailService>();
             builder.RegisterType<OrderService>().As<IOrderService>();

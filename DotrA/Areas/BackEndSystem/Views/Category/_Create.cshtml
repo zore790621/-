@@ -29,12 +29,16 @@
                                     @Html.ValidationMessageFor(model => model.Categorydescript, "", new { @class = "text-danger" })
                                 </div>
                             </div>
-
-                            <div><button>增加圖片按鈕</button></div>
-                            <div class="multiUpload"><input type="file" id="PictureLink" name="PictureLink" /></div>
-
-                            <hr />
+                            <div class="container input-group multiUpload">
+                                <div class=" col-8 offset-2 mb-0">
+                                    <input type="file" class="custom-file-input" id="PictureLink" name="PictureLink">
+                                    <label class="custom-file-label">請選擇檔案</label>
+                                </div>
+                                <div class="col-2"></div>
+                            </div>
+                            <hr/>
                             <div class="form-group">
+                                <button id="addimagebutton" class="btn btn-outline-secondary float-right"><i class="fa fa-plus"></i></button>
                                 <div class="col-md-offset-2 col-md-10">
                                     <input type="submit" value="新增類型" class="btn btn-default" />
                                 </div>

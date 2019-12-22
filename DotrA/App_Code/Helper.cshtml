@@ -11,7 +11,7 @@
     {
         <li class="nav-item dropdown ">
             <a class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="icon-user-md">@(((DotrA.Service.Security.Identity)User.Identity).MemberName)</span>
+                <span class="icon-user-md">&nbsp;@(((DotrA.Service.Security.Identity)User.Identity).MemberName)</span>
             </a>
             <div class="dropdown-menu " aria-labelledby="dropdown01">
                 <a class="dropdown-item " href="@page.Url.Action("Edit","Member",new { id = ((DotrA.Service.Security.Identity)User.Identity).Id })">修改個人資料</a>
@@ -38,7 +38,7 @@
     }
 }
 @*圖片顯示*@
-@helper Image(ImageBase image)
+@helper Image(ImageBase image , WebViewPage page)
 {
-    <img class="zoomify" src="@image.ImageUrl" alt="Alternate Text" width="50" height="50" />
+    <img class="zoomify" src="@page.Url.Content(image.ImageUrl)" alt="Alternate Text" width="50" height="50" />
 }

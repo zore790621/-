@@ -17,6 +17,7 @@ namespace DotrA_Lab.InternalDataService.Implementation
 
         private readonly IUnitOfWork _uof;
         private readonly ICategoryService _cs;
+        private readonly IImageBaseService _img;
         private readonly IMemberRoleService _mrs;
         private readonly IMemberService _ms;
         private readonly IOrderService _os;
@@ -27,6 +28,7 @@ namespace DotrA_Lab.InternalDataService.Implementation
         private readonly ISupplierService _sups;
         protected IUnitOfWork UOF => _uof;
         protected ICategoryService CS => _cs;
+        protected IImageBaseService IMGS => _img;
         protected IMemberRoleService MRS => _mrs;
         protected IMemberService MS => _ms;
         protected IOrderService OS => _os;
@@ -37,13 +39,14 @@ namespace DotrA_Lab.InternalDataService.Implementation
         protected ISupplierService SUPS => _sups;
 
         public AllService(
-            IUnitOfWork uof, ICategoryService cs, IMemberRoleService mrs, IMemberService ms, IOrderService os,
+            IUnitOfWork uof, ICategoryService cs, IImageBaseService img, IMemberRoleService mrs, IMemberService ms, IOrderService os,
             IOrderDetailService ods, IPaymentService pay, IProductService ps, IShipperService ships, ISupplierService sups,
             DbContext context
             )
         {
             this._uof = uof ?? throw new ArgumentNullException();
             this._cs = cs ?? throw new ArgumentNullException();
+            this._img = img ?? throw new ArgumentNullException();
             this._mrs = mrs ?? throw new ArgumentNullException();
             this._ms = ms ?? throw new ArgumentNullException();
             this._os = os ?? throw new ArgumentNullException();
@@ -58,6 +61,7 @@ namespace DotrA_Lab.InternalDataService.Implementation
         IUnitOfWork IAllService.UOF() => this._uof;
 
         ICategoryService IAllService.CS() => this._cs;
+        IImageBaseService IAllService.IMGS() => this._img;
 
         IMemberRoleService IAllService.MRS() => this._mrs;
         IMemberService IAllService.MS() => this._ms;

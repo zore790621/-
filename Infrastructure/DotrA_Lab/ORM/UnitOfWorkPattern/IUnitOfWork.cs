@@ -1,5 +1,6 @@
 ﻿using DotrA_Lab.ORM.RepositoryPattern;
 using System;
+using System.Data.Entity;
 using System.Threading.Tasks;
 
 namespace DotrA_Lab.ORM.UnitOfWorkPattern
@@ -13,6 +14,11 @@ namespace DotrA_Lab.ORM.UnitOfWorkPattern
         /// 儲存所有異動。
         /// </summary>
         void SaveChanges();
+
+        /// <summary>
+        /// 交易啟動
+        /// </summary>
+        DbContextTransaction Transaction();
 
         /// <summary>
         /// 取得某一個Entity的Repository。

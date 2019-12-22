@@ -33,18 +33,17 @@
 
     @Scripts.Render("~/BackEndSystem/js")
 
-
     <script type="text/javascript">
-        jQuery(function () {
+        $(function () {
             var CN = "@HttpContext.Current.Request.RequestContext.RouteData.Values["Controller"].ToString()";
             if (CN == "Admin"|| CN == "Member")
-                jQuery(".AccountGroup").addClass("active");
+                $(".AccountGroup").addClass("active");
             else if (CN == "Category" || CN == "Supplier" || CN == "Product")
-                jQuery(".ProductGroup").addClass("active");
+                $(".ProductGroup").addClass("active");
             else if (CN == "Order")
-                jQuery(".OrderGroup").addClass("active");
+                $(".OrderGroup").addClass("active");
             else
-                jQuery(".Homeli").addClass("active");
+                $(".Homeli").addClass("active");
         });
     </script>
     @RenderSection("endScripts", required: false)
