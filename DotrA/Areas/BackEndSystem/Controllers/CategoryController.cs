@@ -48,7 +48,6 @@ namespace DotrA.Areas.BackEndSystem.Controllers
                         transaction.Rollback();
                     }
                 }
-
                 return RedirectToAction<CategoryController>(x => x.Index());
             }
 

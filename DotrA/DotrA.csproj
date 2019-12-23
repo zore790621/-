@@ -228,6 +228,7 @@
     <Content Include="Assets\BackEndSystem\js\popper.min.js" />
     <Content Include="Assets\css\Glow.css" />
     <Content Include="Assets\css\MemberStyle.css" />
+    <Content Include="Assets\css\picFullScreen.css" />
     <Content Include="Assets\css\style.css" />
     <Content Include="Assets\css\zoomify.css" />
     <Content Include="Assets\BackEndSystem\js\init\datatable.js" />
@@ -849,6 +850,7 @@
     <Content Include="Assets\Images\Logo\apple-touch-icon.png" />
     <Content Include="Assets\Images\Logo\mlogo.png" />
     <Content Include="Assets\Images\Logo\logo.png" />
+    <Content Include="Assets\js\pucFullScreen.js" />
     <Content Include="Assets\minishop\css\ajax-loader.gif" />
     <Content Include="Assets\minishop\css\animate.css" />
     <Content Include="Assets\minishop\css\aos.css" />
@@ -1088,12 +1090,13 @@
     <Content Include="Areas\BackEndSystem\Views\Shared\_header.cshtml" />
     <Content Include="Areas\BackEndSystem\Views\Shared\_breadcrumbs.cshtml" />
     <Content Include="Areas\BackEndSystem\Views\Member\Index.cshtml" />
-    <Content Include="Areas\BackEndSystem\Views\Member\Edit.cshtml" />
     <Content Include="Areas\BackEndSystem\Views\Home\Index.cshtml" />
     <Content Include="Areas\BackEndSystem\Views\Category\Index.cshtml" />
     <Content Include="Areas\BackEndSystem\Views\Member\Delete.cshtml" />
     <Content Include="App_Code\Helper.cshtml" />
     <Content Include="Areas\BackEndSystem\Views\Category\_Create.cshtml" />
+    <Content Include="Areas\BackEndSystem\Views\Member\Edit.cshtml" />
+    <Content Include="Areas\BackEndSystem\Views\Category\Edit.cshtml" />
     <None Include="Scripts\jquery-1.4.4-vsdoc.js" />
     <Content Include="Scripts\jquery-1.4.4.js" />
     <Content Include="Scripts\jquery-1.4.4.min.js" />
@@ -1171,9 +1174,7 @@
     <Folder Include="Areas\BackEndSystem\Data\" />
     <Folder Include="Areas\ElaAdmin\Data\" />
     <Folder Include="Areas\minishop\Data\" />
-    <Folder Include="Assets\js\" />
     <Folder Include="Views\Product\" />
-    <Folder Include="Views\Shop\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\ElaAdmin\Views\web.config" />

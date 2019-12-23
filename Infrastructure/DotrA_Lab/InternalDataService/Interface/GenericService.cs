@@ -26,7 +26,6 @@ namespace DotrA_Lab.InternalDataService.Implementation
         /// 驗證資訊的字典
         /// </value>
         public IValidationDictionary ValidationDictionary { get; private set; }
-
         /// <summary>
         /// 初始化IValidationDictionary
         /// </summary>

@@ -13,7 +13,7 @@
                         <h3 class="card-title">類型管理</h3>
                         <a class="btn btn-primary btn-sm text-light" data-toggle="modal" data-target="#create"><i class="fa fa-plus"></i>&nbsp; 新增類型</a>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body post-body">
                         <table id="bootstrap-data-table" class="table table-striped table-bordered">
                             <thead>
                                 <tr>
@@ -26,13 +26,13 @@
                                 @foreach (var item in Model)
                                 {
                                     <tr itemid="@item.CategoryID" itemscope>
-                                        <td>@Html.DisplayFor(modelItem => item.CategoryName)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.Categorydescript)</td>
-                                        <td>
-                                            <div class="container-fluid text-center">
+                                        <td class="toedit">@Html.DisplayFor(modelItem => item.CategoryName)</td>
+                                        <td class="toedit">@Html.DisplayFor(modelItem => item.Categorydescript)</td>
+                                        <td width="300">
+                                            <div class="row">
                                                 @foreach (var i in item.ImageBase)
                                                 {
-                                                    @Helper.Image(i, this)
+                                                    @Helper.BESImage(i, this)
                                                 }
                                             </div>
                                         </td>
@@ -47,36 +47,26 @@
     </div>
 </div>
 
+<div id="imgViewDom" class="disnone"></div>
+
 @Html.Partial("_Create", new DotrA.Areas.BackEndSystem.ViewModels.BESCategoryView())
 @section topCSS{
     <link href="~/Assets/BackEndSystem/js/datatable/datatables.min.css" rel="stylesheet" />
+    <link href="~/Assets/css/picFullScreen.css" rel="stylesheet" />
 }
 
 @section endScripts{
     @Scripts.Render("~/BackEndSystem/datatable")
+    @Scripts.Render("~/bundles/jqueryval")
     <script src="~/Assets/BackEndSystem/js/init/datatable.js" charset="UTF-8"></script>
-    <script src="~/Assets/BackEndSystem/js/zoomify.min.js"></script>
+    <script src="~/Assets/js/pucFullScreen.js"></script>
     <script>
-        $(function () {
-            $('#myTable').DataTable();
-            $('.zoomify').zoomify();
-            $("#zoom").on("click", function () {
-                $(".zoomify").zoomify("zoom")
-            })
-            $("#zoomin").on("click", function () {
-                $(".zoomify").zoomify("zoomIn")
-            })
-            $("#zoomout").on("click", function () {
-                $(".zoomify").zoomify("zoomOut")
-            })
-            $('#addimagebutton').on('click', function () {
-                $('.multiUpload').append("<div class=\"col-8 offset-2 mb-0\"><input type=\"file\" class=\"custom-file-input\" id=\"PictureLink\" name=\"PictureLink\"><label class=\"custom-file-label\">請選擇檔案</label></div>");
-                event.preventDefault();
-            });
-            $('tr').click(function (e) {
-                let id = e.currentTarget.attributes[0].value;
-            });
+        $('#addimagebutton').on('click', function () {
+            $('.multiUpload').append("<div class=\"col-8 offset-2 mb-0\"><input type=\"file\" class=\"custom-file-input\" id=\"PictureLink\" name=\"PictureLink\"><label class=\"custom-file-label\">請選擇檔案</label></div>");
+            event.preventDefault();
+        });
+        $('tbody>tr>.toedit').click(function () {
+            window.location.href = '@Url.Action("Edit","Category")/' + $(this).parent()[0].getAttribute("itemid");
         });
     </script>
-    @Scripts.Render("~/bundles/jqueryval")
 }

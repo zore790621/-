@@ -38,7 +38,9 @@
     }
 }
 @*圖片顯示*@
-@helper Image(ImageBase image , WebViewPage page)
+@helper BESImage(ImageBase image, WebViewPage page)
 {
-    <img class="zoomify" src="@page.Url.Content(image.ImageUrl)" alt="Alternate Text" width="50" height="50" />
+<div class="col-6">
+    <img class="" src="@page.Url.Content(image.ImageUrl)" alt="demo" style="cursor: zoom-in"/>
+</div>
 }

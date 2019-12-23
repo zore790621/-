@@ -1,0 +1,92 @@
+﻿@model DotrA.Areas.BackEndSystem.ViewModels.BESCategoryView
+
+@{
+    ViewBag.Title = "分類修改";
+}
+@using (Html.BeginForm("Edit", "Category", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="content">
+        <div class="animated fadeIn">
+            <div class="row">
+                <div class="col-md-10 offset-1">
+                    <div class="card post-body">
+                        <div class="card-header">
+                            <strong>編輯資料</strong>
+                        </div>
+                        <div class="card-body card-block">
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            @Html.HiddenFor(model => model.CategoryID)
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.CategoryName, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-12">
+                                    @Html.EditorFor(model => model.CategoryName, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.CategoryName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Categorydescript, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-12">
+                                    @Html.EditorFor(model => model.Categorydescript, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Categorydescript, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="container input-group multiUpload">
+                                <div class=" col-8 offset-2 mb-0">
+                                    <input type="file" class="custom-file-input" id="PictureLink" name="PictureLink">
+                                    <label class="custom-file-label">請選擇檔案</label>
+                                </div>
+                                <div class="col-2"></div>
+                            </div>
+                            <hr />
+                            <div class="container-fluid text-center">
+                                <div class="row">
+                                    @for (int i = 0; i < Model.ImageBase.Count(); i++)
+                                    {
+                                        @Html.HiddenFor(m => m.ImageBase.ElementAt(i).ImageID, new { @Name = string.Format($"ImageBase[{i}].ImageID") })
+                                        @Html.HiddenFor(m => m.ImageBase.ElementAt(i).ImageName, new { @Name = string.Format($"ImageBase[{i}].ImageName") })
+                                        @Html.HiddenFor(m => m.ImageBase.ElementAt(i).ImageUrl, new { @Name = string.Format($"ImageBase[{i}].ImageUrl") })
+                                        @Html.HiddenFor(m => m.ImageBase.ElementAt(i).CatgoryID, new { @Name = string.Format($"ImageBase[{i}].CatgoryID") })
+                                    }
+                                    @foreach (var i in Model.ImageBase)
+                                    {
+                                        @Helper.BESImage(i, this)
+                                    }
+                                </div>
+                            </div>
+                            <hr />
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <button id="addimagebutton" class="btn btn-outline-secondary float-right"><i class="fa fa-plus"></i></button>
+                                    <input type="submit" value="Save" class="btn btn-default" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<div id="imgViewDom" class="disnone"></div>
+<div>
+    @Html.ActionLink("返回列表", "Index")
+</div>
+
+@section topCSS{
+    <link href="~/Assets/css/picFullScreen.css" rel="stylesheet" />
+}
+@section endScripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Assets/js/pucFullScreen.js"></script>
+    <script>
+        $('#addimagebutton').on('click', function () {
+            $('.multiUpload').append("<div class=\"col-8 offset-2 mb-0\"><input type=\"file\" class=\"custom-file-input\" id=\"PictureLink\" name=\"PictureLink\"><label class=\"custom-file-label\">請選擇檔案</label></div>");
+            event.preventDefault();
+        });
+    </script>
+}
