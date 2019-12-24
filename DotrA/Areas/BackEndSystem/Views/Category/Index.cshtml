@@ -32,7 +32,9 @@
                                             <div class="row">
                                                 @foreach (var i in item.ImageBase)
                                                 {
-                                                    @Helper.BESImage(i, this)
+                                                    <div class="col-6">
+                                                        @Helper.BESImage(i, this)
+                                                    </div>
                                                 }
                                             </div>
                                         </td>

@@ -164,6 +164,7 @@
     <Compile Include="Areas\BackEndSystem\BackEndSystemAreaRegistration.cs" />
     <Compile Include="Areas\BackEndSystem\Controllers\CategoryController.cs" />
     <Compile Include="Areas\BackEndSystem\Controllers\HomeController.cs" />
+    <Compile Include="Areas\BackEndSystem\Controllers\ImageController.cs" />
     <Compile Include="Areas\BackEndSystem\Controllers\MemberController.cs" />
     <Compile Include="Areas\BackEndSystem\Controllers\OrderDetailController.cs" />
     <Compile Include="Areas\BackEndSystem\Controllers\OrderController.cs" />
@@ -1097,10 +1098,12 @@
     <Content Include="Areas\BackEndSystem\Views\Category\_Create.cshtml" />
     <Content Include="Areas\BackEndSystem\Views\Member\Edit.cshtml" />
     <Content Include="Areas\BackEndSystem\Views\Category\Edit.cshtml" />
-    <None Include="Scripts\jquery-1.4.4-vsdoc.js" />
-    <Content Include="Scripts\jquery-1.4.4.js" />
-    <Content Include="Scripts\jquery-1.4.4.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <None Include="Scripts\jquery-1.8.0.intellisense.js" />
+    <Content Include="Scripts\jquery-1.8.0.js" />
+    <Content Include="Scripts\jquery-1.8.0.min.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\vue.js" />
@@ -1172,6 +1175,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\BackEndSystem\Data\" />
+    <Folder Include="Areas\BackEndSystem\Views\Image\" />
     <Folder Include="Areas\ElaAdmin\Data\" />
     <Folder Include="Areas\minishop\Data\" />
     <Folder Include="Views\Product\" />

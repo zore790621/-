@@ -96,6 +96,7 @@ namespace DotrA_Lab.InternalDataService.Implementation
             var entity = db.Repository<Member>().Read(x => x.MemberID == id);
             DataModelToViewModel.GenericMapper(viewModel, entity);
             var hashPasswrod = Hash.EncodePassword(repassword, entity.HashCode);
+            entity.ResetPasswordCode = entity.Password;
             entity.Password = hashPasswrod;
             db.Repository<Member>().Update(entity);
         }
