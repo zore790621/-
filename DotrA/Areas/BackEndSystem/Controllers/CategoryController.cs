@@ -54,7 +54,7 @@ namespace DotrA.Areas.BackEndSystem.Controllers
             return View(source);
         }
         #endregion
-
+        #region 修改
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -74,12 +74,25 @@ namespace DotrA.Areas.BackEndSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                All.CS().UpdateViewModelToDatabase<BESCategoryView>(source, x => x.CategoryID == source.CategoryID);
+                using (var transaction = All.UOF().Transaction())
+                {
+                    Upload inputimg = new Upload(All.IMGS());
+                    try
+                    {
+                        All.CS().UpdateViewModelToDatabase<BESCategoryView>(source, x => x.CategoryID == source.CategoryID);
+                        inputimg.UploadImage("~/Assets/Images/Category", source.CategoryID, source.PictureLink);
+                        transaction.Commit();
+                    }
+                    catch (System.Exception)
+                    {
+                        transaction.Rollback();
+                    }
+                }
                 return RedirectToAction<CategoryController>(x => x.Index());
             }
             return View(source);
         }
-
+        #endregion
         public ActionResult Delete(int? id)
         {
             if (id == null)

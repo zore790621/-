@@ -33,6 +33,19 @@
                                     @Html.ValidationMessageFor(model => model.Categorydescript, "", new { @class = "text-danger" })
                                 </div>
                             </div>
+                            <div class="container-fluid text-center">
+                                <div class="row">
+                                    @for (int i = 0; i < Model.ImageBase.Count(); i++)
+                                    {
+                                        @Helper.BESImage(Model.ImageBase.ElementAt(i), this)
+                                        @Html.HiddenFor(m => m.ImageBase.ElementAt(i).ImageID, new { @Name = string.Format($"ImageBase[{i}].ImageID") })
+                                        @Html.HiddenFor(m => m.ImageBase.ElementAt(i).ImageName, new { @Name = string.Format($"ImageBase[{i}].ImageName") })
+                                        @Html.HiddenFor(m => m.ImageBase.ElementAt(i).ImageUrl, new { @Name = string.Format($"ImageBase[{i}].ImageUrl") })
+                                        @Html.HiddenFor(m => m.ImageBase.ElementAt(i).CatgoryID, new { @Name = string.Format($"ImageBase[{i}].CatgoryID") })
+                                    }
+                                </div>
+                            </div>
+                            <hr />
 
                             <div class="container input-group multiUpload">
                                 <div class=" col-8 offset-2 mb-0">
@@ -40,22 +53,6 @@
                                     <label class="custom-file-label">請選擇檔案</label>
                                 </div>
                                 <div class="col-2"></div>
-                            </div>
-                            <hr />
-                            <div class="container-fluid text-center">
-                                <div class="row">
-                                    @for (int i = 0; i < Model.ImageBase.Count(); i++)
-                                    {
-                                        @Html.HiddenFor(m => m.ImageBase.ElementAt(i).ImageID, new { @Name = string.Format($"ImageBase[{i}].ImageID") })
-                                        @Html.HiddenFor(m => m.ImageBase.ElementAt(i).ImageName, new { @Name = string.Format($"ImageBase[{i}].ImageName") })
-                                        @Html.HiddenFor(m => m.ImageBase.ElementAt(i).ImageUrl, new { @Name = string.Format($"ImageBase[{i}].ImageUrl") })
-                                        @Html.HiddenFor(m => m.ImageBase.ElementAt(i).CatgoryID, new { @Name = string.Format($"ImageBase[{i}].CatgoryID") })
-                                    }
-                                    @foreach (var i in Model.ImageBase)
-                                    {
-                                        @Helper.BESImage(i, this)
-                                    }
-                                </div>
                             </div>
                             <hr />
 

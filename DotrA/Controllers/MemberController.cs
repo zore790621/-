@@ -17,15 +17,8 @@ namespace DotrA.Controllers
 {
     public class MemberController : BaseController
     {
-        public MemberController(IAllService all) : base(all)
-        {
-        }
+        public MemberController(IAllService all) : base(all) { }
 
-        [SecuredOperationFilter(Roles = "admin")]
-        public ActionResult Index()
-        {
-            return View(All.UOF().Repository<Member>().Reads());
-        }
         #region ===註冊 Register===
         public ActionResult Register()
         {
@@ -197,6 +190,7 @@ namespace DotrA.Controllers
             return RedirectToAction("Index", "Home");
         }
         #endregion
+        #region ===修改會員資料===
         [Authorize]
         public ActionResult Edit(int? id)
         {
@@ -235,5 +229,7 @@ namespace DotrA.Controllers
             }
             return View(source);
         }
+        #endregion
+
     }
 }

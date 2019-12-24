@@ -13,8 +13,7 @@ namespace DotrA_Lab.InternalDataService.Implementation
     public class CategoryService
         : GenericService<Category>, ICategoryService
     {
-        public CategoryService(IUnitOfWork db)
-            : base(db) { }
+        public CategoryService(IUnitOfWork db) : base(db) { }
 
         public int CreateCategoryForImages<TViewModel>(TViewModel source)
         {
@@ -28,7 +27,7 @@ namespace DotrA_Lab.InternalDataService.Implementation
         {
             var data = db.Repository<Category>().Read(wherePredicate);
             var imagebase1 = db.Repository<ImageBase>().Reads().Where(x => x.CatgoryID == data.CategoryID);
-            foreach (var dimage in imagebase1) 
+            foreach (var dimage in imagebase1)
                 db.Repository<ImageBase>().Delete(dimage);
             var target1 = db.Repository<Product>().Reads().Where(x => x.CategoryID == data.CategoryID);
             foreach (var a in target1)
