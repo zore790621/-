@@ -8,21 +8,12 @@ namespace DotrA_Lab.InternalDataService.Implementation
 {
     public interface ICategoryService : IService<Category>
     {
-        int CreateCategoryForImages<TViewModel>(TViewModel source);
     }
     public class CategoryService
         : GenericService<Category>, ICategoryService
     {
         public CategoryService(IUnitOfWork db) : base(db) { }
-
-        public int CreateCategoryForImages<TViewModel>(TViewModel source)
-        {
-            var result = new Category();
-            db.Repository<Category>().Create(DataModelToViewModel.GenericMapper(source, result));
-            db.SaveChanges();
-            return result.CategoryID;
-        }
-
+        
         public override void Delete(Expression<Func<Category, bool>> wherePredicate)
         {
             var data = db.Repository<Category>().Read(wherePredicate);

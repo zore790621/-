@@ -57,6 +57,14 @@ namespace DotrA_Lab.InternalDataService.Implementation
         void CreateViewModelToDatabase<TViewModel>(TViewModel viewModel);
 
         /// <summary>
+        /// 依照某一個ViewModel的值，產生對應的Entity並且新增到資料庫，並回傳值
+        /// </summary>
+        /// <typeparam name="TViewModel">ViewModel的形態</typeparam>
+        /// <param name="viewModel">ViewModel的Reference</param>
+        /// <returns>是否儲存成功</returns>
+        T CreateViewModelToDatabaseReturnData<TViewModel>(TViewModel viewModel);
+
+        /// <summary>
         /// 依照某一個ViewModel的值，更新對應的Entity
         /// </summary>
         /// <typeparam name="TViewModel">ViewModel的形態</typeparam>

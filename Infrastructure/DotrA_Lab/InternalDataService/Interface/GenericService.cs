@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using DotrA_Lab.Business.DomainClasses;
 using DotrA_Lab.ORM.UnitOfWorkPattern;
 using System;
 using System.Collections.Generic;
@@ -161,8 +162,21 @@ namespace DotrA_Lab.InternalDataService.Implementation
         {
             var entity = DataModelToViewModel.GenericMapper<TViewModel, T>(viewModel);
             db.Repository<T>().Create(entity);
-
             db.SaveChanges();
+        }
+
+        /// <summary>
+        /// 依照某一個ViewModel的值，產生對應的Entity並且新增到資料庫
+        /// </summary>
+        /// <typeparam name="TViewModel">ViewModel的形態</typeparam>
+        /// <param name="viewModel">ViewModel的Reference</param>
+        /// <returns>是否儲存成功</returns>
+        public T CreateViewModelToDatabaseReturnData<TViewModel>(TViewModel viewModel)
+        {
+            var entity = DataModelToViewModel.GenericMapper<TViewModel, T>(viewModel);
+            db.Repository<T>().Create(entity);
+            db.SaveChanges();
+            return entity;
         }
         public T GetFirst(Expression<Func<T, bool>> wherePredicate) => db.Repository<T>().Read(wherePredicate);
     }

@@ -40,7 +40,7 @@ namespace DotrA.Areas.BackEndSystem.Controllers
                     Upload inputimg = new Upload(All.IMGS());
                     try
                     {
-                        inputimg.UploadImage("~/Assets/Images/Category", All.CS().CreateCategoryForImages<BESCategoryView>(source), source.PictureLink);
+                        inputimg.UploadImage("~/Assets/Images/Category", All.CS().CreateViewModelToDatabaseReturnData<BESCategoryView>(source).CategoryID, source.PictureLink);
                         transaction.Commit();
                     }
                     catch (System.Exception)
