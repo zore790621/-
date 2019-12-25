@@ -13,9 +13,7 @@ namespace DotrA.Areas.BackEndSystem.Controllers
     [SecuredOperationFilter(Roles = "admin")]
     public class ShipperController : BaseController
     {
-        public ShipperController(IAllService all) : base(all)
-        {
-        }
+        public ShipperController(IAllService all) : base(all) { }
 
         //public ActionResult Index()
         //{
@@ -85,11 +83,11 @@ namespace DotrA.Areas.BackEndSystem.Controllers
         //{
         //    if (id == null)
         //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            
+
         //    var result = SHIPS.GetSpecificDetailToViewModel<BESShipperView>(x => x.ShipperID == id);
         //    if (result == null)
         //        return HttpNotFound();
-            
+
         //    return View(result);
         //}
 

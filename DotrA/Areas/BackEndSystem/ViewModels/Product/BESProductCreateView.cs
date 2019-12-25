@@ -1,11 +1,12 @@
-﻿using DotrA_Lab.Business.DomainClasses;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Web;
 
 namespace DotrA.Areas.BackEndSystem.ViewModels
 {
-    public class BESProductView
+    public class BESProductCreateView
     {
         [Key]
         public int ProductID { get; set; }
@@ -35,11 +36,6 @@ namespace DotrA.Areas.BackEndSystem.ViewModels
         public int SalesPrice { get; set; }
         [Display(Name = "產品狀態")]
         public bool Status { get; set; }
-
         public IEnumerable<HttpPostedFileBase> PictureLink { get; set; }
-
-        public virtual Category Category { get; set; }
-
-        public virtual Supplier Supplier { get; set; }
     }
 }

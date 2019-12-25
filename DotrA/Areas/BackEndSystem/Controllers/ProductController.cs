@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using DotrA.Filters;
+using DotrA.Service;
 
 namespace DotrA.Areas.BackEndSystem.Controllers
 {
@@ -14,53 +15,43 @@ namespace DotrA.Areas.BackEndSystem.Controllers
     [SecuredOperationFilter(Roles = "admin")]
     public class ProductController : BaseController
     {
-        public ProductController(IAllService all) : base(all)
+        public ProductController(IAllService all) : base(all) { }
+
+        public ActionResult Index()
         {
+            var result = All.PS().GetListToViewModel<BESProductView>(x => x.Category, x => x.Supplier, x => x.ImageBase);
+
+            ViewBag.Supplier = new SelectList(All.UOF().Repository<Supplier>().Reads(), "SupplierID", "CompanyName");
+            ViewBag.Category = new SelectList(All.UOF().Repository<Category>().Reads(), "CategoryID", "CategoryName");
+            return View(result);
         }
 
-        //public ActionResult Index()
-        //{
-        //    var result = PS.GetListToViewModel<BESProductView>(x => x.Category, x => x.Supplier);
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(BESProductCreateView source)
+        {
+            if (ModelState.IsValid)
+            {
+                using (var transaction = All.UOF().Transaction())
+                {
+                    Upload inputimg = new Upload(All.IMGS());
+                    try
+                    {
+                        inputimg.UploadImage("~/Assets/Images/Product", All.PS().CreateViewModelToDatabaseReturnData<BESProductCreateView>(source).ProductID, source.PictureLink);
+                        transaction.Commit();
+                    }
+                    catch
+                    {
+                        transaction.Rollback();
+                    }
+                }
+                return RedirectToAction<ProductController>(x => x.Index());
+            }
 
-        //    return View(result);
-        //}
-
-        //public ActionResult Details(int? id)
-        //{
-
-        //    if (id == null)
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-
-        //    var result = PS.GetSpecificDetailToViewModel<BESProductView>(x => x.ProductID == id, x => x.Category, x => x.Supplier); 
-            
-        //    if (result == null)
-        //        return HttpNotFound();
-
-        //    return View(result);
-        //}
-
-        //// GET: BackEndSystem/Product/Create
-        //public ActionResult Create()
-        //{
-        //    ViewBag.CategoryID = new SelectList(UOF.Repository<Category>().Reads(), "CategoryID", "CategoryName");
-        //    ViewBag.SupplierID = new SelectList(UOF.Repository<Supplier>().Reads(), "SupplierID", "CompanyName");
-        //    return View();
-        //}
-
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Create(BESProductView source)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        PS.CreateViewModelToDatabase<BESProductView>(source);
-        //        return RedirectToAction<ProductController>(x => x.Index());
-        //    }
-
-        //    ViewBag.CategoryID = new SelectList(UOF.Repository<Category>().Reads(), "CategoryID", "CategoryName", source.CategoryID);
-        //    ViewBag.SupplierID = new SelectList(UOF.Repository<Supplier>().Reads(), "SupplierID", "CompanyName",source.SupplierID);
-        //    return View(source);
-        //}
+            ViewBag.Supplier = new SelectList(All.UOF().Repository<Supplier>().Reads(), "SupplierID", "CompanyName", source.SupplierID);
+            ViewBag.Category = new SelectList(All.UOF().Repository<Category>().Reads(), "CategoryID", "CategoryName", source.CategoryID);
+            return View(source);
+        }
 
         //public ActionResult Edit(int? id)
         //{
@@ -68,7 +59,7 @@ namespace DotrA.Areas.BackEndSystem.Controllers
         //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
         //    var result = PS.GetSpecificDetailToViewModel<BESProductView>(x => x.ProductID == id, x => x.Category, x => x.Supplier);
-            
+
         //    if (result == null)
         //        return HttpNotFound();
 
