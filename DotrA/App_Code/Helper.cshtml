@@ -40,5 +40,24 @@
 @*圖片顯示*@
 @helper BESImage(ImageBase image, WebViewPage page)
 {
-    <img class="" src="@page.Url.Content(image.ImageUrl)" alt="demo" style="cursor: zoom-in"/>
+    <img src="@page.Url.Content(image.ImageUrl)" alt="demo" style="cursor: zoom-in" />
+}
+
+@helper BESShowProductList(ICollection<Product> input, WebViewPage page)
+{
+    if (input.Count > 0)
+    {
+        <ul class="nav">
+            <li class="menu-item-has-children dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-sitemap"></i>商品管理</a>
+                <ul class="children dropdown-menu" style="background-color:aliceblue; width">
+                    @for (int i = 0; i < input.Count(); i++)
+                    {
+                        <li class="text-center"><a href="@page.Url.Action("Edit", "Product", new { id = input.ElementAt(i).ProductID })" class="btn btn-outline-primary btn-sm">@input.ElementAt(i).ProductName</a></li>
+
+                    }
+                </ul>
+            </li>
+        </ul>
+    }
 }

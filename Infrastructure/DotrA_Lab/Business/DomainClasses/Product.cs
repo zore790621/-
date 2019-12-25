@@ -32,6 +32,7 @@ namespace DotrA_Lab.Business.DomainClasses
         public int Quantity { get; set; }
 
         public int SalesPrice { get; set; }
+        public bool Status { get; set; }
 
         public virtual Category Category { get; set; }
 

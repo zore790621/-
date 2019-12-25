@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "會員修改";
 }
-@using (Html.BeginForm())
+@using (Html.BeginForm("Create"))
 {
     @Html.AntiForgeryToken()
     <div class="content">
@@ -77,20 +77,62 @@
 
                             <div class="form-group">
                                 <div class="col-md-offset-2 col-md-12">
-                                    <input type="submit" value="Save" class="btn btn-default" />
+                                    <input type="submit" value="儲存會員資訊" class="btn btn-outline-secondary btn-sm" />
+                                    <button type="button" class="btn btn-outline-danger btn-sm mb-1" data-toggle="modal" data-target="#smallmodal"><i class="fa fa-minus-circle"></i>刪除會員</button>
+                                </div>
+                                <hr />
+                                <div>
+                                    @Html.ActionLink("返回列表", "Index", null, new { @class ="btn btn-outline-secondary btn-sm"})
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 }
-<div>
-    @Html.ActionLink("返回列表", "Index")
+
+<div class="modal fade" id="smallmodal" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <p>
+                    會員得來不易 確認要刪除<br />
+                    會員帳號:@Model.MemberAccount<br />
+                    會員名稱:@Model.Name<br />
+                    <input type="checkbox" id="check">確認刪除
+                </p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-danger btn-sm" onclick="Delete()">確認刪除</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 @section endScripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script>
+        function Delete() {
+            if ($("#check").prop("checked") == true) {
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("Delete")",
+                    headers: {'RequestVerificationToken' :'@CommonRazorFunctions.GetAntiForgeryToken()'},
+                    data: { "id": @Model.MemberID},
+                    success: function () {
+                            location.href = '@Url.Action("index")';
+                    }
+                });
+            } else {
+                alert("請勾選確認刪除方塊");
+            }
+        }
+    </script>
+
 }

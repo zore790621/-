@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<DotrA.Areas.BackEndSystem.ViewModels.BESCategoryView>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "類型管理";
 }
 
 <div class="content">
@@ -20,6 +20,7 @@
                                     <th>@Html.DisplayNameFor(model => model.CategoryName)</th>
                                     <th>@Html.DisplayNameFor(model => model.Categorydescript)</th>
                                     <th>@Html.DisplayNameFor(model => model.ImageBase)</th>
+                                    <th>@Html.DisplayNameFor(model => model.Product)</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -28,14 +29,25 @@
                                     <tr itemid="@item.CategoryID" itemscope>
                                         <td class="toedit">@Html.DisplayFor(modelItem => item.CategoryName)</td>
                                         <td class="toedit">@Html.DisplayFor(modelItem => item.Categorydescript)</td>
-                                        <td width="300">
-                                            <div class="row">
-                                                @foreach (var i in item.ImageBase)
-                                                {
-                                                    <div class="col-6">
+                                        <td>
+                                            <div class="container">
+                                                <div class="row" style="width: 50px;">
+                                                    @foreach (var i in item.ImageBase)
+                                                    {
                                                         @Helper.BESImage(i, this)
+                                                    }
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="container">
+                                                <div class="row">
+                                                    <div class="container">
+                                                        <div class="row">
+                                                            @Helper.BESShowProductList(item.Product, this)
+                                                        </div>
                                                     </div>
-                                                }
+                                                </div>
                                             </div>
                                         </td>
                                     </tr>
@@ -46,12 +58,13 @@
                 </div>
             </div>
         </div>
+
     </div>
 </div>
 
 <div id="imgViewDom" class="disnone"></div>
 
-@Html.Partial("_Create", new DotrA.Areas.BackEndSystem.ViewModels.BESCategoryView())
+@Html.Partial("_Create", new DotrA.Areas.BackEndSystem.ViewModels.BESCategoryCreateView())
 @section topCSS{
     <link href="~/Assets/BackEndSystem/js/datatable/datatables.min.css" rel="stylesheet" />
     <link href="~/Assets/css/picFullScreen.css" rel="stylesheet" />

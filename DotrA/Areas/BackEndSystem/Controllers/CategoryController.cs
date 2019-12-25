@@ -18,20 +18,13 @@ namespace DotrA.Areas.BackEndSystem.Controllers
 
         public ActionResult Index()
         {
-            return View(All.CS().GetListToViewModel<BESCategoryView>(x => x.ImageBase));
+            return View(All.CS().GetListToViewModel<BESCategoryView>(x => x.Product, x => x.ImageBase));
         }
 
         #region 新增類型
-        #region 移至 Modaldial
-        [NonAction]
-        public ActionResult Create()
-        {
-            return View();
-        }
-        #endregion
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(BESCategoryView source)
+        public ActionResult Create(BESCategoryCreateView source)
         {
             if (ModelState.IsValid)
             {
@@ -40,7 +33,7 @@ namespace DotrA.Areas.BackEndSystem.Controllers
                     Upload inputimg = new Upload(All.IMGS());
                     try
                     {
-                        inputimg.UploadImage("~/Assets/Images/Category", All.CS().CreateViewModelToDatabaseReturnData<BESCategoryView>(source).CategoryID, source.PictureLink);
+                        inputimg.UploadImage("~/Assets/Images/Category", All.CS().CreateViewModelToDatabaseReturnData<BESCategoryCreateView>(source).CategoryID, source.PictureLink);
                         transaction.Commit();
                     }
                     catch (System.Exception)
@@ -60,17 +53,17 @@ namespace DotrA.Areas.BackEndSystem.Controllers
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            var result = All.CS().GetSpecificDetailToViewModel<BESCategoryView>(x => x.CategoryID == id);
+            var result = All.CS().GetSpecificDetailToViewModel<BESCategoryEditView>(x => x.CategoryID == id, x => x.ImageBase);
 
             if (result == null)
                 return HttpNotFound();
-
+            ViewBag.Product = All.PS().GetListToViewModel<BESProductView>(x => x.CategoryID == id);
             return View(result);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(BESCategoryView source)
+        public ActionResult Edit(BESCategoryEditView source)
         {
             if (ModelState.IsValid)
             {
@@ -79,7 +72,7 @@ namespace DotrA.Areas.BackEndSystem.Controllers
                     Upload inputimg = new Upload(All.IMGS());
                     try
                     {
-                        All.CS().UpdateViewModelToDatabase<BESCategoryView>(source, x => x.CategoryID == source.CategoryID);
+                        All.CS().UpdateViewModelToDatabase<BESCategoryEditView>(source, x => x.CategoryID == source.CategoryID);
                         inputimg.UploadImage("~/Assets/Images/Category", source.CategoryID, source.PictureLink);
                         transaction.Commit();
                     }
@@ -93,28 +86,13 @@ namespace DotrA.Areas.BackEndSystem.Controllers
             return View(source);
         }
         #endregion
+
+        [HttpPost]
+        [AjaxValidateAntiForgeryToken]
         public ActionResult Delete(int? id)
         {
-            if (id == null)
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-
-            var result = All.CS().GetSpecificDetailToViewModel<BESCategoryView>(x => x.CategoryID == id);
-            if (result == null)
-                return HttpNotFound();
-
-            return View(result);
-        }
-
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int? id)
-        {
-            if (id == null)
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-
             All.CS().Delete(x => x.CategoryID == id);
-
-            return RedirectToAction<CategoryController>(x => x.Index());
+            return Content("OK");
         }
     }
 }

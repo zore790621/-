@@ -1,7 +1,9 @@
-﻿@model DotrA.Areas.BackEndSystem.ViewModels.BESCategoryView
+﻿@model DotrA.Areas.BackEndSystem.ViewModels.BESCategoryEditView
 
 @{
     ViewBag.Title = "分類修改";
+    List<DotrA.Areas.BackEndSystem.ViewModels.BESProductView> a = ViewBag.Product;
+
 }
 @using (Html.BeginForm("Edit", "Category", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
@@ -12,7 +14,7 @@
                 <div class="col-md-10 offset-1">
                     <div class="card post-body">
                         <div class="card-header">
-                            <strong>編輯資料</strong>
+                            <strong>編輯分類</strong>
                         </div>
                         <div class="card-body card-block">
                             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -33,23 +35,51 @@
                                     @Html.ValidationMessageFor(model => model.Categorydescript, "", new { @class = "text-danger" })
                                 </div>
                             </div>
-                            <div class="container-fluid text-center">
-                                <div class="row">
-                                    @for (int i = 0; i < Model.ImageBase.Count(); i++)
-                                    {
-                                        <div class="imgbase col-6" itemid="@Model.ImageBase.ElementAt(i).ImageID" itemscope>
-                                            @Helper.BESImage(Model.ImageBase.ElementAt(i), this)
-                                            @Ajax.ActionLink("刪除圖片", "DeleteImage", "Image", new { id = Model.ImageBase.ElementAt(i).ImageID }, new AjaxOptions { OnSuccess = $"OK({Model.ImageBase.ElementAt(i).ImageID})", HttpMethod = "POST" }, new { @class = "btn" })
-                                            @Html.HiddenFor(m => m.ImageBase.ElementAt(i).ImageID, new { @Name = string.Format($"ImageBase[{i}].ImageID") })
-                                            @Html.HiddenFor(m => m.ImageBase.ElementAt(i).ImageName, new { @Name = string.Format($"ImageBase[{i}].ImageName") })
-                                            @Html.HiddenFor(m => m.ImageBase.ElementAt(i).ImageUrl, new { @Name = string.Format($"ImageBase[{i}].ImageUrl") })
-                                            @Html.HiddenFor(m => m.ImageBase.ElementAt(i).CatgoryID, new { @Name = string.Format($"ImageBase[{i}].CatgoryID") })
-                                        </div>
-                                    }
-                                </div>
-                            </div>
-                            <hr />
 
+
+                            @if (a != null)
+                            {
+                                <div class="form-group">
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            @for (int i = 0; i < a.Count() ; i++)
+                                            {
+                                                <div class="imgbase col-2" itemid="@a[i].ProductID" itemscope>
+                                                    <a href="@Url.Action("Edit", "Product", new { id = a[i].ProductID })" class="btn btn-outline-primary btn-sm">@a[i].ProductName</a>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                    <hr />
+                                </div>
+                            }
+
+                            @if (!(Model.ImageBase is null))
+                            {
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ImageBase, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="container-fluid text-center">
+                                        <div class="row">
+                                            @for (int i = 0; i < Model.ImageBase.Count(); i++)
+                                            {
+                                                <div class="imgbase col-6 border border-primary" itemid="@Model.ImageBase.ElementAt(i).ImageID" itemscope>
+                                                    @Helper.BESImage(Model.ImageBase.ElementAt(i), this)
+                                                    <div class="col-12">
+                                                        @Html.HiddenFor(m => m.ImageBase.ElementAt(i).ImageID, new { @Name = string.Format($"ImageBase[{i}].ImageID") })
+                                                        @Html.HiddenFor(m => m.ImageBase.ElementAt(i).ImageName, new { @Name = string.Format($"ImageBase[{i}].ImageName") })
+                                                        @Html.HiddenFor(m => m.ImageBase.ElementAt(i).ImageUrl, new { @Name = string.Format($"ImageBase[{i}].ImageUrl") })
+                                                        @Html.HiddenFor(m => m.ImageBase.ElementAt(i).CatgoryID, new { @Name = string.Format($"ImageBase[{i}].CatgoryID") })
+                                                        @Ajax.ActionLink("刪除圖片", "DeleteImage", "Image", new { id = Model.ImageBase.ElementAt(i).ImageID }, new AjaxOptions { OnSuccess = $"OK({Model.ImageBase.ElementAt(i).ImageID})", HttpMethod = "POST" }, new { @class = "btn btn-outline-danger btn-sm mb-1" })
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                    <hr />
+                                </div>
+                            }
+
+                            <label class="control-label col-md-2" for="Product">新增圖片</label>
                             <div class="container input-group multiUpload">
                                 <div class=" col-8 offset-2 mb-0">
                                     <input type="file" class="custom-file-input" id="PictureLink" name="PictureLink">
@@ -60,9 +90,14 @@
                             <hr />
 
                             <div class="form-group">
-                                <div class="col-md-12">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="submit" value="儲存類別" class="btn btn-outline-secondary btn-sm" />
+                                    <button type="button" class="btn btn-outline-danger btn-sm mb-1" data-toggle="modal" data-target="#smallmodal"><i class="fa fa-minus-circle"></i>刪除類別</button>
                                     <button id="addimagebutton" class="btn btn-outline-secondary float-right"><i class="fa fa-plus"></i></button>
-                                    <input type="submit" value="Save" class="btn btn-default" />
+                                </div>
+                                <hr />
+                                <div>
+                                    @Html.ActionLink("返回列表", "Index", null, new { @class = "btn btn-outline-secondary btn-sm" })
                                 </div>
                             </div>
                         </div>
@@ -73,8 +108,23 @@
     </div>
 }
 <div id="imgViewDom" class="disnone"></div>
-<div>
-    @Html.ActionLink("返回列表", "Index")
+
+<div class="modal fade" id="smallmodal" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <p>
+                    類別名稱:@Model.CategoryName<br />
+                    <input type="checkbox" id="check">確認刪除
+                </p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-danger btn-sm" onclick="Delete()">確認刪除</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 @section topCSS{
@@ -95,6 +145,21 @@
                     $(this).remove();
                 }
             })
+        }
+        function Delete() {
+            if ($("#check").prop("checked") == true) {
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("Delete")",
+                    headers: {'RequestVerificationToken' :'@CommonRazorFunctions.GetAntiForgeryToken()'},
+                    data: { "id": @Model.CategoryID},
+                    success: function () {
+                        location.href = '@Url.Action("index")';
+                    }
+                });
+            } else {
+                alert("請勾選確認刪除方塊");
+            }
         }
     </script>
 }

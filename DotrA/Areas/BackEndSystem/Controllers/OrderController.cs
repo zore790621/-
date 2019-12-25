@@ -14,16 +14,12 @@ namespace DotrA.Areas.BackEndSystem.Controllers
     [SecuredOperationFilter(Roles = "admin")]
     public class OrderController : BaseController
     {
-        public OrderController(IAllService all) : base(all)
+        public OrderController(IAllService all) : base(all) { }
+
+        public ActionResult Index()
         {
+            return View(All.OS().GetListToViewModel<BESOrderView>(o => o.Payment, o => o.Shipper));
         }
-
-        //public ActionResult Index()
-        //{
-        //    var result = OS.GetListToViewModel<BESOrderView>(o => o.Payment, o => o.Shipper);
-
-        //    return View(result);
-        //}
 
         //public ActionResult Details(int? id)
         //{
@@ -99,7 +95,7 @@ namespace DotrA.Areas.BackEndSystem.Controllers
         //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
         //    var result = OS.GetSpecificDetailToViewModel<BESOrderView>(x => x.OrderID == id, o => o.Payment, o => o.Shipper);
-            
+
         //    if (result == null)
         //        return HttpNotFound();
 

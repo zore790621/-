@@ -72,29 +72,12 @@ namespace DotrA.Areas.BackEndSystem.Controllers
         #endregion
         #region 會員刪除
         [SecuredOperationFilter(Roles = "admin")]
+        [HttpPost]
+        [AjaxValidateAntiForgeryToken]
         public ActionResult Delete(int? id)
         {
-            if (id == null)
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-
-            var result = All.MS().GetSpecificDetailToViewModel<BESMemberView>(x => x.MemberID == id);
-            if (result == null)
-                return HttpNotFound();
-
-            return View(result);
-        }
-
-        [SecuredOperationFilter(Roles = "admin")]
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int? id)
-        {
-            if (id == null)
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-
             All.MS().Delete(x => x.MemberID == id);
-
-            return RedirectToAction<MemberController>(x => x.Index());
+            return Content("OK");
         }
         #endregion
     }

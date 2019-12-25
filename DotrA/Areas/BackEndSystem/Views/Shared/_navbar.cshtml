@@ -18,7 +18,11 @@
                     <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-sitemap"></i>商品管理</a>
                     <ul class="sub-menu children dropdown-menu">
                         <li><i class="fa fa-tags"></i>@Html.ActionLink("類型管理", "index", "Category")</li>
-                        <li><i class="fa fa-truck"></i>@Html.ActionLink("供應商管理", "index", "Supplier")</li>
+                        @if (((DotrA.Service.Security.Identity)User.Identity).Role == "admin")
+                        {
+                            <li><i class="fa fa-truck"></i>@Html.ActionLink("供應商管理", "index", "Supplier")</li>
+
+                        }
                         <li><i class="fa fa-suitcase"></i>@Html.ActionLink("產品管理", "index", "Product")</li>
                     </ul>
                 </li>

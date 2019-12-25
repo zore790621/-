@@ -22,9 +22,9 @@ namespace DotrA.Areas.BackEndSystem.ViewModels
         [Display(Name = "圖片")]
         public IEnumerable<HttpPostedFileBase> PictureLink { get; set; }
 
-        [Display(GroupName ="名稱")]
+        [Display(Name = "相關圖片")]
         public virtual ICollection<ImageBase> ImageBase { get; set; }
-
+        [Display(Name = "相關產品")]
         public virtual ICollection<Product> Product { get; set; }
     }
 }
