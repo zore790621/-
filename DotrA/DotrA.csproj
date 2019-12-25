@@ -850,8 +850,6 @@
     <Content Include="Assets\ElaAdmin\scss\style.css" />
     <Content Include="Assets\ElaAdmin\fonts\fontawesome\fontawesome-webfont.svg" />
     <Content Include="Assets\ElaAdmin\fonts\fontawesome\lg.svg" />
-    <Content Include="Assets\Images\Category\life.jpg" />
-    <Content Include="Assets\Images\Category\Family.jpg" />
     <Content Include="Assets\Images\Logo\smail.jpg" />
     <Content Include="Assets\Images\Logo\apple-touch-icon.ico" />
     <Content Include="Assets\Images\Logo\apple-touch-icon.png" />
@@ -1189,6 +1187,8 @@
     <Folder Include="Areas\BackEndSystem\Views\Image\" />
     <Folder Include="Areas\ElaAdmin\Data\" />
     <Folder Include="Areas\minishop\Data\" />
+    <Folder Include="Assets\Images\Category\" />
+    <Folder Include="Assets\Images\Product\" />
     <Folder Include="Views\Product\" />
   </ItemGroup>
   <ItemGroup>

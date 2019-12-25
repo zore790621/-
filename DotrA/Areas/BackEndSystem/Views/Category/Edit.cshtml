@@ -54,7 +54,7 @@
                                 </div>
                             }
 
-                            @if (!(Model.ImageBase is null))
+                            @if ((Model.ImageBase is null))
                             {
                                 <div class="form-group">
                                     @Html.LabelFor(model => model.ImageBase, htmlAttributes: new { @class = "control-label col-md-2" })

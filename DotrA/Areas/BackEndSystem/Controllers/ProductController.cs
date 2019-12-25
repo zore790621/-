@@ -106,5 +106,10 @@ namespace DotrA.Areas.BackEndSystem.Controllers
 
         //    return RedirectToAction<ProductController>(x => x.Index());
         //}
+        public ActionResult Status(int id)
+        {
+            All.PS().ChangeStatus(id);
+            return Content("OK");
+        }
     }
 }
