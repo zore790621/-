@@ -19,10 +19,10 @@ namespace DotrA_Lab.Business.DomainClasses
         [StringLength(50)]
         public string CompanyName { get; set; }
 
-        [StringLength(50)]
+        [StringLength(20)]
         public string CampanyPhone { get; set; }
 
-        [StringLength(20)]
+        [StringLength(50)]
         public string CompanyAddress { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

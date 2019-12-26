@@ -53,62 +53,60 @@ namespace DotrA.Areas.BackEndSystem.Controllers
             return View(source);
         }
 
-        //public ActionResult Edit(int? id)
-        //{
-        //    if (id == null)
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-        //    var result = PS.GetSpecificDetailToViewModel<BESProductView>(x => x.ProductID == id, x => x.Category, x => x.Supplier);
+            var result = All.PS().GetSpecificDetailToViewModel<BESProductEditView>(x => x.ProductID == id, x => x.ImageBase);
 
-        //    if (result == null)
-        //        return HttpNotFound();
+            if (result == null)
+                return HttpNotFound();
 
-        //    ViewBag.CategoryID = new SelectList(UOF.Repository<Category>().Reads(), "CategoryID", "CategoryName",result.CategoryID);
-        //    ViewBag.SupplierID = new SelectList(UOF.Repository<Supplier>().Reads(), "SupplierID", "CompanyName",result.SupplierID);
-        //    return View(result);
-        //}
+            ViewBag.Supplier = new SelectList(All.UOF().Repository<Supplier>().Reads(), "SupplierID", "CompanyName", result.SupplierID);
+            ViewBag.Category = new SelectList(All.UOF().Repository<Category>().Reads(), "CategoryID", "CategoryName", result.CategoryID);
+            return View(result);
+        }
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Edit(BESProductView source)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        PS.UpdateViewModelToDatabase<BESProductView>(source, x => x.ProductID == source.ProductID);
-        //        return RedirectToAction<ProductController>(x => x.Index());
-        //    }
-        //    ViewBag.CategoryID = new SelectList(UOF.Repository<Category>().Reads(), "CategoryID", "CategoryName", source.CategoryID);
-        //    ViewBag.SupplierID = new SelectList(UOF.Repository<Supplier>().Reads(), "SupplierID", "CompanyName", source.SupplierID);
-        //    return View(source);
-        //}
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(BESProductView source)
+        {
+            if (ModelState.IsValid)
+            {
+                using (var transaction = All.UOF().Transaction())
+                {
+                    Upload inputimg = new Upload(All.IMGS());
+                    try
+                    {
+                        All.PS().UpdateViewModelToDatabase<BESProductView>(source, x => x.ProductID == source.ProductID);
+                        inputimg.UploadImage("~/Assets/Images/Product", source.ProductID, source.PictureLink);
+                    }
+                    catch (System.Exception)
+                    {
+                        transaction.Rollback();
+                    }
+                }
 
-        //public ActionResult Delete(int? id)
-        //{
-        //    if (id == null)
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction<ProductController>(x => x.Index());
+            }
+            ViewBag.Supplier = new SelectList(All.UOF().Repository<Supplier>().Reads(), "SupplierID", "CompanyName", source.SupplierID);
+            ViewBag.Category = new SelectList(All.UOF().Repository<Category>().Reads(), "CategoryID", "CategoryName", source.CategoryID);
+            return View(source);
+        }
 
-        //    var result = PS.GetSpecificDetailToViewModel<BESProductView>(x => x.ProductID == id, x => x.Category, x => x.Supplier);
-
-        //    if (result == null)
-        //        return HttpNotFound();
-
-        //    return View(result);
-        //}
-
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult DeleteConfirmed(int? id)
-        //{
-        //    if (id == null)
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-
-        //    PS.Delete(x => x.ProductID == id);
-
-        //    return RedirectToAction<ProductController>(x => x.Index());
-        //}
+        [HttpPost]
+        [AjaxValidateAntiForgeryToken]
+        public ActionResult Delete(int? id)
+        {
+            All.PS().Delete(x => x.ProductID == id);
+            return Content("OK");
+        }
+        [HttpPost]
+        [AjaxValidateAntiForgeryToken]
         public ActionResult Status(int id)
         {
-            All.PS().ChangeStatus(id);
+            All.PS().ProductStatus(id);
             return Content("OK");
         }
     }

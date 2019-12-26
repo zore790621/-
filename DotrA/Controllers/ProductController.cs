@@ -9,9 +9,7 @@ namespace DotrA.Controllers
 {
     public class ProductController : BaseController
     {
-        public ProductController(IAllService all) : base(all)
-        {
-        }
+        public ProductController(IAllService all) : base(all) { }
 
         // GET: Product
         public ActionResult Index()

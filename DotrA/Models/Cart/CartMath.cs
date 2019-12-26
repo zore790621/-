@@ -98,6 +98,29 @@ namespace DotrA.Models.Cart
             }
             return true;
         }
+        //清空購物車
+        public bool ClearCart()
+        {
+            this._cartItems.Clear();
+            return true;
+        }
+        //將購物車商品轉成OrderDetail的List
+        public List<OrderDetail> ToOrderDetailList(int orderId)
+        {
+            var result = new List<OrderDetail>();
+            foreach (var cartItem in this._cartItems)
+            {
+                result.Add(new OrderDetail()
+                {
+                    ProductID = cartItem.ProductId,
+                    SubTotal = cartItem.Total,
+                    Quantity = (short)cartItem.Quantity,
+                    OrderID = orderId
+                });
+            }
+            return result;
+        }
+
         #region IEnumerator
 
         public IEnumerator<CartItem> GetEnumerator()

@@ -1,5 +1,5 @@
 ﻿using DotrA.Filters;
-using DotrA.Models.Member;
+using DotrA.Models;
 using DotrA.Service.Security.Web;
 using DotrA_Lab.Business.DomainClasses;
 using DotrA_Lab.InternalDataService;
@@ -230,6 +230,5 @@ namespace DotrA.Controllers
             return View(source);
         }
         #endregion
-
     }
 }

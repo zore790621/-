@@ -4,22 +4,32 @@
 }
 
 <a id="CartDropDown" class="dropdown-toggle nav-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    <span class="icon-shopping_cart">
-        @String.Format($"購物車")
-        @*{currentCart.GetTotal}元 {currentCart.Count}*@
-    </span>
+    <span class="icon-shopping_cart">購物車</span>
 </a>
-<div class="dropdown-menu" role="menu" aria-labelledby="CartDropDown">
+<div class="dropdown-menu" role="menu" aria-labelledby="CartDropDown" style="width:auto">
     @if (currentCart.Count > 0)
     {
         foreach (var cartitem in currentCart)
         {
-            <a style="color:lightskyblue; margin:40px">@cartitem.ProductName <span>@cartitem.Price 元 X @cartitem.Quantity </span>
-            <span class=" btn-danger"  onclick="RemoveFromCart('@cartitem.ProductId')">X</span>
-            </a>
-            
+            <div>
+                <a class="dropdown-item">
+                    <div class="col-3">@cartitem.ProductName  @cartitem.Quantity 個 <span onclick="RemoveFromCart('@cartitem.ProductId')">&times;</span></div>
+                </a>
+            </div>
+
         }
-        <a class="dropdown-item">結帳</a>
+        <div class="container">
+            <a class="dropdown-item">
+                <div class="row">
+                    <div class="col-6">
+                        <botton onclick="location.href='@Url.Action("Index","Order")'"><span>結帳去</span></botton>
+                    </div>
+                    <div class="col-6">
+                        <botton onclick="ClearCart()"><span>清空</span></botton>
+                    </div>
+                </div>
+            </a>
+        </div>
     }
     else
     {

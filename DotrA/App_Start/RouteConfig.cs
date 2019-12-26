@@ -20,6 +20,13 @@ namespace DotrA
                 namespaces: new string[] { "DotrA.Controllers" }
                 );
             routes.MapRoute(
+                name: "Shop",
+                url: "Shop/{page}/{pid}",
+                defaults: new { controller = "Shop", action = "Index", page = UrlParameter.Optional, pid = UrlParameter.Optional },
+                constraints: new { page = @"\d", pid = @"\d" },
+                namespaces: new string[] { "DotrA.Controllers" }
+                );
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional },
