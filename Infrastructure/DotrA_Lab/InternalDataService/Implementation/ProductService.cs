@@ -11,13 +11,19 @@ namespace DotrA_Lab.InternalDataService.Implementation
 {
     public interface IProductService : IService<Product>
     {
+        void ProductStatus(int id);
     }
     public class ProductService
         : GenericService<Product>, IProductService
     {
-        public ProductService(IUnitOfWork db)
-            : base(db) { }
-
+        public ProductService(IUnitOfWork db) : base(db) { }
+        public void ProductStatus(int id)
+        {
+            var entity = db.Repository<Product>().Read(x => x.ProductID == id);
+            entity.Status = !entity.Status;
+            db.Repository<Product>().Update(entity);
+            db.SaveChanges();
+        }
         public override void Delete(Expression<Func<Product, bool>> wherePredicate)
         {
             var data = db.Repository<Product>().Read(wherePredicate);

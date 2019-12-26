@@ -1,5 +1,5 @@
-﻿using DotrA_Lab.InternalDataService.Implementation;
-using DotrA_Lab.ORM.UnitOfWorkPattern;
+﻿using DotrA.Models;
+using DotrA_Lab.InternalDataService.Implementation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,15 +10,11 @@ namespace DotrA.Controllers
 {
     public class HomeController : BaseController
     {
-        public HomeController(IAllService all) : base(all)
-        {
-        }
+        public HomeController(IAllService all) : base(all) { }
 
         public ActionResult Index()
         {
-            ViewBag.Title = "Home Page";
-
-            return View();
+            return View(All.PS().GetListToViewModel<ProductView>().Where(x => x.Status == true));
         }
         public ActionResult About()
         {

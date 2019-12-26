@@ -17,6 +17,7 @@ namespace DotrA.App_Start
                 "~/Assets/minishop/css/aos.css",
                 "~/Assets/minishop/css/ionicons.min.css",
                 "~/Assets/minishop/css/bootstrap-datepicker.css",
+                "~/Assets/minishop/css/bootstrap.min.css",
                 "~/Assets/minishop/css/jquery.timepicker.css",
                 "~/Assets/minishop/css/flaticon.css",
                 "~/Assets/minishop/css/icomoon.css",

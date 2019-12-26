@@ -1,0 +1,35 @@
+﻿@using PagedList;
+@{
+    IPagedList<ProductView> myPageList = (IPagedList<ProductView>)ViewBag.MyPageList;
+}
+
+@Html.Partial("_Topimage")
+
+<section class="ftco-section bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-lg-2">
+                <div class="sidebar">
+                    <div class="sidebar-box-2">
+                        @Html.Action("ProductList")
+                    </div>
+                    @*<div class="sidebar-box-2">
+                            PriceRange 價格範圍
+                            @Html.Partial("PriceRange")
+                        </div>*@
+                </div>
+            </div>
+            <div class="col-md-8 col-lg-10 order-md-last">
+                @Html.Partial("_ProductViewPage", myPageList)
+            </div>
+        </div>
+    </div>
+</section>
+@section topCSS{
+    <style>
+        .pagination {
+            position: absolute;
+            left: 50%;
+        }
+    </style>
+}

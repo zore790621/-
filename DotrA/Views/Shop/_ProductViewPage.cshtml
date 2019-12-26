@@ -1,0 +1,60 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<ProductView>
+
+<div class="row">
+    @*@if (ststus.Status== "上架")
+        {*@
+    @foreach (var item in Model)
+    {
+        <div class="col-sm-12 col-md-12 col-lg-4 ftco-animate d-flex fadeInUp ftco-animated">
+            <div class="product d-flex flex-column">
+                <a href="#" class="img-prod">
+                    <img class="img-fluid" src="@Url.Content(item.ImageBase.ElementAt(0).ImageUrl)" alt="Colorlib Template">
+                    <div class="overlay"></div>
+                </a>
+                <div class="text py-3 pb-4 px-3">
+                    <div class="d-flex">
+                        <div class="cat">
+                            <span>Evaluation</span>
+                        </div>
+                        <div class="rating">
+                            <p class="text-right mb-0">
+                                <a href="#"><span class="ion-ios-star-outline"></span></a>
+                                <a href="#"><span class="ion-ios-star-outline"></span></a>
+                                <a href="#"><span class="ion-ios-star-outline"></span></a>
+                                <a href="#"><span class="ion-ios-star-outline"></span></a>
+                                <a href="#"><span class="ion-ios-star-outline"></span></a>
+                            </p>
+                        </div>
+                    </div>
+                    <h3><a href="#">@item.ProductName</a></h3>
+                    <div class="pricing">
+                        <p class="price"><span>@item.SalesPrice 元</span></p>
+                    </div>
+                    <p class="bottom-area d-flex px-3">
+                        <a onclick="AddToCart('@item.ProductID')" href="javascript:void(0);" role="button" class="add-to-cart text-center py-2 mr-1"><span>Add to cart <i class="ion-ios-add ml-1"></i></span></a>
+
+                        @*購物車ActionLink*@
+                        @*@Html.ActionLink("Buy now", "index", "ShoppingCar", null, new { @class = "buy-now text-center py-2 ion-ios-cart ml-1" })*@
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <a href="@Url.Action( "index","ShoppingCar" ,new {})" class="buy-now text-center py-2">Buy now<span><i class="ion-ios-cart ml-1"></i></span></a>
+                        }
+                    </p>
+                </div>
+            </div>
+        </div>
+    }
+
+</div>
+
+<div class="row mt-5 ">
+    <div class="col text-center">
+        <div class="block-27">
+            <ul>
+                @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }))
+            </ul>
+        </div>
+    </div>
+</div>

@@ -80,18 +80,22 @@
     <script src="~/Assets/js/pucFullScreen.js"></script>
     <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
     <script>
-        $('#addimagebutton').on('click', function () {
-            $('.multiUpload').append("<div class=\"col-8 offset-2 mb-0\"><input type=\"file\" class=\"custom-file-input\" id=\"PictureLink\" name=\"PictureLink\"><label class=\"custom-file-label\">請選擇檔案</label></div>");
-            event.preventDefault();
-        });
         $('tbody>tr>.toedit').click(function () {
             window.location.href = '@Url.Action("Edit","Product")/' + $(this).parent()[0].getAttribute("itemid");
         });
-        function Status(id) {
-            if ($('#Status-' + id + '>a').html() === "上架")
-                $('#Status-' + id + '>a').html("未上架")
-            else if ($('#Status-' + id + '>a').html() === "未上架")
-                $('#Status-' + id + '>a').html("上架")
+        function Status(input) {
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("Status","Product")/" + input,
+                headers: { 'RequestVerificationToken': '@CommonRazorFunctions.GetAntiForgeryToken()' },
+                data: { 'id' :input},
+                success: function () {
+                    if ($('#Status-' + input + '>button').html() === "上架")
+                        $('#Status-' + input + '>button').html("未上架").removeClass("btn-outline-primary").addClass("btn-outline-danger");
+                    else if ($('#Status-' + input + '>button').html() === "未上架")
+                        $('#Status-' + input + '>button').html("上架").removeClass("btn-outline-danger").addClass("btn-outline-primary");
+                }
+            });
         }
     </script>
 }
